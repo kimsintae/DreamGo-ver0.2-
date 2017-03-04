@@ -1,0 +1,43 @@
+    #high_sh_opt,
+        #univ_sh_opt {
+            text-align: center;
+            font-size: 25px;
+            color: white;
+            height: 100px;
+            line-height: 100px;
+        }
+        
+        #high_sh_opt,
+        #univ_sh_opt:hover {
+            cursor: pointer;
+            transition-duration: .5s;
+        }
+        
+        #high_sh_opt {
+            background: rgba(150, 206, 180, 1);
+        }
+        
+        #high_sh_opt:hover {
+            color: black;
+            background: rgba(150, 206, 180, .5);
+        }
+        
+        #univ_sh_opt {
+            background: rgba(255, 204, 92, 1);
+        }
+        
+        #univ_sh_opt:hover {
+            color: black;
+            background: rgba(255, 204, 92, .5);
+        }
+        .subject{
+            font-size: 25px;
+            font-weight: bold;
+        }
+.result_area{
+    margin-top: 50px;
+}
+.result_area span{
+    font-weight: bold;
+    
+}

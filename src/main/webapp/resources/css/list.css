@@ -1,0 +1,38 @@
+        a {
+            color: black;
+        }
+        
+        a:hover {
+            cursor: pointer;
+        }
+        
+        .content .content_span {
+            white-space: nowrap;
+            display: inline-block;
+            width: 600px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .badge {
+            background: #b7d7e8;
+        }
+        
+        .typeSelector,
+        .orderSelector {
+            width: 100px;
+            height: 35px;
+        }
+        
+        .table {
+            margin-top: 20px;
+        }
+        #profile{
+            display: none;
+        }
+        #profileArea:hover{
+            cursor: pointer;
+        }
+        #img_name{
+         font-size: 15px;   
+        }

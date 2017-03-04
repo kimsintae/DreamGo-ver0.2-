@@ -1,0 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<html>
+<body>    
+<ul class="list-group category_list"> <li> <div class="radio"> <label> <input type="radio" value="list" name="pgubn">전체</label> </div> </li> <li> <div class="radio"> <label> <input type="radio" value="100019" name="pgubn">신체운동능력</label> </div> </li> <li> <div class="radio"> <label> <input type="radio" value="100020" name="pgubn">손재능</label> </div> </li> <li> <div class="radio"> <label> <input type="radio" value="100021" name="pgubn">공간시각능력</label> </div> </li> <li> <div class="radio"> <label> <input type="radio" value="100022" name="pgubn">음악능력</label> </div> </li> <li> <div class="radio"> <label> <input type="radio" value="100023" name="pgubn">창의력</label> </div> </li> <li> <div class="radio"> <label> <input type="radio" value="100024" name="pgubn">언어능력</label> </div> </li> <li> <div class="radio"> <label> <input type="radio" value="100025" name="pgubn">수리논리력</label> </div> </li> <li> <div class="radio"> <label> <input type="radio" value="100026" name="pgubn">자기성찰능력</label> </div> </li> <li> <div class="radio"> <label> <input type="radio" value="100027" name="pgubn">대인관계능력</label> </div> </li> <li> <div class="radio"> <label> <input type="radio" value="100028" name="pgubn">자연친화력</label> </div> </li> </ul>
+</body>
+</html>

@@ -1,0 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<html>
+<body>
+<input type="hidden" value="" name="gubun" id="depar_list"/> <div class="row"> <h3 class="text-left"><strong></strong>계열선택</h3> <div class="col-sm-2"> <div class="radio"> <label> <input id="gubun" type="radio" value="list" name="subject" checked>전체 </label> </div> </div> <div class="col-sm-2"> <div class="radio"> <label> <input type="radio" value="100391" name="subject">인문 </label> </div> </div> <div class="col-sm-2"> <div class="radio"> <label> <input type="radio" value="100392" name="subject">사회 </label> </div> </div> <div class="col-sm-2"> <div class="radio"> <label> <input type="radio" value="100393" name="subject">교육 </label> </div> </div> <div class="col-sm-2"> <div class="radio"> <label> <input type="radio" value="100394" name="subject">공학 </label> </div> </div> <div class="col-sm-2"> <div class="radio"> <label> <input type="radio" value="100395" name="subject">자연 </label> </div> </div> <div class="col-sm-2"> <div class="radio"> <label> <input type="radio" value="100396" name="subject">의약 </label> </div> </div> <div class="col-sm-2"> <div class="radio"> <label> <input type="radio" value="100397" name="subject">예체능 </label> </div> </div> </div>
+</body>
+</html>
