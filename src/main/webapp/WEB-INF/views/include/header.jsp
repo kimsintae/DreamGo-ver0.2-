@@ -65,7 +65,7 @@
 		                                    <button type="submit" form="loginForm" class="btn btn-default">확인</button>
 		                                </div>
 		                                <div class="col-sm-6 text-center">
-		                                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#joinModal" data-dismiss="modal">회원가입</button>
+		                                    <button type="button" class="btn btn-default join_btn" data-toggle="modal" data-target="#joinModal" data-dismiss="modal">회원가입</button>
 		                                </div>
 		                            </div>
 		                        </div>

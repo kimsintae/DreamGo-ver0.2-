@@ -1,17 +1,21 @@
 $(document).ready(function () {
-
+		
         //회원가입 이미지 선택 js
         $("#profile").change(function(){
-        //파일 선택 유무
+        	
+        //파일 선택하기 다시 눌렀을 때
+        //파일이 선택된다면 새로 바뀜
+        //그렇지 않으면 최초 선택된 파일 그대로 있음
         if($(this).val()){              
         var fileValue = $("#profile").val().split("\\");
         var fileName = fileValue[fileValue.length-1]; // 파일명
         $("#img_name").text(fileName);
         $(".profile_box").attr("alt","fileName");
         }
-    });
+        
+        });//change
     
-    
+
     //썸네일 만들기
     
     //input file 선택
