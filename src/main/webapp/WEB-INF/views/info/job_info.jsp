@@ -39,7 +39,7 @@
                            </a>
                         </div>
                         <div class="col-sm-6">
-                            <a href="javascript:void(0)" class="tablinks tab-menu" onclick="openCity(event, 'aptitude')">적성별 분류 검색                           </a>
+                            <a href="javascript:void(0)" class="tablinks tab-menu" onclick="openCity(event, 'aptitude')">적성별 분류 검색</a>
                         </div>
                     </div>
                 </div>

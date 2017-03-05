@@ -7,6 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>DreamGo</title>
+<script src="../js/main.js"></script>
 </head>
 <body>
  <nav class="navbar navbar-inverse">
@@ -25,8 +26,8 @@
                     <li><a href="${ctx}/info/job_info">직업정보</a></li>
                     <li><a href="${ctx}/info/sch_info">학교정보</a></li>
                     <li><a href="${ctx}/info/dep_info">학과정보</a></li>
-                    <li><a href="${ctx}/aptitudeTest/apti_test">적성 심리 검사</a></li>
                     <li><a href="${ctx}/board/list">우리끼리</a></li>
+                    <li><a href="${ctx}/aptitudeTest/apti_test">적성 심리 검사</a></li>
                 </ul>
 
 
