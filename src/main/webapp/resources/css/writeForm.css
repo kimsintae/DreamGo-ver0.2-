@@ -1,0 +1,22 @@
+    
+      .write_wrap{
+          margin-top:50px;
+          margin-bottom:50px;
+          
+          padding: 50px;
+          border: 1px solid #424242;
+      }
+      .title_box{
+         margin-bottom: 20px;
+        height: 35px;
+      }
+      .title_box,.type_box label{
+          font-size: 15px;
+      }
+      
+      .editor_box{
+          margin-top: 30px;
+      }
+      .write_btns{
+        margin-top: 20px;
+      }
