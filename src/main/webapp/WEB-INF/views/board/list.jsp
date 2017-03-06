@@ -10,11 +10,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    
-    <link rel="stylesheet" href="../css/list.css" />
-	<link rel="stylesheet" href="../css/main.css" />
-    <script src="../js/list.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
+    <link rel="stylesheet" href="../resources/css/list.css" />
+    <script src="../resources/js/list.js"></script>
 </head>
 
 <body>
@@ -35,33 +33,33 @@
 
                 <!-- 게시판 -->
                 <div class="container col-sm-12 board_wrap">
-                    <div class="col-sm-9">
-
-                    </div>
-                    <form action="board.html" method="get" id="selectorForm">
-                        <div class="col-sm-1 text-right">
-                            <select name="order" class="orderSelector selector">
-                                <option value="recent" selected>최신순</option>
-                                <option value="readCnt">조회순</option>
-                                <option value="reply">댓글순</option>
-                            </select>
-                        </div>
-
-                        <div class="col-sm-1 text-right">
-                            <select name="type" class="typeSelector selector">
-                                <option value="00" selected>전체</option>
-                                <option value="01">진로</option>
-                                <option value="02">직업</option>
-                                <option value="03">수다</option>
-                                <option value="04">학교</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-1">
-                            <button type="submit" form="selectorForm" class="btn btn-default">정렬</button>
-                        </div>
-                    </form>
-                    <br/>
-                    <br/>
+	                <div class="row">
+	                    <div class="col-sm-9">
+							<a href="/writeForm" class="btn btn-default glyphicon glyphicon-pencil write_btn" title="글쓰기"></a>
+	                    </div>
+		                    <form action="board.html" method="get" id="selectorForm">
+		                        <div class="col-sm-1 text-right">
+		                            <select name="order" class="orderSelector selector">
+		                                <option value="recent" selected>최신순</option>
+		                                <option value="readCnt">조회순</option>
+		                                <option value="reply">댓글순</option>
+		                            </select>
+		                        </div>
+		
+		                        <div class="col-sm-1 text-right">
+		                            <select name="type" class="typeSelector selector">
+		                                <option value="list" selected>전체</option>
+		                                <option value="career">진로</option>
+		                                <option value="school">학교</option>
+		                                <option value="job">직업</option>
+		                                <option value="talk">수다</option>
+		                            </select>
+		                        </div>
+		                        <div class="col-sm-1">
+		                            <button type="submit" form="selectorForm" class="btn btn-default">정렬</button>
+		                        </div>
+		                    </form>
+		            </div>
                     <table class="table table-hover">
                         <thead>
                             <tr>
