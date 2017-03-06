@@ -9,10 +9,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../resources/css/list.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
-    <link rel="stylesheet" href="../resources/css/list.css" />
-    <script src="../resources/js/list.js"></script>
+    <script src="../js/list.js"></script>
 </head>
 
 <body>
@@ -35,20 +35,20 @@
                 <div class="container col-sm-12 board_wrap">
 	                <div class="row">
 	                    <div class="col-sm-9">
-							<a href="/writeForm" class="btn btn-default glyphicon glyphicon-pencil write_btn" title="글쓰기"></a>
+							<a href="${ctx}/board/writeForm" class="btn btn-default glyphicon glyphicon-pencil write_btn" title="글쓰기"></a>
 	                    </div>
 		                    <form action="board.html" method="get" id="selectorForm">
 		                        <div class="col-sm-1 text-right">
-		                            <select name="order" class="orderSelector selector">
-		                                <option value="recent" selected>최신순</option>
+		                            <select name="order" class="orderSelector selector form-control">
+		                                <option value="recent">최신순</option>
 		                                <option value="readCnt">조회순</option>
 		                                <option value="reply">댓글순</option>
 		                            </select>
 		                        </div>
 		
 		                        <div class="col-sm-1 text-right">
-		                            <select name="type" class="typeSelector selector">
-		                                <option value="list" selected>전체</option>
+		                            <select name="type" class="typeSelector selector form-control">
+		                                <option value="list">전체</option>
 		                                <option value="career">진로</option>
 		                                <option value="school">학교</option>
 		                                <option value="job">직업</option>

@@ -8,6 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>DreamGo</title>
 <script src="../js/main.js"></script>
+<link rel="stylesheet" href="../css/main.css"/>
 </head>
 <body>
  <nav class="navbar navbar-inverse">

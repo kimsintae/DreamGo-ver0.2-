@@ -1,5 +1,5 @@
 $(document).ready(function () {
-		alert("main.js 로딩");
+
         //회원가입 이미지 선택 js
         $("#profile").change(function(){
                     

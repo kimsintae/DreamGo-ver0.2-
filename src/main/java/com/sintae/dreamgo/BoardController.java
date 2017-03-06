@@ -15,7 +15,7 @@ public class BoardController {
 	@RequestMapping("/board/read")
 	public String read(){
 		logger.info("read page called!");
-		return "/board/read";
+		return "/board/readForm";
 	}
 	
 	
@@ -24,6 +24,26 @@ public class BoardController {
 	public String board(){
 		logger.info("board page called!");
 		return "/board/list";
+	}
+	
+	//write !!
+	@RequestMapping("/board/writeForm")
+	public String writeForm(){
+		logger.info("writeForm page called!");
+		return "/board/writeForm";
+	}
+	
+	//write_logic !!
+	@RequestMapping("/board/write")
+	public void write(@RequestParam("title") String title,
+			@RequestParam("type") String type
+			){
+		logger.info("제목" + title);
+		logger.info("구분" + type);
+		//logger.info("내용" + content);
+		
+		
+		
 	}
 	
 }
