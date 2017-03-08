@@ -10,12 +10,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="../js/dep_info.js"></script>
-    
-    <link rel="stylesheet" href="../css/dep_info.css"/>
+    <script src="../resources/js/dep_info.js?v=1"></script>
+    <link rel="stylesheet" href="../resources/css/dep_info.css?v=1"/>
 
 </head>
-
 <body>
  <%@ include file="../include/header.jsp" %>
     <div class="container-fluid text-center">
@@ -36,7 +34,6 @@
                 <div class="container search_opt_box col-sm-12">
                     <form action="/depart" method="get" id="depar_Form">
                     	<%@include file="../include/dep_opt.jsp" %>
-                    
                     </form>
                 </div>
                 
@@ -52,7 +49,7 @@
      
 
                      <div class="list-group">
-                      <a href="/dep_detail/1231" class="list-group-item">
+                      <a href="${ctx}/info/dep_detail" class="list-group-item">
                         <div class="row">
                             <div class="col-sm-6 title text-left">학과명 : <span>응용시스템과</span></div>
                             <div class="col-sm-6 text-left">계열 : <span>공학계열</span></div>
@@ -66,7 +63,7 @@
                             </div>
                         </div>
                       </a>
-                      <a href="/dep_detail/1231" class="list-group-item">
+                      <a href="${ctx}/info/dep_detail" class="list-group-item">
                         <div class="row">
                             <div class="col-sm-6 title text-left">학과명 : <span>기전공학</span></div>
                             <div class="col-sm-6 text-left">계열 : <span>농산업</span></div>
@@ -80,7 +77,7 @@
                             </div>
                         </div>
                       </a>
-                      <a href="/dep_detail/1231" class="list-group-item">
+                      <a href="${ctx}/info/dep_detail" class="list-group-item">
                         <div class="row">
                             <div class="col-sm-6 title text-left">학과명 : <span>뷰티아트</span></div>
                             <div class="col-sm-6 text-left">계열 : <span>디자인산업</span></div>

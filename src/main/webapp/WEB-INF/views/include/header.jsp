@@ -2,13 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>        
 <c:set var="ctx" value="<%=request.getContextPath()%>" scope="application" />
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>DreamGo</title>
-<script src="../js/main.js"></script>
-<link rel="stylesheet" href="../css/main.css"/>
+<script src="../resources/js/main.js"></script>
+<link rel="stylesheet" href="../resources/css/main.css"/>
 </head>
 <body>
  <nav class="navbar navbar-inverse">
@@ -129,7 +126,7 @@
 						                        <label class="col-sm-4" for="profile">프로필사진</label>
 						                        <div class="col-sm-6">
 						                           <label class="col-sm-12 text-center" for="profile" id="profileArea">
-						                               <img src=""class="img-rounded profile_box" alt="" width="150" height="150" title="클릭해서 원하는 사진 등록">
+						                               <img src="" class="img-rounded profile_box" alt="" width="150" height="150" title="클릭해서 원하는 사진 등록">
 						                            <input type="file" id="profile" name="profile" class="col-sm-12 form-control" accept="image/*" />
 						                           </label>
 						                           <span id="img_name" class="text-center col-sm-12"></span>

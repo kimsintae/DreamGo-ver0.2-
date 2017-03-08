@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/readForm.css">
+    <link rel="stylesheet" href="../resources/css/readForm.css?v=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
@@ -35,7 +35,7 @@
                             <tr class="board_detaile_contentBar">
                                 <td class="col-sm-5">웹프로그래머가 되고 싶습니다.</td>
                                 <td class="col-sm-4">
-                                    <img src="../img/img.jpg" class="img-thumbnail" alt="Cinque Terre" width="50" height="50">자바
+                                    <img src="../resources/img/img.jpg" class="img-thumbnail" alt="Cinque Terre" width="50" height="50">자바
                                 </td>
                                 <td class="col-sm-1 text-center">수다</td>
                                 <td class="col-sm-1 text-center">23</td>
@@ -55,9 +55,9 @@
                     <div class="row col-sm-12 btn_row">
                         <div class="col-sm-9"></div>
                         <div class="col-sm-3 text-right btn_box">
-                            <button class="btn btn-success" title="수정"><i class="glyphicon glyphicon-erase"></i></button>
-                            <button class="btn btn-warning" title="삭제"><i class="glyphicon glyphicon-trash"></i></button>
-                            <button class="btn btn-danger" title="신고"><i class="glyphicon glyphicon-flag"></i></button>
+                            <a href="${ctx}/board/modifyForm" class="btn btn-success" title="수정"><i class="glyphicon glyphicon-erase"></i></a>
+                            <a class="btn btn-warning" title="삭제"><i class="glyphicon glyphicon-trash"></i></a>
+                            <a class="btn btn-danger" title="신고"><i class="glyphicon glyphicon-flag"></i></a>
                         </div>
                     </div><!--//btn_row-->
                     
@@ -68,7 +68,7 @@
 
                         <div class="col-sm-12 reply_box">
                             <div class="col-sm-2 text-center reply_profile">
-                                <img src="../img/img.jpg" class="img-thumbnail" alt="Cinque Terre" width="100" height="100">
+                                <img src="../resources/img/img.jpg" class="img-thumbnail" alt="Cinque Terre" width="100" height="100">
                                 <br/>
                                 <div class="reply_writer">
                                     <span>별나라여행</span>
@@ -93,7 +93,7 @@
 
                         <div class="col-sm-12 reply_box">
                             <div class="col-sm-2 text-center reply_profile">
-                                <img src="../img/img.jpg" class="img-thumbnail" alt="Cinque Terre" width="100" height="100">
+                                <img src="../resources/img/img.jpg" class="img-thumbnail" alt="Cinque Terre" width="100" height="100">
                                 <br/>
                                 <div class="reply_writer">
                                     <span>별나라여행</span>
@@ -115,7 +115,7 @@
 
                         <div class="col-sm-12 reply_box">
                             <div class="col-sm-2 text-center reply_profile">
-                                <img src="../img/img.jpg" class="img-thumbnail" alt="Cinque Terre" width="100" height="100">
+                                <img src="../resources/img/img.jpg" class="img-thumbnail" alt="Cinque Terre" width="100" height="100">
                                 <br/>
                                 <div class="reply_writer">
                                     <span>별나라여행</span>
@@ -180,6 +180,7 @@
             <div class="col-sm-2 sidenav"></div>
         </div>
         <!--//content-->
+        <%@include file="../include/footer.jsp" %>
 </body>
 
 </html>

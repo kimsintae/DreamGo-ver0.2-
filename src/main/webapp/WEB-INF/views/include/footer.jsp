@@ -5,10 +5,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+    <link rel="stylesheet" href="../resources/css/main.css"/>
 </head>
 <body>
-    <footer class="container-fluid text-center">
-        <p>Footer Text</p>
-    </footer>
+        <footer class="container-fluid col-sm-12 text-right footer">
+            <p>BY kim.sintae</p>
+        </footer>
 </body>
 </html>

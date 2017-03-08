@@ -10,29 +10,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="../css/main.css" />
-    <style>
-        
-        .sch_cat a{
-            font-size: 25px;
-            
-        }
-        
-        .sch_result{
-            margin-top: 30px;
-        }
-        
-        .sch_info{
-            margin-top: 10px;
-            font-size: 15px;
-        }
-        .sch_info span,.sch_name{
-            font-weight: bold;
-        }
-        .sch_name{
-            font-size: 20px;
-        }
-    </style>
+    <script src="../resources/js/tabs.js?v=1"></script>
+    <link rel="stylesheet" href="../resources/css/sch_info.css?v=1" />
 </head>
 
 <body>
@@ -213,7 +192,7 @@
                 
                 <!-- 검색 결과 -->
                 <div class="container sch_result col-sm-12">
-                   <h3 class="search_result"><span>23</span>개의 검색 결과가 있습니다.<strong class="alert alert-info">(클릭시 해당 학교 홈페이지로 이동합니다.)</strong></h3>
+                   <h3 class="search_result"><span>23</span>개의 검색 결과가 있습니다.<strong>(클릭시 해당 학교 홈페이지로 이동합니다.)</strong></h3>
                     <ul class="list-group">
                       <a href="http://www.snue.ac.kr" target="_blank" class="list-group-item" title="클릭하시면 홈페이지가 열립니다.">
                          <span class="sch_name">서울교육대학교</span>

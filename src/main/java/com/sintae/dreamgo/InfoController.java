@@ -47,5 +47,19 @@ public class InfoController {
 		logger.info("apti_test page called!");
 		return "/aptitudeTest/apti_test";
 	}
+	
+	//job_detail !!
+	@RequestMapping("/info/job_detail")
+	public String job_detail(){
+		logger.info("job_detail page called!");
+		return "/info/job_detail";
+	}
+	
+	//dep_detail !!
+	@RequestMapping("/info/dep_detail")
+	public String dep_detail(){
+		logger.info("dep_detail page called!");
+		return "/info/dep_detail";
+	}
 
 }
