@@ -292,6 +292,10 @@
 
  <%@ include file="../include/footer.jsp" %>
 
+<script type="text/javascript">
+$.ajax()
+
+</script>
 </body>
 
 </html>

@@ -1,0 +1,101 @@
+       
+        .sch_cat a{
+            font-size: 25px;
+            
+        }
+        
+        .sch_result{
+            margin-top: 30px;
+        }
+        
+        .sch_info{
+            margin-top: 10px;
+            font-size: 15px;
+        }
+        .sch_info span,.sch_name{
+            font-weight: bold;
+        }
+        .sch_name{
+            font-size: 20px;
+        }
+/* 탭 스타일 */
+
+div.tab {
+    overflow: hidden;
+    height: 80px;
+    margin: auto;
+}
+
+
+/* 메인 탭 */
+
+div.tab .tab-menu {
+    float: left;
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    margin-left: 35%;
+    font-size: 20px;
+    height: 80px;
+    font-weight: bold;
+    line-height: 50px;
+    border: 1px solid #424242;
+}
+        
+div.tab .tab-menu:hover {
+    background-color: #d5f4e6;
+}
+
+
+
+/* Style the tab content */
+
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    /*    border: 1px solid #ccc;*/
+    border-top: none;
+    margin-top: 30px;
+}
+
+.category{
+    padding-bottom: 10px;
+    border: 1px solid #424242;
+}
+
+
+.category_list{
+    margin-left: 50px;
+}
+.category_list li{
+        float: left;
+        list-style: none;
+        width: 320px;
+        font-size: 15px;
+}
+.btn-box{
+    margin: 20px 0;
+}
+
+/* // 탭 스타일 */
+
+/* 결과 탭 스타일 */
+.result-tab-wrap{
+    margin: 30px 0;
+}
+
+.tab-menus{
+    margin: auto;
+}
+.result-tab-wrap .tab-menus a{
+    font-size: 20px;
+    color: black;
+    text-align: center;
+    margin-left: 75px;
+}
+
+
+
+/* // 결과 탭 스타일*/

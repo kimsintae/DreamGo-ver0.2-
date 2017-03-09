@@ -1,0 +1,118 @@
+      /* Remove the navbar's default margin-bottom and rounded borders */
+        
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+            font-size: 20px;
+        }
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+        
+        .row.content {
+            height: 450px
+        }
+        /* Set gray background color and 100% height */
+        
+        .sidenav {
+            padding-top: 20px;
+            background-color: white;
+            height: 100%;
+        }
+        /* Set black background color, white text and some padding */
+        
+        footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+        }
+        /* On small screens, set height to 'auto' for sidenav and grid */
+        
+        @media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+                padding: 15px;
+            }
+            .row.content {
+                height: auto;
+            }
+        }
+        /* Style the tab */
+        
+        div.tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+        /* Style the links inside the tab */
+        
+        div.tab a {
+            float: left;
+            display: block;
+            color: black;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+        /* Change background color of links on hover */
+        
+        div.tab a:hover {
+            background-color: #ddd;
+        }
+        /* Create an active/current tablink class */
+        
+        div.tab a:focus,
+        .active {
+            background-color: #ccc;
+        }
+        /* Style the tab content */
+        
+        .tabcontent {
+            display: none;
+            padding: 30px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+        
+        .sub_row {
+            margin-bottom: 20px;
+            
+        }
+        
+        .sub_row div:first-child {
+            font-weight: bold;
+        }
+        
+        .major_list a {
+            border: none;
+            padding: 0;
+        }
+        
+        .major_list a:hover {
+            background: white;
+            color: #b7d7e8;
+        }
+        
+        .footer {
+            background: white;
+            color: black;
+            border-top: 1px solid #424242;
+        }
+        
+        /*dep_detail.css*/
+        		.major{
+        	font-size: 35px;
+        }
+        
+        .salary,.emp{
+        	
+			height:50px;
+        	font-size: 15px;
+        	line-height: 70px;
+        }
+        .salary strong,.emp strong{
+        	color:blue;
+        }
+  
+        
+        
