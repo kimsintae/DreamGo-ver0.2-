@@ -135,15 +135,6 @@
 						                    </div>
 						                    <!--//nickname_row-->
 						
-						                    <div class="row birth_row form-group">
-						                        <label class="col-sm-4" for="birth">생년월일</label>
-						                        <div class="col-sm-6">
-						                            <input type="text" id="birth" name="birth" maxlength="10" class="col-sm-12 form-control" placeholder="ex) 19900401" />
-						                        </div>
-						                        <div class="col-sm-2"></div>
-						                    </div>
-						                    <!--//birth_row-->
-						
 						                    <div class="row person_type_row form-group">
 						                        <label class="col-sm-4" for="#typeSelector">구분</label>
 						                        <div class="col-sm-6">
@@ -158,7 +149,15 @@
 						                        <div class="col-sm-2"></div>
 						                    </div>
 						                    <!--//person_type_row-->
-						
+						                    
+											<div class="row dream_row form-group">
+						                        <label class="col-sm-4" for="dream">나의 꿈은?</label>
+						                        <div class="col-sm-6">
+						                            <input type="text" id="dream" name="nickname" class="col-sm-12 form-control" placeholder="꿈은 이루어집니다" />
+						                        </div>
+						                        <div class="col-sm-2"></div>
+						                    </div>
+						                    <!--//dream_row-->
 						
 						                </form>
 						                <!--//joinForm-->
