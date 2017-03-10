@@ -245,6 +245,7 @@
 		//컨트롤러로 보낼 파라미터들
 		var formdata = form.serialize();
 		//alert(formdata);
+		
 		$.ajax({
 			type:"POST",
 			url:'${ctx}/sch_info/search',
