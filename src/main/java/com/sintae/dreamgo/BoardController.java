@@ -59,8 +59,6 @@ public class BoardController {
 		model.addAttribute("title","안녕");
 		model.addAttribute("content","안녕하세요");
 		
-		
-		
 		return "/board/articleForm";
 	}
 	

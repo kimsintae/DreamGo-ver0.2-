@@ -150,28 +150,28 @@
                                        <li>
                                             <div class="radio">
                                                 <label>
-                                                    <input type="radio" value="list" name="estType" checked>전체
+                                                    <input type="radio" value="" name="est" checked>전체
                                                 </label>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="radio">
                                                 <label>
-                                                    <input type="radio" value="100334" name="estType">국립
+                                                    <input type="radio" value="100334" name="est">국립
                                                 </label>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="radio">
                                                 <label>
-                                                    <input type="radio" value="100335" name="estType">사립
+                                                    <input type="radio" value="100335" name="est">사립
                                                 </label>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="radio">
                                                 <label>
-                                                    <input type="radio" value="100336" name="estType">공립
+                                                    <input type="radio" value="100336" name="est">공립
                                                 </label>
                                             </div>
                                         </li>
@@ -240,17 +240,23 @@
 		//alert("test");			
 		var idx = $(this).attr("title");		
 		var form = forms[idx];
-		
+	
 		
 		//컨트롤러로 보낼 파라미터들
 		var formdata = form.serialize();
 		//alert(formdata);
-		
 		$.ajax({
 			type:"POST",
 			url:'${ctx}/sch_info/search',
-			data:formdata //전송할 파라미터
-		})
+			data:formdata, //전송할 파라미터
+		 	dataType:"json",
+			success:function(json){
+				alert("성공!");
+			},
+			error:function(xhr,error){
+				alert("실패!");
+			}
+		});
 	})
  </script>
 </body>

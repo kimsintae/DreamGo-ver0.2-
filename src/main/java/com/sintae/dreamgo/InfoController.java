@@ -1,18 +1,25 @@
 package com.sintae.dreamgo;
 
+import java.util.List;
+import java.util.Map;
+
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.sintae.util.CreateData;
 
 @Controller
 public class InfoController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(InfoController.class);
 	private static final String APIKEY = "0e3a27591319ce0e97e4e3ec62077e8d";
-	
 	//intro !
 	@RequestMapping("/intro")
 	public String intro(){
@@ -73,13 +80,38 @@ public class InfoController {
 	
 	//perform logic for school information
 	@RequestMapping(value="/sch_info/search", method= RequestMethod.POST)
-	public void sch_search(@RequestParam("gubun") String gubun){
+	public @ResponseBody List<Map<String, String>> sch_search(@RequestParam("gubun") String gubun,
+			@RequestParam("region") String region,
+			@RequestParam(value="sch1", defaultValue="") String sch1,
+			@RequestParam(value="est", defaultValue="") String est,
+			@RequestParam(value="thisPage", defaultValue="1") int thisPage){
 		
-		
+		//if(region.equals("list")||sch1.equals("list")||est.equals("list")){region="";}
 		logger.info("sch_search() is called " );
 		logger.info("넘어온 gubun : "+gubun);
+		logger.info("넘어온 region : "+region);
+		logger.info("넘어온 sch1 : "+sch1);
+		logger.info("넘어온 est : "+est);
 		
 		
+		//오픈api에서 데이터를 받아올 URL 주소
+		String url = "http://www.career.go.kr/cnet/openapi/getOpenApi?"
+				+ "apiKey="+APIKEY+"&"
+						+ "svcType=api&"
+						+ "svcCode=SCHOOL&"
+						+ "contentType=xml&"
+						+ "gubun="+gubun+"&" //구분
+						+ "region="+region+"&" // 지역
+						+ "sch1="+sch1+"&" // 학교유형
+						+ "est="+est+"&"// 설집유형
+						+ "thisPage="+thisPage+"&" //현재 페이지
+						+ "perPage=10"; //페이지당 보여질 결과수
+		
+		
+		logger.info(url);
+		
+		return CreateData.createDATA(url);
+	
 	}
 
 }
