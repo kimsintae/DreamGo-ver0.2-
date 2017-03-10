@@ -94,14 +94,14 @@
                             
 							  <!-- 신고 modal -->
                             
-                            <div id="report_modal" class="modal">
+                            <div id="report_modal" class="modal rep_modal">
 
-							  <div class="modal-content">
-							    <div class="modal-header">
-							      <span class="close">&times;</span>
+							  <div class="modal-content rep__mc">
+							    <div class="modal-header rep_mh">
+							      <span class="close rep_ic">&times;</span>
 							      	신고하기
 							    </div>
-							    <div class="modal-body">
+							    <div class="modal-body rep_b">
 							      
 									  <form action="/admin/report" id="report_from">
 									    <label for="reporter" class="col-sm-12">신고자</label>
@@ -115,7 +115,7 @@
 									  </form>
 									</div>
 							    
-							    <div class="modal-footer">
+							    <div class="modal-footer rep_f">
 							      	<span class="col-sm-12 text-danger text-left">
 									    신고하시면 해당 게시물은 삭제될 수 있으며, 해당 게시물 작성자의 글쓰기 또한 금지될 수 있습니다. <br/>
 									    단, 허위신고일 경우 신고자의 활동에 제한을 받게 되오니 이점 유의해 주시기 바랍니다.

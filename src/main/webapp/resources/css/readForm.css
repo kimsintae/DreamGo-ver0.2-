@@ -68,7 +68,7 @@
 	
 				<!-- 신고하기 창 -->
 /* The Modal (background) */
-.modal {
+.rep_modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
@@ -86,7 +86,7 @@
 }
 
 /* Modal Content */
-.modal-content {
+.rep__mc {
     position: fixed;
     bottom: 0;
     background-color: #fefefe;
@@ -98,21 +98,21 @@
 }
 
 /* The Close Button */
-.close {
+.rep_ic {
     color: white;
     float: right;
     font-size: 28px;
     font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
+.rep_ic:hover,
+.rep_ic:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;
 }
 
-.modal-header {
+.rep_mh {
     padding: 2px 16px;
     background-color: #5cb85c;
     color: white;
@@ -123,12 +123,12 @@
 }
 
 
-.modal-body {
+.rep_b {
 padding: 2px 16px;
 
 }
 
-.modal-footer {
+.rep_f {
     padding: 2px 16px;
     background-color: #5cb85c;
     color: white;
