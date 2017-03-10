@@ -8,11 +8,44 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../resources/css/readForm.css?v=1">
+    <link rel="stylesheet" href="../resources/css/readForm.css?v=2">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
+    <script src="../resources/js/read.js?v=2"></script>
+	<script type="text/javascript">
+	
+	<!-- 신고 창  -->
+		$(document).ready(function(){
+		    
 
+			// Get the modal
+			var modal = document.getElementById('report_modal');
+
+			// Get the button that opens the modal
+			var btn = document.getElementById("report_btn");
+
+			// Get the <span> element that closes the modal
+			var span = document.getElementsByClassName("close")[0];
+
+			// When the user clicks the button, open the modal 
+			btn.onclick = function() {
+			    modal.style.display = "block";
+			}
+
+			// When the user clicks on <span> (x), close the modal
+			span.onclick = function() {
+			    modal.style.display = "none";
+			}
+
+			// When the user clicks anywhere outside of the modal, close it
+			window.onclick = function(event) {
+			    if (event.target == modal) {
+			        modal.style.display = "none";
+			    }
+			}		
+		})
+	</script>
+</head>
 <body>
 
   <%@ include file="../include/header.jsp" %>
@@ -57,9 +90,45 @@
                         <div class="col-sm-3 text-right btn_box">
                             <a href="${ctx}/board/modifyForm" class="btn btn-success" title="수정"><i class="glyphicon glyphicon-erase"></i></a>
                             <a class="btn btn-warning" title="삭제"><i class="glyphicon glyphicon-trash"></i></a>
-                            <a class="btn btn-danger" title="신고"><i class="glyphicon glyphicon-flag"></i></a>
+                            <button id="report_btn" type="button" class="btn btn-danger" title="신고"><i class="glyphicon glyphicon-flag"></i></button>
+                            
+							  <!-- 신고 modal -->
+                            
+                            <div id="report_modal" class="modal">
+
+							  <div class="modal-content">
+							    <div class="modal-header">
+							      <span class="close">&times;</span>
+							      	신고하기
+							    </div>
+							    <div class="modal-body">
+							      
+									  <form action="/admin/report" id="report_from">
+									    <label for="reporter" class="col-sm-12">신고자</label>
+									    <input type="text" id="reporter" name="reporter" disabled="disabled">
+									
+									    <label for="cause" class="col-sm-12">신고사유</label>
+									    <textarea id="cause" name="cause" style="height:200px" placeholder="욕설/비방/광고성/음란물에 해당하는 게시글을 신고해주세요"></textarea>
+
+									
+									    <input id="report_sub" type="submit" value="Submit">
+									  </form>
+									</div>
+							    
+							    <div class="modal-footer">
+							      	<span class="col-sm-12 text-danger text-left">
+									    신고하시면 해당 게시물은 삭제될 수 있으며, 해당 게시물 작성자의 글쓰기 또한 금지될 수 있습니다. <br/>
+									    단, 허위신고일 경우 신고자의 활동에 제한을 받게 되오니 이점 유의해 주시기 바랍니다.
+									    </span>
+							    </div>
+							  </div>
+
+							</div>
+						
+							<!-- //신고 modal -->
                         </div>
                     </div><!--//btn_row-->
+                    
                     
                     <!-- 댓글 -->
                     <div class="row">
@@ -182,5 +251,6 @@
         <!--//content-->
         <%@include file="../include/footer.jsp" %>
 </body>
+
 
 </html>
