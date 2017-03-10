@@ -8,6 +8,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../resources/css/readForm.css?v=2">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -15,6 +16,9 @@
 	<script type="text/javascript">
 	
 	<!-- 신고 창  -->
+	
+	
+	
 		$(document).ready(function(){
 		    
 
@@ -67,12 +71,12 @@
                         <tbody>
                             <tr class="board_detaile_contentBar">
                                 <td class="col-sm-5">웹프로그래머가 되고 싶습니다.</td>
-                                <td class="col-sm-4">
+                                <td class="col-sm-2">
                                     <img src="../resources/img/img.jpg" class="img-thumbnail" alt="Cinque Terre" width="50" height="50">자바
                                 </td>
                                 <td class="col-sm-1 text-center">수다</td>
-                                <td class="col-sm-1 text-center">23</td>
-                                <td class="col-sm-1 text-center">2017-03-03</td>
+                                <td class="col-sm-2 text-center">23</td>
+                                <td class="col-sm-2 text-center">2017-03-03</td>
                             </tr>
                         </tbody>
                     </table>
@@ -111,7 +115,7 @@
 									    <textarea id="cause" name="cause" style="height:200px" placeholder="욕설/비방/광고성/음란물에 해당하는 게시글을 신고해주세요"></textarea>
 
 									
-									    <input id="report_sub" type="submit" value="Submit">
+									    <button id="report_sub" type="submit">확인</button>
 									  </form>
 									</div>
 							    

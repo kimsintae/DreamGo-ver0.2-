@@ -56,7 +56,7 @@
                         <div class="container col-sm-1"></div>
                         <div class="container col-sm-10 category">
                            
-                            <form action="/sch_info" method="get" id="ele_sh_form" class="sch_form">
+                            <form id="ele_sh_form" class="sch_form">
                                 <input type="hidden" value="elem_list" name="gubun"/>
                              <h3>지역 :</h3>
                               <div class="row first_opt">
@@ -66,7 +66,7 @@
                         </div>
                             <div class="container col-sm-3"></div>
                             <div class="row text-center btn-box col-sm-6">
-                                <input type="submit" form="ele_sh_form" class="btn btn-block btn-default" value="검색"/>
+                                <input type="button" class="btn btn-block btn-default" value="검색" title="0"/>
                             </div>
                             <div class="container col-sm-3"></div>
                         <div class="container col-sm-1"></div>
@@ -80,7 +80,7 @@
                             <div class="container col-sm-1"></div>
                             <div class="container col-sm-10 category">
                                
-                                <form action="/sch_info" method="get" id="mid_sh_form" class="sch_form">
+                                <form id="mid_sh_form" class="sch_form">
                                 <input type="hidden" value="midd_list" name="gubun"/>
                                  <h3>지역 :</h3>
                                   <div class="row first_opt">
@@ -91,7 +91,7 @@
                             </div>
                                 <div class="container col-sm-3"></div>
                                 <div class="row text-center btn-box col-sm-6">
-                                    <input type="submit" form="mid_sh_form" class="btn btn-block btn-default" value="검색"/>
+                                    <input type="button" class="btn btn-block btn-default" value="검색" title="1"/>
                                 </div>
                                 <div class="container col-sm-3"></div>
                             <div class="container col-sm-1"></div>
@@ -106,7 +106,7 @@
                         <div class="container col-sm-1"></div>
                         <div class="container col-sm-10 category">
                            
-                            <form action="/sch_info" method="get" id="high_sh_form" class="sch_form">
+                            <form id="high_sh_form" class="sch_form">
                             <input type="hidden" value="high_list" name="gubun"/>
                              <h3>지역 :</h3>
                               <div class="row first_opt">
@@ -120,7 +120,7 @@
                         </div>
                             <div class="container col-sm-3"></div>
                             <div class="row text-center btn-box col-sm-6">
-                                <input type="submit" form="high_sh_form" class="btn btn-block btn-default" value="검색"/>
+                                <input type="button" class="btn btn-block btn-default" value="검색" title="2"/>
                             </div>
                             <div class="container col-sm-3"></div>
                         <div class="container col-sm-1"></div>
@@ -134,7 +134,7 @@
                     <div class="row">
                         <div class="container col-sm-1"></div>
                         <div class="container col-sm-10 category">
-                            <form action="/sch_info" method="get" id="uni_sh_form" class="sch_form">
+                            <form id="uni_sh_form" class="sch_form">
                             <input type="hidden" value="univ_list" name="gubun"/>
                              <h3>지역 :</h3>
                                <div class="row first_opt">
@@ -182,7 +182,7 @@
                         </div>
                             <div class="container col-sm-3"></div>
                             <div class="row text-center btn-box col-sm-6">
-                                <input type="submit" form="uni_sh_form" class="btn btn-block btn-default" value="검색"/>
+                                <input type="button" class="btn btn-block btn-default" value="검색" title="3"/>
                             </div>
                             <div class="container col-sm-3"></div>
                         <div class="container col-sm-1"></div>
@@ -194,7 +194,9 @@
                 <div class="container sch_result col-sm-12">
                    <h3 class="search_result"><span>23</span>개의 검색 결과가 있습니다.<strong>(클릭시 해당 학교 홈페이지로 이동합니다.)</strong></h3>
                     <ul class="list-group">
-                      <a href="http://www.snue.ac.kr" target="_blank" class="list-group-item" title="클릭하시면 홈페이지가 열립니다.">
+                    
+                    
+                      <a href="http://www.snue.ac.kr" target="_blank" class="list-group-item sch_content" title="클릭하시면 홈페이지가 열립니다.">
                          <span class="sch_name">서울교육대학교</span>
                           <div class="row  sch_info">
                               <div class="col-sm-5">
@@ -211,76 +213,7 @@
                               </div>
                           </div>
                           
-                      </a>
-                      
-                   <a href="http://www.snue.ac.kr" target="_blank" class="list-group-item" title="클릭하시면 홈페이지가 열립니다.">
-                         <span class="sch_name">서울교육대학교</span>
-                          <div class="row  sch_info">
-                              <div class="col-sm-5">
-                                  주소 : <span>서울특별시 서초구 서초동 1650번지</span>
-                              </div>
-                              <div class="col-sm-3">
-                                  학교종류 : <span>대학(4년제)</span>
-                              </div>
-                              <div class="col-sm-2">
-                                  설립유형 : <span>국립</span>
-                              </div>
-                              <div class="col-sm-2">
-                                  학교유형 : <span>교육대학</span>
-                              </div>
-                          </div>
-                      </a>
-                      <a href="http://www.snue.ac.kr" target="_blank" class="list-group-item" title="클릭하시면 홈페이지가 열립니다.">
-                         <span class="sch_name">서울교육대학교</span>
-                          <div class="row  sch_info">
-                              <div class="col-sm-5">
-                                  주소 : <span>서울특별시 서초구 서초동 1650번지</span>
-                              </div>
-                              <div class="col-sm-3">
-                                  학교종류 : <span>대학(4년제)</span>
-                              </div>
-                              <div class="col-sm-2">
-                                  설립유형 : <span>국립</span>
-                              </div>
-                              <div class="col-sm-2">
-                                  학교유형 : <span>교육대학</span>
-                              </div>
-                          </div>
-                      </a>
-                      <a href="http://www.snue.ac.kr" target="_blank" class="list-group-item" title="클릭하시면 홈페이지가 열립니다.">
-                         <span class="sch_name">서울교육대학교</span>
-                          <div class="row  sch_info">
-                              <div class="col-sm-5">
-                                  주소 : <span>서울특별시 서초구 서초동 1650번지</span>
-                              </div>
-                              <div class="col-sm-3">
-                                  학교종류 : <span>대학(4년제)</span>
-                              </div>
-                              <div class="col-sm-2">
-                                  설립유형 : <span>국립</span>
-                              </div>
-                              <div class="col-sm-2">
-                                  학교유형 : <span>교육대학</span>
-                              </div>
-                          </div>
-                      </a>
-                      <a href="http://www.snue.ac.kr" target="_blank" class="list-group-item" title="클릭하시면 홈페이지가 열립니다.">
-                         <span class="sch_name">서울교육대학교</span>
-                          <div class="row  sch_info">
-                              <div class="col-sm-5">
-                                  주소 : <span>서울특별시 서초구 서초동 1650번지</span>
-                              </div>
-                              <div class="col-sm-3">
-                                  학교종류 : <span>대학(4년제)</span>
-                              </div>
-                              <div class="col-sm-2">
-                                  설립유형 : <span>국립</span>
-                              </div>
-                              <div class="col-sm-2">
-                                  학교유형 : <span>교육대학</span>
-                              </div>
-                          </div>
-                      </a>
+                      </a><!-- //sch_content -->
 
                     </ul>
                 </div>
@@ -291,11 +224,35 @@
     </div>
 
  <%@ include file="../include/footer.jsp" %>
-
-<script type="text/javascript">
-$.ajax()
-
-</script>
+ 
+ <script type="text/javascript">
+ 
+	 //폼 객체
+	var ele_sh_form = $("#ele_sh_form");
+ 	var mid_sh_form = $("#mid_sh_form");
+ 	var high_sh_form = $("#high_sh_form");
+ 	var uni_sh_form = $("#uni_sh_form");
+ 	
+	var forms = [ele_sh_form,mid_sh_form,high_sh_form,uni_sh_form];
+ 
+	$(".btn-block").click(function(){
+		
+		//alert("test");			
+		var idx = $(this).attr("title");		
+		var form = forms[idx];
+		
+		
+		//컨트롤러로 보낼 파라미터들
+		var formdata = form.serialize();
+		//alert(formdata);
+		
+		$.ajax({
+			type:"POST",
+			url:'${ctx}/sch_info/search',
+			data:formdata //전송할 파라미터
+		})
+	})
+ </script>
 </body>
 
 </html>

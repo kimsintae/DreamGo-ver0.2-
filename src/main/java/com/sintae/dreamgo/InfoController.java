@@ -4,12 +4,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class InfoController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(InfoController.class);
-
+	private static final String APIKEY = "0e3a27591319ce0e97e4e3ec62077e8d";
 	
 	//intro !
 	@RequestMapping("/intro")
@@ -60,6 +62,24 @@ public class InfoController {
 	public String dep_detail(){
 		logger.info("dep_detail page called!");
 		return "/info/dep_detail";
+	}
+	
+	
+	
+	/* ---------------------------------로직 처리------------------------------------- */
+	
+	
+	
+	
+	//perform logic for school information
+	@RequestMapping(value="/sch_info/search", method= RequestMethod.POST)
+	public void sch_search(@RequestParam("gubun") String gubun){
+		
+		
+		logger.info("sch_search() is called " );
+		logger.info("넘어온 gubun : "+gubun);
+		
+		
 	}
 
 }
