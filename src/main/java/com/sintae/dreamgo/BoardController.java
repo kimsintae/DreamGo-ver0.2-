@@ -16,7 +16,7 @@ public class BoardController {
 	@RequestMapping("/board/read")
 	public String read(){
 		logger.info("read page called!");
-		return "/board/readForm";
+		return "/board/read";
 	}
 	
 	
@@ -28,14 +28,14 @@ public class BoardController {
 	}
 	
 	//글 작성 페이지 !!
-	@RequestMapping("/board/writeForm")
+	@RequestMapping("/board/write")
 	public String writeForm(){
 		logger.info("writeForm page called!");
 		return "/board/articleForm";
 	}
 	
 	//글 작성 로직 !!
-	@RequestMapping("/board/write")
+	@RequestMapping("/board/writeLoc")
 	public void write(@RequestParam("title") String title,
 			@RequestParam("type") String type,
 			@RequestParam("content") String content){
@@ -45,7 +45,7 @@ public class BoardController {
 	}
 	
 	//글 수정 페이지!!
-	@RequestMapping("/board/modifyForm")
+	@RequestMapping("/board/modify")
 	public String modifyForm(Model model){
 		logger.info("modifyForm page called!");
 		

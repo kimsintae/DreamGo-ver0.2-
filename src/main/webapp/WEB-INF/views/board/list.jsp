@@ -35,7 +35,7 @@
                 <div class="container col-sm-12 board_wrap">
 	                <div class="row">
 	                    <div class="col-sm-9">
-							<a href="${ctx}/board/writeForm" class="btn btn-default glyphicon glyphicon-pencil write_btn" title="글쓰기"></a>
+							<a href="${ctx}/board/write" class="btn btn-default glyphicon glyphicon-pencil write_btn" title="글쓰기"></a>
 	                    </div>
 		                    <form action="board.html" method="get" id="selectorForm">
 		                        <div class="col-sm-1 text-right">

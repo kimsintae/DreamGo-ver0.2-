@@ -82,7 +82,9 @@
 		                  <div class="form-group"> 
 		                    <div class="col-sm-offset-2 col-sm-10 text-right write_btns">
 		                      <button type="button" class="btn btn-default write_btn glyphicon glyphicon-saved" style="font-size:18px;" title="등록"></button>
-		                      <button type="button" class="btn btn-default cancle_btn glyphicon glyphicon-remove"style="font-size:18px;" title="취소"></button>
+		                      <a href="${ctx}/board/list" class="btn btn-default cancle_btn glyphicon glyphicon-remove"style="font-size:18px;" title="취소"></a>
+		                      
+		                      <!-- 수정일때는 list.jsp로 돌아가는게 아니라 read.jsp 로 -->
 		                    </div>
 		                  </div>
 
@@ -205,7 +207,7 @@ var config = {
 		//이 함수는
 		//submit 기능이 있다.
 		//즉 버튼 클릭시 서버로 내용을 전송한다.
-		$("#write_modify_Form").attr('action','${ctx}/board/write');
+		$("#write_modify_Form").attr('action','${ctx}/board/writeLoc');
 		
 		Editor.save();
 
