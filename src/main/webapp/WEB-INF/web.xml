@@ -48,16 +48,5 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
- 	
-<!-- 	
-	<jsp-config>
-		<jsp-property-group>
-			<url-pattern>/*/info/*</url-pattern>
-			<url-pattern>/*/board/*</url-pattern>
-			<include-prelude>/WEB-INF/views/include/header.jsp</include-prelude>		
-			<include-coda>/WEB-INF/views/include/footer.jsp</include-coda>
-		</jsp-property-group>
-	</jsp-config> 
--->
 
 </web-app>

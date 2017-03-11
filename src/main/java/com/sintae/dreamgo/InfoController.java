@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.sintae.util.CreateData;
 
@@ -83,6 +85,7 @@ public class InfoController {
 	public @ResponseBody List<Map<String, String>> sch_search(@RequestParam("gubun") String gubun,
 			@RequestParam("region") String region,
 			@RequestParam(value="sch1", defaultValue="") String sch1,
+			@RequestParam(value="sch2", defaultValue="") String sch2,
 			@RequestParam(value="est", defaultValue="") String est,
 			@RequestParam(value="thisPage", defaultValue="1") int thisPage){
 		
@@ -95,19 +98,21 @@ public class InfoController {
 		
 		
 		//오픈api에서 데이터를 받아올 URL 주소
-		String url = "http://www.career.go.kr/cnet/openapi/getOpenApi?"
-				+ "apiKey="+APIKEY+"&"
-						+ "svcType=api&"
-						+ "svcCode=SCHOOL&"
-						+ "contentType=xml&"
-						+ "gubun="+gubun+"&" //구분
-						+ "region="+region+"&" // 지역
-						+ "sch1="+sch1+"&" // 학교유형
-						+ "est="+est+"&"// 설집유형
-						+ "thisPage="+thisPage+"&" //현재 페이지
-						+ "perPage=10"; //페이지당 보여질 결과수
-		
-		
+		UriComponents createURL =UriComponentsBuilder.newInstance()
+				.path("http://www.career.go.kr/cnet/openapi/getOpenApi")
+				.queryParam("apiKey", APIKEY)
+				.queryParam("svcType", "api")
+				.queryParam("svcCode", "SCHOOL")
+				.queryParam("contentType", "xml")
+				.queryParam("gubun", gubun)//구분
+				.queryParam("region", region)// 지역
+				.queryParam("sch1", sch1)// 학교종류
+				.queryParam("sch2", sch2)// 학교유형
+				.queryParam("est", est)// 설집유형
+				.queryParam("thisPage", thisPage) //현재 페이지
+				.queryParam("perPage", 10)//페이지당 보여질 결과수
+				.build();
+		String url = createURL.toString();
 		logger.info(url);
 		
 		return CreateData.createDATA(url);

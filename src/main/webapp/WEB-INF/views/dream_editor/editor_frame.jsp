@@ -9,37 +9,7 @@
 <body>
 	<!-- 에디터 컨테이너 시작 -->
 		<div id="tx_trex_container" class="tx-editor-container">
-			<!-- 사이드바 -->
-			<div id="tx_sidebar" class="tx-sidebar">
-				<div class="tx-sidebar-boundary">
-					<!-- 사이드바 / 첨부 -->
-					<ul class="tx-bar tx-bar-left tx-nav-attach">
-						<!-- 이미지 첨부 버튼 시작 -->
-						<!--
-							@decsription
-							<li></li> 단위로 위치를 이동할 수 있다.
-						-->
-						<li class="tx-list">
-							
-						</li>
-					</ul>
-					<!-- 사이드바 / 우측영역 -->
-					<ul class="tx-bar tx-bar-right">
-						<li class="tx-list">
-							<div unselectable="on" class="tx-btn-lrbg tx-fullscreen" id="tx_fullscreen">
-								<a href="javascript:;" class="tx-icon" title="넓게쓰기 (Ctrl+M)">넓게쓰기</a>
-							</div>
-						</li>
-					</ul>
-					<ul class="tx-bar tx-bar-right tx-nav-opt">
-						<li class="tx-list">
-							<div unselectable="on" class="tx-switchtoggle" id="tx_switchertoggle">
-								<a href="javascript:;" title="에디터 타입">에디터</a>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</div>
+	
 
 			<!-- 툴바 - 기본 시작 -->
 			<!--
@@ -372,11 +342,7 @@
 		<div class="tx-resize-bar-bg"></div>
 		<img id="tx_resize_holder" src="${pageContext.request.contextPath}/resources/editor/images/icon/editor/skin/01/btn_drag01.gif" width="58" height="12" unselectable="on" alt="" />
 	</div>
-					<div class="tx-side-bi" id="tx_side_bi">
-		<div style="text-align: right;">
-			<img hspace="4" height="14" width="78" align="absmiddle" src="${pageContext.request.contextPath}/resources/editor/images/icon/editor/editor_bi.png" />
-		</div>
-	</div>
+
 				<!-- 편집영역 끝 -->
 			<!-- 첨부박스 시작 -->
 				<!-- 파일첨부박스 Start -->

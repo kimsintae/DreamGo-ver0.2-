@@ -21,6 +21,7 @@ public class CreateData {
 		
 		//map을 담을 list 선언
 		List<Map<String, String>> list = null;
+		Map<String, String> map = null;
 		try {
 			
 			list = new ArrayList<Map<String,String>>(); 
@@ -33,20 +34,25 @@ public class CreateData {
 			
 			//content 뽑아오기
 			Elements eles = doc.select("content");
-			
+	
 			for(Element ele : eles){
+				
+				//자식 노드들의 수
 				 int nodeNum = ele.children().size();
 
-				Map<String, String> map = new HashMap<String, String>();
+				map = new HashMap<String, String>();
 				 
 				//content의 자식 노드수만큼 for문을 돌림
-				 for(int i = 0 ; i < nodeNum ; i++){				
-					 map.put(ele.child(i).tagName(), ele.child(i).text());
+				 for(int i = 0 ; i < nodeNum ; i++){		
+						 //데이터 담기
+						 map.put(ele.child(i).tagName(), ele.child(i).text());
+					 
 				 }
 				
 				list.add(map);
 				 
 			}//for
+
 			
 			System.out.println("담겨진 값들 : "+list);
 

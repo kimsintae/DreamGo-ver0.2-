@@ -12,6 +12,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="../resources/js/tabs.js?v=1"></script>
     <link rel="stylesheet" href="../resources/css/sch_info.css?v=1" />
+
 </head>
 
 <body>
@@ -140,7 +141,7 @@
                                <div class="row first_opt">
                                <%@ include file="../include/region.jsp" %>
                                </div>   
-                             <h3>학교유형 :</h3>    
+                             <h3>학교종류 :</h3>    
                                <div class="row sec_opt">
                                	<%@ include file="../include/univ_opt.jsp" %>
                                </div>     
@@ -177,7 +178,84 @@
                                         </li>
                                 </ul>
                                    
-                               </div>                        
+                               </div>  
+                               
+                               <h3>학교유형 :</h3>   
+                               <ul class="list-group category_list">
+                                   <li>
+                                        <div class="radio ">
+                                            <label>
+                                                <input type="radio" value="" name="sch2" checked>전체
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li class="college">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" value="100324" name="sch2">전문대학
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li class="college">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" value="100325" name="sch2">기능대학(폴리텍대학)
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li class="college">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" value="100326" name="sch2">사이버대학(2년제)
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li class="college">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" value="100327" name="sch2">각종대학(전문)
+                                            </label>
+                                        </div>
+                                    </li>
+                                    
+                                    <!-- //대학(4년제) -->
+                                    
+                                    <li class="univ">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" value="100328" name="sch2">일반대학
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li class="univ">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" value="100329" name="sch2">교육대학
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li class="univ">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" value="100330" name="sch2">산업대학
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li class="univ">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" value="100331" name="sch2">사이버대학(4년제)
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li class="univ">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" value="100332" name="sch2">각종대학(대학)
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>                   
                             </form>
                         </div>
                             <div class="container col-sm-3"></div>
@@ -192,28 +270,8 @@
                 
                 <!-- 검색 결과 -->
                 <div class="container sch_result col-sm-12">
-                   <h3 class="search_result"><span>23</span>개의 검색 결과가 있습니다.<strong>(클릭시 해당 학교 홈페이지로 이동합니다.)</strong></h3>
-                    <ul class="list-group">
-                    
-                    
-                      <a href="http://www.snue.ac.kr" target="_blank" class="list-group-item sch_content" title="클릭하시면 홈페이지가 열립니다.">
-                         <span class="sch_name">서울교육대학교</span>
-                          <div class="row  sch_info">
-                              <div class="col-sm-5">
-                                  주소 : <span>서울특별시 서초구 서초동 1650번지</span>
-                              </div>
-                              <div class="col-sm-3">
-                                  학교종류 : <span>대학(4년제)</span>
-                              </div>
-                              <div class="col-sm-2">
-                                  설립유형 : <span>국립</span>
-                              </div>
-                              <div class="col-sm-2">
-                                  학교유형 : <span>교육대학</span>
-                              </div>
-                          </div>
-                          
-                      </a><!-- //sch_content -->
+                   <h3 class="search_result"><span class="totalCnt"></span>개의 검색 결과가 있습니다.<strong>(클릭시 해당 학교 홈페이지로 이동합니다.)</strong></h3>
+                    <ul class="list-group list_body">
 
                     </ul>
                 </div>
@@ -224,7 +282,7 @@
     </div>
 
  <%@ include file="../include/footer.jsp" %>
- 
+
  <script type="text/javascript">
  
 	 //폼 객체
@@ -245,21 +303,74 @@
 		//컨트롤러로 보낼 파라미터들
 		var formdata = form.serialize();
 		//alert(formdata);
-		
+		$(".list_body").empty();
 		$.ajax({
 			type:"POST",
 			url:'${ctx}/sch_info/search',
 			data:formdata, //전송할 파라미터
 		 	dataType:"json",
 			success:function(json){
-				alert("성공!");
+				//성공시
+
+				$(".totalCnt").text(json[0].totalcount);
+				
+ 				for(var i = 0 ; i < json.length ; i++){
+					
+					
+				$(".list_body")
+				.append($("<a href='"+json[i].link+"' target='_blank' class='list-group-item sch_content' title='클릭하시면 홈페이지가 열립니다.'>\
+						<span class='sch_name'>"+json[i].schoolname+"</span>\
+						<div class='row  sch_info'>\
+						<div class='col-sm-5'>\
+						주소 : <span>"+json[i].adres+"</span>\
+						</div>\
+						<div class='col-sm-3'>\
+						학교종류 : <span>"+json[i].schoolgubun+"</span>\
+						</div>\
+						<div class='col-sm-2'>\
+						설립유형 : <span>"+json[i].esttype+"</span>\
+						</div>\
+						<div class='col-sm-2'>\
+						학교유형 : <span>"+json[i].schooltype+"</span>\
+						</div>\
+						</div>\
+						</a>"));
+				
+				}
+
 			},
+			
 			error:function(xhr,error){
 				alert("실패!");
 			}
 		});
+		
+	})//button
+
+	
+	//학교종류 선택시
+	$(":input[name=sch1]").click(function(){
+	var value =	$(this).val();
+	
+	if(value=="100322"){
+		
+		//전문대학 선택시
+		$(".category_list .college").css("display","block");
+		$(".category_list .univ").css("display","none");
+		
+	}else if(value=="100323"){
+		//4년제  선택
+		$(".category_list .univ").css("display","block");
+		$(".category_list .college").css("display","none");
+	}else{
+		//전체선택시
+		$(".category_list .univ").css("display","block");
+		$(".category_list .college").css("display","block");
+	}
+		
 	})
  </script>
+
 </body>
 
 </html>

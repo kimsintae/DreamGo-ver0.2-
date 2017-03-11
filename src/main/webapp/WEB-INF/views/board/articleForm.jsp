@@ -10,8 +10,9 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="../resources/css/main.css?v=1">
   <link rel="stylesheet" href="../resources/css/writeForm.css?v=1">
-  <link rel="stylesheet" href="${ctx}/resources/editor/css/editor.css" type="text/css" charset="utf-8"/>
-  <script src="${ctx}/resources/editor/js/editor_loader.js" type="text/javascript" charset="utf-8"></script>
+  
+  <link rel="stylesheet" href="${ctx}/resources/editor/css/editor.css?v=3" type="text/css" charset="utf-8"/>
+  <script src="${ctx}/resources/editor/js/editor_loader.js?v=3" type="text/javascript" charset="utf-8"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -55,7 +56,7 @@
 	                    <div class="col-sm-12 editor_box">
 	                   
 	                    	<!-- 에디터 삽입 -->
-	                         <jsp:include page="/WEB-INF/views/include/editor_frame.jsp"></jsp:include>
+	                         <jsp:include page="/WEB-INF/views/dream_editor/editor_frame.jsp"></jsp:include>
 		                       	<script type="text/javascript">
 		                       	
 		                       	//받아온 글이 존재한다면 (수정)
@@ -67,7 +68,7 @@
 		            				
 		            				
 		            				//컨텐츠 가져오기 호출
-		            				loadContent();
+		            				//loadContent();
 		            			}
 		                       	</script>
 	                       
