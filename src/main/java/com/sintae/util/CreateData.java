@@ -30,9 +30,8 @@ public class CreateData {
 			
 			//xml 파싱
 			Document doc = Jsoup.parse(new URL(url).openStream(),"UTF-8","",Parser.xmlParser());
-			
-			
-			//content 뽑아오기
+
+				//content 뽑아오기
 			Elements eles = doc.select("content");
 	
 			for(Element ele : eles){

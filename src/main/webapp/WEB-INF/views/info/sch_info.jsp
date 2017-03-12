@@ -12,7 +12,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="../resources/js/tabs.js?v=1"></script>
     <link rel="stylesheet" href="../resources/css/sch_info.css?v=1" />
-
+	
 </head>
 
 <body>
@@ -113,7 +113,7 @@
                               <div class="row first_opt">
                               <%@ include file="../include/region.jsp" %>
                               </div>
-                             <h3>학교유형 :</h3> 
+                             <h3>학교종류 :</h3> 
                               <div class="row sec_opt">
                               <%@ include file="../include/high_opt.jsp" %>
                               </div>       
@@ -269,10 +269,9 @@
                 </div><!--// uni_sh-->
                 
                 <!-- 검색 결과 -->
-                <div class="container sch_result col-sm-12">
+                <div class="container sch_result col-sm-12" style="display:none;">
                    <h3 class="search_result"><span class="totalCnt"></span>개의 검색 결과가 있습니다.<strong>(클릭시 해당 학교 홈페이지로 이동합니다.)</strong></h3>
                     <ul class="list-group list_body">
-
                     </ul>
                 </div>
             </div>
@@ -302,7 +301,6 @@
 		
 		//컨트롤러로 보낼 파라미터들
 		var formdata = form.serialize();
-		//alert(formdata);
 		$(".list_body").empty();
 		$.ajax({
 			type:"POST",
@@ -311,33 +309,48 @@
 		 	dataType:"json",
 			success:function(json){
 				//성공시
-
+				
+				//학교 종류 선택시 사라졌던 태그들 초기화
+				$(".esttype,.schooltype,.schoolgubun").show();
+				
+				//총 결과수
 				$(".totalCnt").text(json[0].totalcount);
-				
- 				for(var i = 0 ; i < json.length ; i++){
+				var esttype = json[0].esttype;
+				var schooltype = json[0].schooltype;
+ 
+				for(var i = 0 ; i < json.length ; i++){
+	 				//결과
+					$(".list_body")
+					.append($("<a href='"+json[i].link+"' target='_blank' class='list-group-item sch_content' title='클릭하시면 홈페이지가 열립니다.'>\
+							<span class='sch_name'>"+json[i].schoolname+"</span>\
+							<div class='row  sch_info'>\
+								<div class='col-sm-5 adres'>\
+								주소 : <span>"+json[i].adres+"</span>\
+								</div>\
+								<div class='col-sm-3 schoolgubun'>\
+								학교종류 : <span>"+json[i].schoolgubun+"</span>\
+								</div>\
+								<div class='col-sm-2 esttype'>\
+								설립유형 : <span>"+json[i].esttype+"</span>\
+								</div>\
+								<div class='col-sm-2 schooltype'>\
+								학교유형 : <span>"+json[i].schooltype+"</span>\
+								</div>\
+							</div>\
+							</a>"));
 					
-					
-				$(".list_body")
-				.append($("<a href='"+json[i].link+"' target='_blank' class='list-group-item sch_content' title='클릭하시면 홈페이지가 열립니다.'>\
-						<span class='sch_name'>"+json[i].schoolname+"</span>\
-						<div class='row  sch_info'>\
-						<div class='col-sm-5'>\
-						주소 : <span>"+json[i].adres+"</span>\
-						</div>\
-						<div class='col-sm-3'>\
-						학교종류 : <span>"+json[i].schoolgubun+"</span>\
-						</div>\
-						<div class='col-sm-2'>\
-						설립유형 : <span>"+json[i].esttype+"</span>\
-						</div>\
-						<div class='col-sm-2'>\
-						학교유형 : <span>"+json[i].schooltype+"</span>\
-						</div>\
-						</div>\
-						</a>"));
+					}//for
 				
+				if(esttype=='null'){
+					//초,중학교
+					$(".esttype,.schooltype,.schoolgubun").hide();
+					
+					//고등학교
+					if(schooltype!=undefined){$(".schooltype").show();}
 				}
-
+				
+ 				
+ 				$(".sch_result").show();	
 			},
 			
 			error:function(xhr,error){

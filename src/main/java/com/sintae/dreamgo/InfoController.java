@@ -89,7 +89,7 @@ public class InfoController {
 			@RequestParam(value="est", defaultValue="") String est,
 			@RequestParam(value="thisPage", defaultValue="1") int thisPage){
 		
-		//if(region.equals("list")||sch1.equals("list")||est.equals("list")){region="";}
+		
 		logger.info("sch_search() is called " );
 		logger.info("넘어온 gubun : "+gubun);
 		logger.info("넘어온 region : "+region);
