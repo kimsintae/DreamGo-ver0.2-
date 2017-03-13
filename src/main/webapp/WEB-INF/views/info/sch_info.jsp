@@ -256,13 +256,14 @@
 		switch(btnId){
 		
 			//이전버튼 클릭시	
-			case 'prev' :thisPage=startPage-1; 
+			case 'prev' :thisPage=startPage-1; 						 
 			 			 sch_ajax(formData);
 						 break;
 		
 				 
 			//다음버튼 클릭시
 			case 'next' :thisPage=endPage+1;
+			alert("다음버튼"+ thisPage);
 						 sch_ajax(formData);
 						 break; 
 
@@ -286,6 +287,11 @@
 				
 				//성공시
 				//alert(json.pagination);
+				
+				//다음_이전 버튼을 위한 페이지번호 초기화
+				endPage = json.pka.endPage;
+				startPage = json.pka.startPage;
+				
 
 				
 				//success 안에서 empty를 시켜야 
