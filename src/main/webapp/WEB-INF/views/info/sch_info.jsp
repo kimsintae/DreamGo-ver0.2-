@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +14,28 @@
     <script src="../resources/js/tabs.js?v=1"></script>
     <script src="../resources/js/sch_info.js?v=1"></script>
     <link rel="stylesheet" href="../resources/css/sch_info.css?v=1" />
+
+
+<style type="text/css">
+.sch_pager{
+	border: 1px solid #424242;
+	text-align: center;
+}
+.sch_pager span:hover{
+	cursor: pointer;
 	
+}
+.sch_pager span{
+	font-size: 20px;
+	padding: 0 5px;
+}
+.active{
+	color: red;
+	font-weight: bold;
+	
+}
+
+</style>	
 </head>
 
 <body>
@@ -164,6 +186,15 @@
                    <h3 class="search_result"><span class="totalCnt"></span>개의 검색 결과가 있습니다.<strong>(클릭시 해당 학교 홈페이지로 이동합니다.)</strong></h3>
                     <ul class="list-group list_body">
                     </ul>
+
+				<!-- pagination -->         
+					           
+                    <div class="row col-sm-12">
+                    	<div class="col-sm-3"></div>
+                    	<div class="pagination sch_pager col-sm-6">
+						</div>
+                   		 <div class="col-sm-3"></div>
+                    </div>
                 </div>
             </div>
             <div class="col-sm-1 sidenav"></div>
@@ -182,56 +213,120 @@
 	
 	var forms = [ele_sh_form,mid_sh_form,high_sh_form,uni_sh_form];
 
+	var formData;//전역변수로 선언한 폼데이터
+	
+	var $list_body = $(".list_body");
+	var $sch_pager = $(".sch_pager");
+	
+	var startPage;
+	var endPage;
+	var thisPage;//현재 클릭한 페이지 번호
+	//검색버튼클릭시
 	$(".btn-block").click(function(){
-		
+	
 		//alert("test");			
 		var idx = $(this).attr("title");		
-		var form = forms[idx];
-	
-		
+		var form = forms[idx];		
 		//컨트롤러로 보낼 파라미터들
-		var formdata = form.serialize();
-		$(".list_body").empty();
+		formData = form.serialize();
+		
+		//버튼 검색은
+		//재검색을 의미하니까
+		//thisPage를 초기화 시켜줘야한다.
+		//이전 검색에서 30페이지에 있었으면
+		//thisPage가 30으로 재검색을 하게 되니까
+		
+		thisPage=1;
+		
+		//ajax 호출
+		sch_ajax(formData);
+	
+	})//button
+	
+	
+	
+	
+	//페이지번호클릭시
+
+	$(".sch_pager").on('click','span',function(){
+
+		var btnId = $(this).attr('id');
+
+		
+		switch(btnId){
+		
+			//이전버튼 클릭시	
+			case 'prev' :thisPage=startPage-1; 
+			 			 sch_ajax(formData);
+						 break;
+		
+				 
+			//다음버튼 클릭시
+			case 'next' :thisPage=endPage+1;
+						 sch_ajax(formData);
+						 break; 
+
+			//번호 클릭시
+			default :thisPage = $(this).text();
+					 sch_ajax(formData);
+					 break;
+		}
+	});
+
+	//ajax
+	function sch_ajax(formData){
+
 		$.ajax({
 			type:"POST",
-			url:'${ctx}/sch_info/search',
-			data:formdata, //전송할 파라미터
+			url:'${ctx}/sch_info/search?thisPage='+thisPage,
+			data:formData,//전송할 파라미터
 		 	dataType:"json",
 			success:function(json){
+				startPage = json.pka.startPage;
+				endPage = json.pka.endPage;
+				//success 안에서 empty를 시켜야 
+				//html 리로딩 현상이 안보인다
+		 		$(".list_body").empty();
+				$(".sch_pager").empty();
 				//성공시
-				
+			//	alert(json.pka.thisPage);
 				//학교 종류 선택시 사라졌던 태그들 초기화
 				$(".esttype,.schooltype,.schoolgubun").show();
 				
 				//총 결과수
-				$(".totalCnt").text(json[0].totalcount);
-				var esttype = json[0].esttype;
-				var schooltype = json[0].schooltype;
+				$(".totalCnt").text(json.data[0].totalcount);
+				
+				
+				
+				var esttype = json.data[0].esttype;
+				var schooltype = json.data[0].schooltype;
 
-				for(var i = 0 ; i < json.length ; i++){
+				for(var i = 0 ; i < json.data.length ; i++){
+					
+					
 	 				//결과
-					$(".list_body")
-					.append($("<a href='"+json[i].link+"' target='_blank' class='list-group-item sch_content' title='클릭하시면 홈페이지가 열립니다.'>\
-							<span class='sch_name'>"+json[i].schoolname+"</span>\
+					$list_body
+					.append($("<a href='"+json.data[i].link+"' target='_blank' class='list-group-item sch_content' title='클릭하시면 홈페이지가 열립니다.'>\
+							<span class='sch_name'>"+json.data[i].schoolname+"</span>\
 							<div class='row  sch_info'>\
 								<div class='col-sm-5 adres'>\
-								주소 : <span>"+json[i].adres+"</span>\
+								주소 : <span>"+json.data[i].adres+"</span>\
 								</div>\
 								<div class='col-sm-3 schoolgubun'>\
-								학교종류 : <span>"+json[i].schoolgubun+"</span>\
+								학교종류 : <span>"+json.data[i].schoolgubun+"</span>\
 								</div>\
 								<div class='col-sm-2 esttype'>\
-								설립유형 : <span>"+json[i].esttype+"</span>\
+								설립유형 : <span>"+json.data[i].esttype+"</span>\
 								</div>\
 								<div class='col-sm-2 schooltype'>\
-								학교유형 : <span>"+json[i].schooltype+"</span>\
+								학교유형 : <span>"+json.data[i].schooltype+"</span>\
 								</div>\
 							</div>\
 							</a>"));
 					
 					}//for
-				
-				if(esttype=='null'){
+	
+				if(esttype==''){
 					//초,중학교
 					$(".esttype,.schooltype,.schoolgubun").hide();
 					
@@ -240,17 +335,54 @@
 				}
 				
 				
+				//pagination
+ 				makePage(json.pka.prev,
+						json.pka.next,
+						startPage,
+						endPage,
+						json.pka.thisPage);
+					
 				$(".sch_result").show();	
 			},
 			
 			error:function(xhr,error){
 				alert("실패!");
 			}
-		});
+		});//ajax
+	}
+
+	
+	
+	
+	
+	
+	//페이징처리
+	function makePage(pre,next,startPage,endPage,thisPage){
 		
-	})//button
+		//이전페이지가 존재할 경우
+		if(pre){
+			$sch_pager.append($("<span class='glyphicon glyphicon-step-backward' id='prev'></span>"));
+		}
+		
+		
+ 		//페이지번호
+ 		//현재 페이지와 i가 같으면 active를 추가해 현재페이지를 나타냄
+		for(var i = startPage;i<=endPage;i++){			
+			console.log(i);
+			
+			$sch_pager.append($("<span class='"+(thisPage==i?'active':'pageNum')+"'>"+i+"</span>"));
+			
+		}
+		 
 
-
+		//다음페이지가 존재할 경우
+		if(next&&endPage>0){
+			$sch_pager.append($("<span class='glyphicon glyphicon-step-forward' id='next'></span>"));
+		}
+	}//makePage;
+	
+	
+	
 </script>
 </body>
 

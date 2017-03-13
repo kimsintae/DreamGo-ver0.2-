@@ -18,7 +18,7 @@
         .sch_name{
             font-size: 20px;
         }
-/* 탭 스타일 */
+/* �꺆 �뒪���씪 */
 
 div.tab {
     overflow: hidden;
@@ -27,7 +27,7 @@ div.tab {
 }
 
 
-/* 메인 탭 */
+/* 硫붿씤 �꺆 */
 
 div.tab .tab-menu {
     float: left;
@@ -79,9 +79,9 @@ div.tab .tab-menu:hover {
     margin: 20px 0;
 }
 
-/* // 탭 스타일 */
+/* // �꺆 �뒪���씪 */
 
-/* 결과 탭 스타일 */
+/* 寃곌낵 �꺆 �뒪���씪 */
 .result-tab-wrap{
     margin: 30px 0;
 }
@@ -98,4 +98,11 @@ div.tab .tab-menu:hover {
 
 
 
-/* // 결과 탭 스타일*/
+/* // 寃곌낵 �꺆 �뒪���씪*/
+
+/* pagination*/
+
+.sch_pager{
+	font-size:15px;
+	
+}

@@ -1,13 +1,20 @@
 package com.sintae.dreamgo;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.parser.Parser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,12 +23,14 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.sintae.util.CreateData;
+import com.sintae.util.PageMakerAjax;
 
 @Controller
 public class InfoController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(InfoController.class);
 	private static final String APIKEY = "0e3a27591319ce0e97e4e3ec62077e8d";
+	
 	//intro !
 	@RequestMapping("/intro")
 	public String intro(){
@@ -82,20 +91,13 @@ public class InfoController {
 	
 	//perform logic for school information
 	@RequestMapping(value="/sch_info/search", method= RequestMethod.POST)
-	public @ResponseBody List<Map<String, String>> sch_search(@RequestParam("gubun") String gubun,
+	public @ResponseBody Map<Object, Object> sch_search(@RequestParam("gubun") String gubun,
 			@RequestParam("region") String region,
 			@RequestParam(value="sch1", defaultValue="") String sch1,
 			@RequestParam(value="sch2", defaultValue="") String sch2,
 			@RequestParam(value="est", defaultValue="") String est,
-			@RequestParam(value="thisPage", defaultValue="1") int thisPage){
-		
-		
-		logger.info("sch_search() is called " );
-		logger.info("넘어온 gubun : "+gubun);
-		logger.info("넘어온 region : "+region);
-		logger.info("넘어온 sch1 : "+sch1);
-		logger.info("넘어온 est : "+est);
-		
+			@RequestParam(value="thisPage", defaultValue="1") int thisPage,
+			Model model){
 		
 		//오픈api에서 데이터를 받아올 URL 주소
 		UriComponents createURL =UriComponentsBuilder.newInstance()
@@ -114,9 +116,41 @@ public class InfoController {
 				.build();
 		String url = createURL.toString();
 		logger.info(url);
+
+		//xml 파싱
 		
-		return CreateData.createDATA(url);
-	
+		try {
+			
+			Document doc = Jsoup.parse(new URL(url).openStream(),
+					"UTF-8",
+					"",
+					Parser.xmlParser());
+			String totalCount=doc.select("content").select("totalCount").text();
+			PageMakerAjax pka = new PageMakerAjax();
+			pka.setThisPage(thisPage);
+			pka.setPerPageNum(10);
+			pka.setTotalCount(totalCount.isEmpty()?0:Integer.parseInt(totalCount));
+			
+			model.addAttribute("pka", pka);
+			
+			Map<Object, Object> map = new HashMap<Object, Object>();
+			
+			map.put("data",CreateData.createDATA(doc));
+			map.put("pka", pka);
+			
+			
+			return map;
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+		
+		return null;
 	}
 
 }
