@@ -137,7 +137,8 @@ public class InfoController {
 			
 			map.put("data",CreateData.createDATA(doc));
 			map.put("pka", pka);
-			
+			map.put("pagination",pka.getPagination());
+
 			
 			return map;
 		} catch (MalformedURLException e) {

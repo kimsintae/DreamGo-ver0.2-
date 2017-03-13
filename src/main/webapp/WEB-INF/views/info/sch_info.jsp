@@ -221,7 +221,10 @@
 	var startPage;
 	var endPage;
 	var thisPage;//현재 클릭한 페이지 번호
-	//검색버튼클릭시
+	
+	
+	
+	//학교 검색버튼클릭시
 	$(".btn-block").click(function(){
 	
 		//alert("test");			
@@ -243,11 +246,8 @@
 	
 	})//button
 	
-	
-	
-	
-	//페이지번호클릭시
 
+	//페이지번호클릭시
 	$(".sch_pager").on('click','span',function(){
 
 		var btnId = $(this).attr('id');
@@ -282,14 +282,17 @@
 			data:formData,//전송할 파라미터
 		 	dataType:"json",
 			success:function(json){
-				startPage = json.pka.startPage;
-				endPage = json.pka.endPage;
+				
+				
+				//성공시
+				//alert(json.pagination);
+
+				
 				//success 안에서 empty를 시켜야 
 				//html 리로딩 현상이 안보인다
 		 		$(".list_body").empty();
 				$(".sch_pager").empty();
-				//성공시
-			//	alert(json.pka.thisPage);
+
 				//학교 종류 선택시 사라졌던 태그들 초기화
 				$(".esttype,.schooltype,.schoolgubun").show();
 				
@@ -335,12 +338,8 @@
 				}
 				
 				
-				//pagination
- 				makePage(json.pka.prev,
-						json.pka.next,
-						startPage,
-						endPage,
-						json.pka.thisPage);
+				//paginate 불러오기
+				$sch_pager.append(json.pagination);
 					
 				$(".sch_result").show();	
 			},
@@ -351,37 +350,6 @@
 		});//ajax
 	}
 
-	
-	
-	
-	
-	
-	//페이징처리
-	function makePage(pre,next,startPage,endPage,thisPage){
-		
-		//이전페이지가 존재할 경우
-		if(pre){
-			$sch_pager.append($("<span class='glyphicon glyphicon-step-backward' id='prev'></span>"));
-		}
-		
-		
- 		//페이지번호
- 		//현재 페이지와 i가 같으면 active를 추가해 현재페이지를 나타냄
-		for(var i = startPage;i<=endPage;i++){			
-			console.log(i);
-			
-			$sch_pager.append($("<span class='"+(thisPage==i?'active':'pageNum')+"'>"+i+"</span>"));
-			
-		}
-		 
-
-		//다음페이지가 존재할 경우
-		if(next&&endPage>0){
-			$sch_pager.append($("<span class='glyphicon glyphicon-step-forward' id='next'></span>"));
-		}
-	}//makePage;
-	
-	
 	
 </script>
 </body>
