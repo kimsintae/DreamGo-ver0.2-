@@ -9,7 +9,8 @@ public class PageMakerAjax {
 	private boolean next; // 다음
 	private int thisPage; // 현재 페이지
 	
-	private int perPageNum; //페이지당 보여질 게시글 수
+	private int perPageNum;
+	private int displayNum = 5; //한블럭당 페이지 수 10이면 10페이지까지 보여짐 & 게시글 수
 
 	
 	public int getThisPage() {
@@ -17,9 +18,6 @@ public class PageMakerAjax {
 	}
 	public void setThisPage(int thisPage) {
 		this.thisPage = thisPage;
-	}
-	public int getPerPageNum() {
-		return perPageNum;
 	}
 	public void setPerPageNum(int perPageNum) {
 		this.perPageNum = perPageNum;
@@ -57,8 +55,8 @@ public class PageMakerAjax {
 	}
 	
 	private void calcData(){
-		endPage = (int)(Math.ceil(thisPage/(double)perPageNum)*perPageNum);
-		startPage = (endPage-perPageNum)+1;
+		endPage = (int)(Math.ceil(thisPage/(double)displayNum)*displayNum);
+		startPage = (endPage-displayNum)+1;
 		int tempEndPage = (int)(Math.ceil(totalCount/(double)perPageNum));
 
 		if(endPage>tempEndPage){
@@ -74,7 +72,7 @@ public class PageMakerAjax {
 		StringBuffer sb = new StringBuffer();
 		//이전페이지가 존재할 경우
 		if(prev){
-			sb.append("<span class='glyphicon glyphicon-step-backward' id='prev'></span>");
+			sb.append("<li><span class='glyphicon glyphicon-step-backward' id='prev'></span></li>");
 			sb.append("\n");
 		}
 		
@@ -90,7 +88,7 @@ public class PageMakerAjax {
 			}else{
 				spanClas="pageNum";
 			}
-			sb.append("<span class='"+spanClas+"'>"+i+"</span>");
+			sb.append("<li><span class='"+spanClas+"'>"+i+"</span></li>");
 			sb.append("\n");
 			
 		}
@@ -98,7 +96,7 @@ public class PageMakerAjax {
 
 		//다음페이지가 존재할 경우
 		if(next&&endPage>0){
-			sb.append("<span class='glyphicon glyphicon-step-forward' id='next'></span>");
+			sb.append("<li><span class='glyphicon glyphicon-step-forward' id='next'></span></li>");
 		}
 		
 		return sb.toString();

@@ -1,5 +1,8 @@
 
         $(document).ready(function () {
+        	var formData;
+        	
+        	
             $('.sch_opt').click(function () {
                  
                 var id = $(this).attr("id");
@@ -25,21 +28,6 @@
                 }else{
                  $("<input type='hidden' value='' name='gubun' id='depar_list'/>"); 
                 }
-            })
-            
-            
-            //버튼 클릭시 만약에 학교종류를 선택하지 않았을경우
-            $(".search_btn").click(function(){
-                
-                //선택 안했을 경우
-                if($("input[name='gubun']").val()==""){
-                    alert("학교 종류를 선택해 주세요");
-                    return;
-                }
-                //선택 했으면 전송
-                $("#depar_Form").submit();
-            });
-            
-            
+            })    
         });//ready
 

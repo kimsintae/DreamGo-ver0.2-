@@ -17,24 +17,7 @@
 
 
 <style type="text/css">
-.sch_pager{
-	border: 1px solid #424242;
-	text-align: center;
-}
-.sch_pager span:hover{
-	cursor: pointer;
-	
-}
-.sch_pager span{
-	font-size: 20px;
-	padding: 0 5px;
-}
-.active{
-	color: red;
-	font-weight: bold;
-	
-}
-
+.sch_pager span:hover{cursor: pointer;}
 </style>	
 </head>
 
@@ -191,8 +174,8 @@
 					           
                     <div class="row col-sm-12">
                     	<div class="col-sm-3"></div>
-                    	<div class="pagination sch_pager col-sm-6">
-						</div>
+                    	<ul class="pagination sch_pager col-sm-6">
+						</ul>
                    		 <div class="col-sm-3"></div>
                     </div>
                 </div>
@@ -263,7 +246,6 @@
 				 
 			//다음버튼 클릭시
 			case 'next' :thisPage=endPage+1;
-			alert("다음버튼"+ thisPage);
 						 sch_ajax(formData);
 						 break; 
 

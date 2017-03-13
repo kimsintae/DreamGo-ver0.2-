@@ -8,11 +8,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../resources/css/main.css?v=1">
-  <link rel="stylesheet" href="../resources/css/writeForm.css?v=1">
+  <link rel="stylesheet" href="${ctx}/resources/css/main.css?v=1">
+  <link rel="stylesheet" href="${ctx}/resources/css/writeForm.css?v=1">
   
-  <link rel="stylesheet" href="${ctx}/resources/editor/css/editor.css?v=3" type="text/css" charset="utf-8"/>
-  <script src="${ctx}/resources/editor/js/editor_loader.js?v=3" type="text/javascript" charset="utf-8"></script>
+  <link rel="stylesheet" href="${ctx}/resources/editor/css/editor.css?v=1" type="text/css" charset="utf-8"/>
+  <script src="${ctx}/resources/editor/js/editor_loader.js?v=1" type="text/javascript" charset="utf-8"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
