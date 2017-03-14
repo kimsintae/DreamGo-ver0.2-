@@ -5,7 +5,7 @@
 <html lang="en">
 
 <head>
-    <title>Dream Go!</title>
+    <title>학교정보</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -298,7 +298,7 @@
 	 				//결과
 					$list_body
 					.append($("<a href='"+json.data[i].link+"' target='_blank' class='list-group-item sch_content' title='클릭하시면 홈페이지가 열립니다.'>\
-							<span class='sch_name'>"+json.data[i].schoolname+"</span>\
+							<span class='sch_name'>"+json.data[i].schoolname+"</span> <span class='campus'>- [ "+json.data[i].campusname+"]</span>\
 							<div class='row  sch_info'>\
 								<div class='col-sm-5 adres'>\
 								주소 : <span>"+json.data[i].adres+"</span>\
@@ -317,9 +317,11 @@
 					
 					}//for
 	
+					
+				//학교종류별 보여지는 결과옵션
 				if(esttype==''){
 					//초,중학교
-					$(".esttype,.schooltype,.schoolgubun").hide();
+					$(".esttype,.schooltype,.schoolgubun,.campus").hide();
 					
 					//고등학교
 					if(schooltype!=undefined){$(".schooltype").show();}

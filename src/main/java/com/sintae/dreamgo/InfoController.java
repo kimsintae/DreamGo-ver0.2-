@@ -105,61 +105,40 @@ public class InfoController {
 			@RequestParam(value="thisPage", defaultValue="1") int thisPage,
 			Model model){
 		
-		//오픈api에서 데이터를 받아올 URL 주소
-		UriComponents createURL =UriComponentsBuilder.newInstance()
-				.path(gURL)
-				.queryParam("apiKey", APIKEY)
-				.queryParam("svcType", svcType)
-				.queryParam("svcCode", "SCHOOL")
-				.queryParam("contentType", contentType)
-				.queryParam("gubun", gubun)//구분
-				.queryParam("region", region)// 지역
-				.queryParam("sch1", sch1)// 학교종류
-				.queryParam("sch2", sch2)// 학교유형
-				.queryParam("est", est)// 설집유형
-				.queryParam("thisPage", thisPage) //현재 페이지
-				.queryParam("perPage", 10)//페이지당 보여질 결과수
-				.build();
-		String url = createURL.toString();
-		logger.info(url);
-
-	
+		//오픈api에서 데이터를 받아올 URL 주소		
+		String url = globalURL+""
+				+ "svcCode=SCHOOL&"
+				+ "gubun="+gubun+"&"
+				+ "region="+region+"&"
+				+ "sch1="+sch1+"&"
+				+ "sch2="+sch2+"&"
+				+ "est="+est+"&"
+				+ "thisPage="+thisPage+"&"
+				+ "perPage=10";
 		
-		try {
-			
-			//xml파싱해서 객체 얻기
-			Document doc = Jsoup.parse(new URL(url).openStream(),
-					"UTF-8",
-					"",
-					Parser.xmlParser());
-			
-			//totalCount 얻기
-			String totalCount=doc.select("content").select("totalCount").text();
+		logger.info(url);
+		
+			//데이터 뽑아오기
+			List<Map<String, String>> dataList = CreateData.createDATA(url);
+
+			int totalCount = CreateData.getTotalCount();
 			
 			//페이징 객체 
 			PageMakerAjax pka = new PageMakerAjax();
 			pka.setThisPage(thisPage);
 			pka.setPerPageNum(10);
-			pka.setTotalCount(totalCount.isEmpty()?0:Integer.parseInt(totalCount));
+			pka.setTotalCount(totalCount==0?0:totalCount);
 			
 			
 			
 			Map<Object, Object> map = new HashMap<Object, Object>();
 			
-			map.put("data",CreateData.createDATA(doc));//데이터담기
+			
+			map.put("data",dataList);//데이터담기
 			map.put("pka", pka);//페이징객체 넘기기
 			map.put("pagination",pka.getPagination());// pagination HTML 보내기
 
-			
-			return map;
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-		return null;
+		return map;
 	}//sch_search
 	
 	
@@ -169,39 +148,28 @@ public class InfoController {
 	public @ResponseBody Map<Object, Object> dep_search(@RequestParam("gubun")String gubun,
 			@RequestParam("subject") String subject,
 			@RequestParam(value="thisPage",defaultValue="1") int thisPage){
+		
 		logger.info("dep_search called!!");
-		
-		
-		UriComponents createURL =UriComponentsBuilder.newInstance()
-				.path(gURL)
-				.queryParam("apiKey", APIKEY)
-				.queryParam("svcType", svcType)
-				.queryParam("svcCode", "MAJOR")
-				.queryParam("contentType", contentType)
-				.queryParam("gubun", gubun)//구분
-				.queryParam("subject", subject)//계열
-				.queryParam("thisPage", thisPage) //현재 페이지
-				.queryParam("perPage", 10)//페이지당 보여질 결과수
-				.build();
-		
-		String url = createURL.toString();
+	
+		//url
+		String url = globalURL+""
+				+ "svcCode=MAJOR&"
+				+ "gubun="+gubun+"&"
+				+ "subject="+subject+"&"
+				+ "thisPage="+thisPage+"&"
+				+ "perPage=10";
 		logger.info(url);
+
+		//데이터 뽑아오기
+		List<Map<String, String>> dataList = CreateData.createDATA(url);
 		
-		try {
-			
-			Document doc = Jsoup.parse(new URL(url).openStream(),
-					"UTF-8",
-					"",
-					Parser.xmlParser());
-			
-			//totalCount 얻기
-			String totalCount=doc.select("content").select("totalCount").text();
-			
-			
+		//총 결과수
+		int totalCount = CreateData.getTotalCount();
+		
 			PageMakerAjax pka = new PageMakerAjax();
 			pka.setPerPageNum(10);
 			pka.setThisPage(thisPage);
-			pka.setTotalCount(totalCount.isEmpty()?0:Integer.parseInt(totalCount));
+			pka.setTotalCount(totalCount==0?0:totalCount);
 
 			System.out.println("페이징 객체 ======================");
 			System.out.println("startPage : "+pka.getStartPage());
@@ -214,58 +182,38 @@ public class InfoController {
 			Map<Object, Object> map = new HashMap<Object, Object>();
 			
 			
-			map.put("data", CreateData.createDATA(doc));
+			map.put("data", dataList);
 			map.put("pka",pka);
 			map.put("pagination", pka.getPagination());
 			return map;
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return null;
 	}
 	
 	
 	//perform logic for department_detail
 	@RequestMapping(value="/detail/{gubun}/{majorSeq}")
-	public String d_detail(@PathVariable int majorSeq,@PathVariable String gubun){
-		
-		
+	public String d_detail(@PathVariable int majorSeq,
+			@PathVariable String gubun,
+			Model model){
+				
 		//url
 		String url = globalURL+"svcCode=MAJOR_VIEW&"
 				+ "majorSeq="+majorSeq+"&"
 				+ "gubun="+gubun;
 		
 		logger.info(url);
-		
-		
-		try {
-			Document doc = Jsoup.parse(new URL(url).openStream(),
-					"UTF-8",
-					"",
-					Parser.xmlParser());
-			
 			//데이터 가져오기
-			System.out.println(CreateData.createDATA(doc));
+			//System.out.println(CreateData.createDATA(doc));
 			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("data", CreateData.createDATA(url));
 			
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+			model.addAttribute("data", map);
+			model.addAttribute("gubun", gubun);
 		
 		return "/info/dep_detail";
 		
 	}
 	
-	
+
 
 }

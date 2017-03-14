@@ -4,7 +4,7 @@
 <html lang="en">
 
 <head>
-    <title>Dream Go!</title>
+    <title>학과정보</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -13,28 +13,11 @@
     <script src="../resources/js/dep_info.js?v=2"></script>
     <link rel="stylesheet" href="../resources/css/dep_info.css?v=1"/>
 	<style type="text/css">
-	.progressWrap{
-		width: 100%;
-		height:100%;
-		position: fixed;
-		background: rgba(0,0,0,.2);
-		z-index:2;
-		display:none;
-	}
 	.dep_pager span:hover{cursor: pointer;}
 	</style>
 </head>
 <body>
  <%@ include file="../include/header.jsp" %>
- 	<div class="progressWrap">
-
-		<div class="progress">
-		  <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
-		  aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:40%">
-		    0% Complete (success)
-		  </div>
-		</div>
-	</div>	
     <div class="container-fluid text-center">
         <div class="row content">
             <div class="col-sm-1 sidenav"></div>
@@ -87,16 +70,11 @@
 <%@ include file="../include/footer.jsp" %>
 
 <script type="text/javascript">
-
-
-
-
 var formData;
 var thisPage=1;
 var endPage;
 var startPage;
 var gubun;
-
 
 //고등학교, 대학교를 선택시 input에 담아 파라미터로 보내기
 $(".sch_opt").click(function(){
@@ -177,6 +155,7 @@ function result(json){
 	$(".dep_pager").append(json.pagination);
 }
 
+//페이징 클릭시
 $(".dep_pager").on('click','span',function(){
 
 	var btnId = $(this).attr('id');
