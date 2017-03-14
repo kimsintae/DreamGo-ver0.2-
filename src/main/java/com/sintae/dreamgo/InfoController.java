@@ -119,7 +119,7 @@ public class InfoController {
 		logger.info(url);
 		
 			//데이터 뽑아오기
-			List<Map<String, String>> dataList = CreateData.createDATA(url);
+			List<Map<String, Object>> dataList = CreateData.createDATA(url,false);
 
 			int totalCount = CreateData.getTotalCount();
 			
@@ -161,7 +161,7 @@ public class InfoController {
 		logger.info(url);
 
 		//데이터 뽑아오기
-		List<Map<String, String>> dataList = CreateData.createDATA(url);
+		List<Map<String, Object>> dataList = CreateData.createDATA(url,false);
 		
 		//총 결과수
 		int totalCount = CreateData.getTotalCount();
@@ -200,16 +200,13 @@ public class InfoController {
 				+ "majorSeq="+majorSeq+"&"
 				+ "gubun="+gubun;
 		
-		logger.info(url);
-			//데이터 가져오기
-			//System.out.println(CreateData.createDATA(doc));
+			logger.info(url);
 			
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("data", CreateData.createDATA(url));
+			List<Map<String, Object>> data = CreateData.createDATA(url,true);
 			
-			model.addAttribute("data", map);
+			model.addAttribute("data",data);
 			model.addAttribute("gubun", gubun);
-		
+			System.out.println("최종적으로 보내질 데이터 : " +data);
 		return "/info/dep_detail";
 		
 	}

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,13 +14,12 @@
                 <!--상세 결과 탭 -->
                 <div class="container result-tab-wrap col-sm-12">
                 <div class="row dep_top">
-	                <div class="col-sm-7">
+	                <div class="col-sm-8">
 		                <div class="col-sm-4 major">
-		                <span>e-비즈니스과</span>
+		                <span>${data[1].major}</span>
 		                </div>
-
-	                	<div class="col-sm-3 salary">평균임금  <strong>130</strong> 만원 이상</div>     
-	                	<div class="col-sm-3 emp">취업률  <strong>60</strong> % 이상</div>	
+	                	<div class="col-sm-3 salary">평균임금  ${data[1].salary}</div>     
+	                	<div class="col-sm-3 emp">취업률  ${data[1].employment}</div>	
 	                </div>
 	                <div class="col-sm-4"></div>
               	</div>  
@@ -30,6 +30,7 @@
                         <a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'third_tab')">학과전망</a>
                         <a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'four_tab')">주요교과목</a>
                         <a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'five_tab')">개설대학</a>
+                        <a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'six_tab')">졸업후 진출분야</a>
                     </div>
 
                     <div id="first_tab" class="tabcontent">
@@ -39,9 +40,8 @@
                             </div>
                             <div class="col-sm-1"></div>
                             <div class="col-sm-9">
-                                e-비즈니스과는 인터넷 등장에 의한 e-비즈니스 패러다임과 가치사슬을 통합한 실무중심 교육 및 e-비즈니스 실무 운영자 양성을 목표로 특성화 된 학과입니다.
-                                <p>e-비즈니스과는 인터넷을 통해 수행되는 상품 및 금융의 거래, 기업홍보, 서비스 등의 모든 e-비즈니스 행위를 가장 효율적으로 수행할 수 있는 능력과 이를 효과적으로 유지하고 관리하기 위한 e-비즈니스 분야의 다양한 제반 문제를 해결할 수 있는 능력을 보유한 e-비즈니스 전문가 육성을 교육목표로 두고 있습니다.
-
+                            	
+                                ${data[1].summary}
                             </div>                                                                
                         </div>
                         <!--//sub_row-->
@@ -53,7 +53,7 @@
                             </div>
                             <div class="col-sm-1"></div>
                             <div class="col-sm-9">
-                                e-경영정보계열, 디지털경영학과, 쇼핑몰디자인창업과, 인터넷경영정보과, 인터넷비즈니스과, 인터넷상거래과, 인터넷쇼핑경영과, 인터넷쇼핑몰마케팅과, e-경영정보과, e-비즈니스경영과, e-비즈니스과, E-비즈니스과, e-비즈니스경영학과(학사학위전공심화과정), e-비즈니스과(인문사회계열), e-비즈니스학과(학사학위전공심화), e-비지니스과, e-비지니스전공
+								${data[1].department}
                             </div>
                         </div>
                         <!--//sub_row-->
@@ -64,12 +64,13 @@
                             </div>
                             <div class="col-sm-1"></div>
                             <div class="col-sm-9">
-                                <strong>60</strong> % 이상
+                                ${data[1].employment}
                             </div>
                         </div>
                         <!--//sub_row-->
 
                         <!-- 값 비어 있으면 아래 태그 삭제 -->
+                        <c:if test="${data[1].property!=''}">
                         <div class="row sub_row">
                             <div class="col-sm-12 text-left">
                                 학과특성
@@ -77,13 +78,16 @@
                             <div class="col-sm-1"></div>
                             <div class="col-sm-9">
                                 <p>
-
+                                
+								${data[1].property}
+                          
                                 </p>
                             </div>
                         </div>
                         <!--//sub_row-->
-
+      					</c:if>
                         <!-- 값 비어 있으면 아래 태그 삭제 -->
+                        <c:if test="${data[1].interest!=''}">
                         <div class="row sub_row">
                             <div class="col-sm-12 text-left">
                                 적성 및 흥미
@@ -91,11 +95,12 @@
                             <div class="col-sm-1"></div>
                             <div class="col-sm-9">
                                 <p>
-
+								${data[1].interest}
                                 </p>
                             </div>
                         </div>
                         <!--//sub_row-->
+                        </c:if>
 
                     </div>
 
@@ -106,7 +111,7 @@
                             </div>
                             <div class="col-sm-1"></div>
                             <div class="col-sm-9">
-                                웹마스터, 웹프로그래머, 전자상거래전문가, 웹기획자, 웹마케터
+                               ${data[1].job}
                             </div>
                         </div>
                         <!--//sub_row-->
@@ -117,7 +122,7 @@
                             </div>
                             <div class="col-sm-1"></div>
                             <div class="col-sm-9">
-                                사무자동화산업기사, 웹디자인기능사, 인터넷정보관리사, 전자상거래 관리사, 정보처리산업기사
+                                ${data[1].qualifications}
                             </div>
                         </div>
                         <!--//sub_row-->
@@ -456,26 +461,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
+									
+									<c:forEach var="subject" items="${data[0].main_subject}" >
                                         <!-- 얘를 반복문 돌리면 된다 -->
                                         <tr>
-                                            <td>경영정보시스템</td>
-                                            <td>기업경영과 정보기술이론, 의사결정지원시스켐, 실무사례분석, 경영정보시스템구축 방법에 대해 배웁니다.
+                                            <td>
+                                            	${subject.sbject_nm}
+                                            </td>
+                                            <td>
+                                            	${subject.sbject_sumry}
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>e-비즈니스시스템</td>
-                                            <td>e-비즈니스를 성공적으로 실행하기 위해서는 초고속 통신망 등의 정보화 기반시설, 물류시스템, 전문인력 등 물리적 인프라와 비즈니스 관행과 인식, 법률과 제도 등의 사회 제도적 인프라 그리고, 통신네트워크, 전자상거래 관련 응용기술, 보안/결제시스템, 기술표준 등의 기술적 인프라들을 중심으로 완성된 e-비즈니스시스템을 구성하므로, 이에 관한 일반화된 내용부터 심도 있는 부분까지를 학습합니다.
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>데이터베이스</td>
-                                            <td>e-비즈니스 구현에 필요한 데이터베이스의 기본개념과 활용방법을 학습합니다. 또한 사례 및 실습을 통하여 e-비즈니스의 각종 경영활동에 적용할 수 있는 데이터베이스의 설계, 응용 능력을 배양합니다.
-
-                                            </td>
-                                        </tr>
-
+									</c:forEach>
                                     </tbody>
                                 </table>
                             </div>
@@ -499,45 +496,50 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    <c:forEach var="university" items="${data[0].university}" >
                                         <tr>
-                                            <td>동양미래대학교</td>
-                                            <td>e-비즈니스과(인문사회계열)</td>
-                                            <td>서울특별시</td>
-                                            <td>본교</td>
+                                            <td>${university.schoolname}</td>
+                                            <td>${university.majorname}</td>
+                                            <td>${university.area}</td>
+                                            <td>${university.campus_nm}</td>
                                             <td class="text-center">
-                                                <a href="http://www.dongyang.ac.kr" target="_blank" class="glyphicon glyphicon-link"></a>
+                                                <a href='${university.schoolurl}' target="_blank" class="glyphicon glyphicon-link"></a>
                                             </td>
                                         </tr>
-
-                                        <tr>
-                                            <td>부산과학기술대학교</td>
-                                            <td>e-경영정보계열</td>
-                                            <td>부산광역시</td>
-                                            <td>본교</td>
-                                            <td class="text-center">
-                                                <a href="http://www.bist.ac.kr" target="_blank" class="glyphicon glyphicon-link"></a>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>경인여자대학교</td>
-                                            <td>e-비지니스과</td>
-                                            <td>인천광역시</td>
-                                            <td>본교</td>
-                                            <td class="text-center">
-                                                <a href="http://www.kic.ac.kr" target="_blank" class="glyphicon glyphicon-link"></a>
-                                            </td>
-                                        </tr>
+									</c:forEach>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                         <!--//sub_row-->
-
-                    </div>
-  
-                    <!--// 결과탭 -->
                 </div>
+
+                <div id="six_tab" class="tabcontent">
+                        <div class="row sub_row">
+                            <div class="col-sm-12">
+                                <table class="table table-striped subject_table">
+                                    <thead>
+                                        <tr>
+                                            <th>진출분야명</th>
+                                            <th>설명</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    	<c:forEach var="enter_field" items="${data[0].enter_field}">
+                                        <tr>
+                                            <td>${enter_field.gradeuate}</td>
+                                            <td>${enter_field.description}</td>
+                                        </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                     <!--//sub_row-->
+                    </div>
+     				
+     				
+     			<!--// 결과탭 -->
                 <div class="col-sm-1 sidenav"></div>
             </div>
 

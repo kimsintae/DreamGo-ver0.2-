@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,7 +31,19 @@
 
 <body onload="initTab();">
 <%@include file="../include/header.jsp" %>
+
+<!-- 대학의 검색결과이면 univ.jsp를 include함 -->
+<c:choose>
+<c:when test="${gubun=='univ_list'}">
+<%@include file="../include/dep_detail_univ.jsp" %>
+</c:when>
+<c:otherwise>
 <%@include file="../include/dep_detail_high.jsp" %>
+</c:otherwise>
+</c:choose>
+
+
+
 <%@include file="../include/footer.jsp" %>
 </body>
 
