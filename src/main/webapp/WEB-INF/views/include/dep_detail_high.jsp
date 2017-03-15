@@ -32,7 +32,7 @@
                             </div>
                             <div class="col-sm-1"></div>
                             <div class="col-sm-9">
-                                가정관리
+                                ${data[1].major}
                             </div>
                         </div>
                         <!--//sub_row-->
@@ -43,7 +43,7 @@
                             </div>
                             <div class="col-sm-1"></div>
                             <div class="col-sm-9">
-                                사회복지에 대한 욕구가 다양화, 세분화 되고 있는 사회의 변화에 대처하여 가정생활에 필요한 지식 및 기술뿐 아니라 복지서비스 분야의 기초적인 전문지식과 기술을 습득하여 관련분야에 종사할 전문인력 양성을 교육목표로 한다.
+			${data[1].summary}
                             </div>
                         </div>
                         <!--//sub_row-->

@@ -17,6 +17,7 @@
 	                <div class="col-sm-8">
 		                <div class="col-sm-4 major">
 		                <span>${data[1].major}</span>
+		                
 		                </div>
 	                	<div class="col-sm-3 salary">평균임금  ${data[1].salary}</div>     
 	                	<div class="col-sm-3 emp">취업률  ${data[1].employment}</div>	
@@ -163,17 +164,17 @@
                                             colorByPoint: true,
                                             data: [{
                                                 name: '진학자',
-                                                y: 5.9
-        }, {
-                                                name: '기타',
-                                                y: 34.8,
-                                                color: '#ff80ff'
-
-        }, {
-                                                name: '취업자',
-                                                y: 59.3
-        }]
-    }]
+                                                y: ${data[0].after_graduation[0].data}
+									        }, {
+									        	 name: '취업자',
+									             y: ${data[0].after_graduation[1].data},
+									        	color: '#ff80ff' 
+									        }, {
+									        	name: '기타',
+									            y: ${data[0].after_graduation[2].data},
+									                                             
+									        }]
+									    }]
                                     });
                                 </script>
 
@@ -209,28 +210,28 @@
                                             name: '비율',
                                             colorByPoint: true,
                                             data: [{
-                                                name: '식품·환경·농림어업·군인',
-                                                y: 2.8
-        }, {
-                                                name: '전기·전자·정보통신',
-                                                y: 4.2
-        }, {
-                                                name: '건설·기계·재료·화학·섬유',
-                                                y: 1.4
-        }, {
-                                                name: '운송·영업·판매·경비',
-                                                y: 25.4
-        }, {
-                                                name: '사회복지·문화·예술·방송',
-                                                y: 4.2
-        }, {
-                                                name: '교육·연구·법률·보건',
-                                                y: 2.8
-        }, {
-                                                name: '관리·경영·금융·보험',
-                                                y: 45.1
-        }]
-    }]
+                                                name: '${data[0].field[0].item}',
+                                                y: ${data[0].field[0].data}
+									        }, {
+									        	name: '${data[0].field[1].item}',
+									            y: ${data[0].field[1].data}
+									        }, {
+									        	name: '${data[0].field[2].item}',
+									            y: ${data[0].field[2].data}
+									        }, {
+									        	name: '${data[0].field[3].item}',
+									            y: ${data[0].field[3].data}
+									        }, {
+									        	name: '${data[0].field[4].item}',
+									            y: ${data[0].field[4].data}
+									        }, {
+									        	name: '${data[0].field[5].item}',
+									            y: ${data[0].field[5].data}
+									        }, {
+									        	name: '${data[0].field[6].item}',
+									            y: ${data[0].field[6].data}
+									        }]
+									    }]
                                     });
                                 </script>
 
@@ -268,22 +269,22 @@
                                             colorByPoint: true,
                                             data: [{
                                                 name: '0~50만원',
-                                                y: 0
+                                                y: ${data[0].avg_salary[0].data}
         }, {
                                                 name: '51~100만원',
-                                                y: 17.9
+                                                y: ${data[0].avg_salary[1].data}
         }, {
                                                 name: '101~150만원',
-                                                y: 50.7
+                                                y: ${data[0].avg_salary[2].data}
         }, {
                                                 name: '151~200만원',
-                                                y: 26.9
+                                                y: ${data[0].avg_salary[3].data}
         }, {
                                                 name: '201~250만원',
-                                                y: 0
+                                                y: ${data[0].avg_salary[4].data}
         }, {
                                                 name: '251~300만원',
-                                                y: 1.5
+                                                y: ${data[0].avg_salary[5].data}
         }, {
                                                 name: '301만원 이상',
                                                 y: 3
@@ -329,21 +330,21 @@
                                             colorByPoint: true,
                                             data: [{
                                                 name: '매우 불만족',
-                                                y: 5.6
-        }, {
+                                                y: ${data[0].satisfaction[0].data}
+       										}, {
                                                 name: '불만족',
-                                                y: 19.7
-        }, {
+                                                y: ${data[0].satisfaction[1].data}
+      										}, {
                                                 name: '보통',
-                                                y: 47.9
-        }, {
+                                                y: ${data[0].satisfaction[2].data}
+											}, {
                                                 name: '만족',
-                                                y: 23.9
-        }, {
+                                                y: ${data[0].satisfaction[3].data}
+											}, {
                                                 name: '매우 만족',
-                                                y: 2.8
-        }]
-    }]
+                                                y: ${data[0].satisfaction[4].data}
+      										}]
+    									}]
                                     });
                                 </script>
 
@@ -356,15 +357,16 @@
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th>지원자</th>
-                                            <th>입학자</th>
+                                            <th>남자</th>
+                                            <th>여자</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <th>e-비지니스학과</th>
-                                            <td>92397</td>
-                                            <td>13140</td>
+                                            <th>${data[1].major}</th>
+                                            <c:forEach var="gender" items="${data[0].gender}">
+                                            <td>${gender.data}</td>
+                                            </c:forEach>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -382,7 +384,7 @@
                                         yAxis: {
                                             allowDecimals: false,
                                             title: {
-                                                text: '인원(명)'
+                                                text: '비율(%)'
                                             }
                                         },
                                         tooltip: {
@@ -419,17 +421,17 @@
                                         series: [{
                                             type: 'column',
                                             name: '남자',
-                                            data: [65.7],
+                                            data: [${data[0].employment_rate[1].data}],
                                             color: '#3333ff'
     }, {
                                             type: 'column',
                                             name: '여자',
-                                            data: [65.9],
+                                            data: [${data[0].employment_rate[2].data}],
                                             color: '#ff6666'
     }, {
                                             type: 'spline',
                                             name: '평균',
-                                            data: [65.8],
+                                            data: [${data[0].employment_rate[0].data}],
                                             marker: {
                                                 lineWidth: 5,
                                                 lineColor: Highcharts.getOptions().colors[3],
