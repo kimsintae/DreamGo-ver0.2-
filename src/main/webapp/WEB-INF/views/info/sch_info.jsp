@@ -73,7 +73,7 @@
                         </div>
                             <div class="container col-sm-3"></div>
                             <div class="row text-center btn-box col-sm-6">
-                                <input type="button" class="btn btn-block btn-default" value="검색" title="0"/>
+                                <input type="button" class="btn btn-block btn-default searchBtn" id="eleBtn" value="검색"/>
                             </div>
                             <div class="container col-sm-3"></div>
                         <div class="container col-sm-1"></div>
@@ -98,7 +98,7 @@
                             </div>
                                 <div class="container col-sm-3"></div>
                                 <div class="row text-center btn-box col-sm-6">
-                                    <input type="button" class="btn btn-block btn-default" value="검색" title="1"/>
+                                    <input type="button" class="btn btn-block btn-default searchBtn" id="midBtn" value="검색"/>
                                 </div>
                                 <div class="container col-sm-3"></div>
                             <div class="container col-sm-1"></div>
@@ -127,7 +127,7 @@
                         </div>
                             <div class="container col-sm-3"></div>
                             <div class="row text-center btn-box col-sm-6">
-                                <input type="button" class="btn btn-block btn-default" value="검색" title="2"/>
+                                <input type="button" class="btn btn-block btn-default searchBtn" id="highBtn" value="검색"/>
                             </div>
                             <div class="container col-sm-3"></div>
                         <div class="container col-sm-1"></div>
@@ -156,7 +156,7 @@
                         </div>
                             <div class="container col-sm-3"></div>
                             <div class="row text-center btn-box col-sm-6">
-                                <input type="button" class="btn btn-block btn-default" value="검색" title="3"/>
+                                <input type="button" class="btn btn-block btn-default searchBtn" id="univBtn" value="검색"/>
                             </div>
                             <div class="container col-sm-3"></div>
                         <div class="container col-sm-1"></div>
@@ -188,14 +188,6 @@
  <%@ include file="../include/footer.jsp" %>
 <script type="text/javascript">
 
-//폼 객체
-	var ele_sh_form = $("#ele_sh_form");
-	var mid_sh_form = $("#mid_sh_form");
-	var high_sh_form = $("#high_sh_form");
-	var uni_sh_form = $("#uni_sh_form");
-	
-	var forms = [ele_sh_form,mid_sh_form,high_sh_form,uni_sh_form];
-
 	var formData;//전역변수로 선언한 폼데이터
 	
 	var $list_body = $(".list_body");
@@ -208,13 +200,17 @@
 	
 	
 	//학교 검색버튼클릭시
-	$(".btn-block").click(function(){
-	
+	$(".searchBtn").click(function(){
+		var id = $(this).attr("id");	
 		//alert("test");			
-		var idx = $(this).attr("title");		
-		var form = forms[idx];		
-		//컨트롤러로 보낼 파라미터들
-		formData = form.serialize();
+		
+		//검색 버튼에 따라 동적으로 초기화 되는 폼데이터
+		switch(id){
+		case "eleBtn":formData= $("#ele_sh_form").serialize();break;
+		case "midBtn":formData= $("#mid_sh_form").serialize();break;
+		case "highBtn":formData= $("#high_sh_form").serialize();break;
+		case "univBtn":formData= $("#uni_sh_form").serialize();break;
+		}
 		
 		//버튼 검색은
 		//재검색을 의미하니까

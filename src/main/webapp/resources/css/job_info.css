@@ -60,35 +60,3 @@ div.tab .tab-menu:hover {
 }
 
 /* // 탭 스타일 */
-  
-  
-  
-  .job_list a {
-            margin: 30px 0;
-        }
-        
-        .job_title {
-            font-size: 10px;
-        }
-        
-        .job_info {
-            font-size: 10px;
-            margin-top: 30px;
-            background: #daebe8;
-        }
-        
-        .job_info .job_sub_info {
-            border-right: 1px solid #424242;
-        }
-        
-        .job_info .job_sub_info:last-child {
-            border: none;
-        }
-        
-        .job_sub_info div:nth-child(1) {
-            font-weight: bold;
-        }
-        
-        .job_sub_info div:nth-child(2) {
-            text-align: center;
-        }

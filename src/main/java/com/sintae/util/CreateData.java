@@ -84,7 +84,6 @@ public class CreateData {
 					i++;
 				}*/
 			
-				System.out.println(list);
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -92,9 +91,7 @@ public class CreateData {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-	
-		
+			
 		return list;
 	}
 	

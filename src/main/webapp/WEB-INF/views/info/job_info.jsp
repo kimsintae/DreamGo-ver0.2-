@@ -7,10 +7,21 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="../resources/css/job_info.css?v=1"/>
-    <script src="../resources/js/tabs.js?v=1"></script>
+    <link rel="stylesheet" href="${ctx}/resources/css/job_info.css?v=1"/>
+    <script src="${ctx}/resources/js/tabs.js?v=1"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    <style type="text/css">
+    .job_list .result_row{
+    	margin-bottom: 15px;
+    }
+
+	.job_pager span{
+		cursor: pointer;
+	}
+    
+    </style>
 </head>
 
 <body>
@@ -47,7 +58,7 @@
                         <div class="container col-sm-1"></div>
                         <div class="container col-sm-10 category">
                             <h3>조건 검색</h3>
-                            <form action="/job" method="get" id="job_form">
+                            <form id="job_form">
                                 <input type="hidden" value="job_dic_list" name="gubun" />
                                 <div class="row job_opt">
                                 <%@include file="../include/job_cat.jsp" %>
@@ -57,7 +68,7 @@
                         </div>
                         <div class="container col-sm-3"></div>
                         <div class="row text-center btn-box col-sm-6">
-                            <input type="submit" form="job_form" class="btn btn-block btn-default" value="검색" />
+                            <input type="button" class="btn btn-block btn-default searchBtn" id="jobBtn" value="검색" />
                         </div>
                         <div class="container col-sm-3"></div>
                         <div class="container col-sm-1"></div>
@@ -72,7 +83,7 @@
                         <div class="container col-sm-1"></div>
                         <div class="container col-sm-10 category">
                             <h3>조건 검색</h3>
-                            <form action="/aptitude" method="get" id="apti_form">
+                            <form id="apti_form">
                                 <input type="hidden" value="job_apti_list" name="gubun" />
                                 <div class="row apti_opt">
                                 	<%@include file="../include/apti_cat.jsp" %>
@@ -81,7 +92,7 @@
                         </div>
                         <div class="container col-sm-3"></div>
                         <div class="row text-center btn-box col-sm-6">
-                            <input type="submit" form="apti_form" class="btn btn-block btn-default" value="검색" />
+                            <input type="button" class="btn btn-block btn-default searchBtn" id="aptiBtn" value="검색" />
                         </div>
                         <div class="container col-sm-3"></div>
                         <div class="container col-sm-1"></div>
@@ -92,56 +103,16 @@
                 <!-- 검색 결과 -->
 
                 <div class="container col-sm-12">
-                    <h4 class="search_result">검색 결과 : <span>23</span>개의 직업을 찾았습니다.</h4>
-                    <div class="list-group job_list">
-                        <a href="${ctx}/info/job_detail" class="list-group-item active">
-                            <h5 class="list-group-item-heading job_title">직업명 : <span>가수</span></h5>
-                            <div class="row job_info">
-                                <div class="col-sm-7 job_sub_info">
-                                    <div class="col-sm-4">
-                                        직업분야 :
-                                    </div>
-                                    <div class="col-sm-8">
-                                        엔터테인먼트
-                                    </div>
-
-                                </div>
-                                <div class="col-sm-3 job_sub_info">
-                                    <div class="col-sm-5">
-                                        연봉 :
-                                    </div>
-                                    <div class="col-sm-7">
-                                        3000만원 이상
-                                    </div>
-
-                                </div>
-                                <div class="col-sm-2 job_sub_info">
-                                    <div class="col-sm-5">
-                                        전망 :
-                                    </div>
-                                    <div class="col-sm-7">
-                                        매우좋음
-                                    </div>
-                                </div>
-                            </div>
-                            <!--//job_info-->
-                            <div class="row job_info">
-                                <div class="col-sm-12 job_sub_info">
-                                    <div class="col-sm-2">
-                                        유사직종 :
-                                    </div>
-                                    <div class="col-sm-10">
-                                        정보시스템컨설턴트,정보기술컨설턴트(IT),KMS컨설턴트,네트워크컨설턴트,CRP컨설턴트,정보보안컨설턴트,ERP컨설턴트,시스템컨설턴트
-
-                                    </div>
-
-                                </div>
-                            </div>
-                            <!--//job_info-->
-                        </a>
-
-                    </div>
-                    <!--// list-group-->
+                    <h4 class="search_result">검색 결과 : <span class="totalCnt"></span>개의 직업을 찾았습니다.</h4>
+                    <ul class="list-group job_list">
+					  
+					</ul>
+					
+					
+					<!-- 페이징 -->
+	                <ul class="pagination job_pager">
+	
+					</ul>
                 </div>
             </div>
             <div class="col-sm-1 sidenav">
@@ -150,6 +121,110 @@
     </div>
 
 <%@ include file="../include/footer.jsp" %>
+<script type="text/javascript">
 
+var thisPage;
+var formDate;
+var startPage;
+var endPage;
+
+//검색 버튼에 따라 동적으로 폼데이터 생성
+$(".searchBtn").click(function(){	
+	var id = $(this).attr("id");	
+
+	if(id=="jobBtn"){
+		formDate = $("#job_form").serialize();
+		
+	}else{
+		formDate = $("#apti_form").serialize();
+	}	
+	
+	
+	//재검색시 페이지 1로 초기화
+	thisPage=1;
+	//ajax 호출
+	job_ajax();
+});
+
+
+
+function job_ajax(){
+	$.ajax({
+		type:"POST",
+		url:"${ctx}/job_search?thisPage="+thisPage,
+		data:formDate,
+		dataType:"json",
+		success:function(json){
+			//alert("성공!");	
+			$(".job_list").empty();
+			$(".job_pager").empty();
+			$(".job_pager").append(json.pagination);//페이징 붙이기
+			$(".totalCnt").text(json.pka.totalCount);//총검색수
+			endPage = json.pka.endPage;
+			startPage = json.pka.startPage;
+			
+			result(json);
+		},
+		error:function(error,xhr){
+			alert("캐시초과로 문제가 발생하였습니다. 캐시를 비워주세요!");
+		}
+	});
+}
+
+//콜벡시 호출될 함수
+function result(json){
+	for(var i=0;i<json.data.length;i++){
+		var html = "<li class='list-group-item row'>\
+			<div class='col-sm-12 result_row'>\
+				직업명 : <span class='job_title'><a href=\'/detail/"+json.data[i].jobdicseq+"\'>"+json.data[i].job+"</a></span>\
+			</div>\
+			<div class='col-sm-12 row result_row'>\
+				<div class='col-sm-6'>직업분야 : <span class='job_type'>"+json.data[i].profession+"</span></div>\
+				<div class='col-sm-3'>연봉 : <span class='job_title'>"+json.data[i].salery+"</span></div>\
+				<div class='col-sm-3'>전망 : <span class='job_title'>"+json.data[i].possibility+"</span></div>\
+			</div>\
+			<div class='col-sm-12 row result_row'>\
+				<div class='col-sm-12'>개요 :</div>\
+				<div class='col-sm-12'>"+modifyingSumm(json.data[i].summary)+"</div>\
+				<div class='col-sm-12'>유사직종 : <span class='job_rele'>"+json.data[i].similarjob+"</span></div>\
+			</div>\
+		</li>";
+		
+		$(".job_list").append(html);
+	}//for
+}//result
+
+function modifyingSumm(summary){	
+	// -를 기준으로 줄바꿈이 일어남
+	// - gi를 붙이면 모든 문자열 변경이 발생함	
+	return summary.replace(/ - /gi, "<br> -");
+}
+
+
+//페이지번호클릭시
+	$(".job_pager").on('click','span',function(){
+		 var btnId = $(this).attr('id');
+		switch(btnId){
+		
+			//이전버튼 클릭시	
+			case 'prev' :thisPage=startPage-1; 						 
+						 job_ajax();
+						 break;
+		
+				 
+			//다음버튼 클릭시
+			case 'next' :thisPage=endPage+1;
+						 job_ajax();
+						 break; 
+
+			//번호 클릭시
+			default :thisPage = $(this).text();
+					 job_ajax();
+					 break;
+		} 
+	});
+
+
+</script>
 </body>
 </html>

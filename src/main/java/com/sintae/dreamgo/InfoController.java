@@ -1,17 +1,11 @@
 package com.sintae.dreamgo;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.parser.Parser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import com.sintae.util.CreateData;
 import com.sintae.util.PageMakerAjax;
@@ -32,11 +24,6 @@ import com.sintae.util.PageMakerAjax;
 public class InfoController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(InfoController.class);
-	private static final String APIKEY = "0e3a27591319ce0e97e4e3ec62077e8d";
-	private static final String gURL = "http://www.career.go.kr/cnet/openapi/getOpenApi";
-	private static final String svcType = "api";
-	private static final String contentType = "xml";
-	
 	private static final String globalURL = 
 			"http://www.career.go.kr/cnet/openapi/getOpenApi?"
 			+ "apiKey=0e3a27591319ce0e97e4e3ec62077e8d&"
@@ -126,7 +113,6 @@ public class InfoController {
 			//페이징 객체 
 			PageMakerAjax pka = new PageMakerAjax();
 			pka.setThisPage(thisPage);
-			pka.setPerPageNum(10);
 			pka.setTotalCount(totalCount==0?0:totalCount);
 			
 			
@@ -167,7 +153,6 @@ public class InfoController {
 		int totalCount = CreateData.getTotalCount();
 		
 			PageMakerAjax pka = new PageMakerAjax();
-			pka.setPerPageNum(10);
 			pka.setThisPage(thisPage);
 			pka.setTotalCount(totalCount==0?0:totalCount);
 
@@ -212,5 +197,56 @@ public class InfoController {
 	}
 	
 
+	//perForm logic for job information
+	@RequestMapping(value="/job_search", method= RequestMethod.POST)
+	public @ResponseBody Map<String, Object> job_search(@RequestParam("gubun") String gubun,
+			@RequestParam(value="pgubn",defaultValue="") String pgubn,
+			@RequestParam(value="category",defaultValue="") String category,
+			@RequestParam(value="thisPage",defaultValue="1") int thisPage){
+		
+		
+		
+		String url = globalURL+""
+				+ "svcCode=JOB&"
+				+ "gubun="+gubun+"&"
+				+ "category="+category+"&"
+				+ "pgubn="+pgubn+"&"
+				+ "thisPage="+thisPage+"&"
+				+ "perPage="+10;
+		
+		logger.info(url);
+		logger.info("job_search page called !");
+		
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		List<Map<String, Object>> dataList = CreateData.createDATA(url, false);
+		int totalCount = CreateData.getTotalCount();
+		logger.info("최종 데이터 : "+dataList);
+		
+		
+		//페이징 객체
+		PageMakerAjax pka = new PageMakerAjax();
+		pka.setThisPage(thisPage);
+		pka.setTotalCount(totalCount==0?0:totalCount);
+
+
+		
+		System.out.println("시작페이지 : "+pka.getStartPage());
+		System.out.println("끝페이지 : "+pka.getEndPage());
+		System.out.println("다음버튼 : "+pka.isNext());
+		System.out.println("총검색수 : "+pka.getTotalCount());
+		
+		System.out.println("===========");
+		System.out.println("페이징 : "+pka.getPagination());
+		
+		map.put("data", dataList);
+		map.put("pka", pka);//페이징객체 넘기기
+		map.put("pagination", pka.getPagination());
+		
+		
+		//logger.info(map.toString());
+		return map;
+	}
 
 }

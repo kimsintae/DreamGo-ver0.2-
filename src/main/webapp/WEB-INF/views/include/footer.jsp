@@ -9,7 +9,7 @@
 </head>
 <body>
         <footer class="container-fluid col-sm-12 text-right footer">
-            <p>BY kim.sintae</p>
+            <p>madeBy_ Kim.sintae</p>
         </footer>
 </body>
 </html>

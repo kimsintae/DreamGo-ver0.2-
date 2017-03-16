@@ -9,7 +9,7 @@ public class PageMakerAjax {
 	private boolean next; // 다음
 	private int thisPage; // 현재 페이지
 	
-	private int perPageNum;
+	private int perPageNum = 10;
 	private int displayNum = 5; //한블럭당 페이지 수 10이면 10페이지까지 보여짐 & 게시글 수
 
 	
@@ -19,9 +19,7 @@ public class PageMakerAjax {
 	public void setThisPage(int thisPage) {
 		this.thisPage = thisPage;
 	}
-	public void setPerPageNum(int perPageNum) {
-		this.perPageNum = perPageNum;
-	}
+
 	public int getTotalCount() {
 		return totalCount;
 	}
@@ -55,18 +53,28 @@ public class PageMakerAjax {
 	}
 	
 	private void calcData(){
+
 		endPage = (int)(Math.ceil(thisPage/(double)displayNum)*displayNum);
 		startPage = (endPage-displayNum)+1;
 		int tempEndPage = (int)(Math.ceil(totalCount/(double)perPageNum));
-
+		
+		
+		System.out.println("endPage : "+getEndPage()+"  / "+"temEndPage : "+tempEndPage);
+		System.out.println((getEndPage()>tempEndPage)+"???");
+		
 		if(endPage>tempEndPage){
 			endPage=tempEndPage;
 		}
 		
+		//시작페이지가 1이면 이전 페이지는 없음
+		//시작페이지가 1이 아니면 이전페이지 있음
 		prev = startPage==1?false:true;
+		
+		//끝페이지*보여질게시글수가 총 게시글수 이상이면 없음
+		//끝페이지*보여질게시글수가 총 게시글수 미만이면 있음
 		next = endPage*perPageNum>=totalCount?false:true;
 	}
-	
+
 	public String getPagination(){
 
 		StringBuffer sb = new StringBuffer();
@@ -81,8 +89,6 @@ public class PageMakerAjax {
  		//현재 페이지와 i가 같으면 active를 추가해 현재페이지를 나타냄
 		String spanClas=null;
 		for(int i = startPage;i<=endPage;i++){			
-		
-			
 			if(thisPage==i){
 				spanClas="active";
 			}else{
@@ -90,7 +96,6 @@ public class PageMakerAjax {
 			}
 			sb.append("<li><span class='"+spanClas+"'>"+i+"</span></li>");
 			sb.append("\n");
-			
 		}
 		 
 
