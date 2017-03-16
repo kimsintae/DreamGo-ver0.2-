@@ -20,6 +20,19 @@
 	.job_pager span{
 		cursor: pointer;
 	}
+	.result_area{
+		display: none;
+	}
+	.job_list .detail_btn{
+		border: none;
+		color: #87bdd8;
+		font-weight: bold;
+		
+	}
+	.job_list .detail_btn:hover{
+		background: white;
+		color:#ff6f69;
+	}
     
     </style>
 </head>
@@ -28,6 +41,7 @@
  <%@ include file="../include/header.jsp" %>
 
     <div class="container-fluid text-center">
+
         <div class="row content">
             <div class="col-sm-1 sidenav">
             </div>
@@ -102,7 +116,7 @@
 
                 <!-- 검색 결과 -->
 
-                <div class="container col-sm-12">
+                <div class="container col-sm-12 result_area">
                     <h4 class="search_result">검색 결과 : <span class="totalCnt"></span>개의 직업을 찾았습니다.</h4>
                     <ul class="list-group job_list">
 					  
@@ -142,6 +156,7 @@ $(".searchBtn").click(function(){
 	
 	//재검색시 페이지 1로 초기화
 	thisPage=1;
+
 	//ajax 호출
 	job_ajax();
 });
@@ -156,48 +171,57 @@ function job_ajax(){
 		dataType:"json",
 		success:function(json){
 			//alert("성공!");	
+			$(".result_area").show();
 			$(".job_list").empty();
 			$(".job_pager").empty();
 			$(".job_pager").append(json.pagination);//페이징 붙이기
 			$(".totalCnt").text(json.pka.totalCount);//총검색수
+			
+			
 			endPage = json.pka.endPage;
 			startPage = json.pka.startPage;
 			
 			result(json);
 		},
 		error:function(error,xhr){
-			alert("캐시초과로 문제가 발생하였습니다. 캐시를 비워주세요!");
+			alert("실패!");
 		}
 	});
 }
 
 //콜벡시 호출될 함수
 function result(json){
+	
 	for(var i=0;i<json.data.length;i++){
-		var html = "<li class='list-group-item row'>\
-			<div class='col-sm-12 result_row'>\
-				직업명 : <span class='job_title'><a href=\'/detail/"+json.data[i].jobdicseq+"\'>"+json.data[i].job+"</a></span>\
-			</div>\
-			<div class='col-sm-12 row result_row'>\
-				<div class='col-sm-6'>직업분야 : <span class='job_type'>"+json.data[i].profession+"</span></div>\
-				<div class='col-sm-3'>연봉 : <span class='job_title'>"+json.data[i].salery+"</span></div>\
-				<div class='col-sm-3'>전망 : <span class='job_title'>"+json.data[i].possibility+"</span></div>\
-			</div>\
-			<div class='col-sm-12 row result_row'>\
-				<div class='col-sm-12'>개요 :</div>\
-				<div class='col-sm-12'>"+modifyingSumm(json.data[i].summary)+"</div>\
-				<div class='col-sm-12'>유사직종 : <span class='job_rele'>"+json.data[i].similarjob+"</span></div>\
-			</div>\
-		</li>";
+		var html = "<form action=\'${ctx}/detail/"+json.data[i].jobdicseq+"\' method='POST'>\
+					<li class='list-group-item row'>\
+						<div class='col-sm-12 result_row'>\
+							직업명 : <span class='job_title'><button class='btn-default detail_btn'>"+json.data[i].job+"</button></span>\
+						</div>\
+						<div class='col-sm-12 row result_row'>\
+							<div class='col-sm-6'>직업분야 : <span class='job_type'>"+json.data[i].profession+"</span></div>\
+							<div class='col-sm-3'>연봉 : <span class='job_title'>"+json.data[i].salery+"</span></div>\
+							<div class='col-sm-3'>전망 : <span class='job_title'>"+json.data[i].possibility+"</span></div>\
+						</div>\
+						<div class='col-sm-12 row result_row'>\
+							<div class='col-sm-12'>직업설명 :</div>\
+							<div class='col-sm-12'>"+modifyingSumm(json.data[i].summary)+"</div>\
+							<div class='col-sm-12'>유사직종 : <span class='job_rele'>"+json.data[i].similarjob+"</span></div>\
+						</div>\
+					</li>\
+						<input type='hidden' name='salary' value='"+json.data[i].salery+"'/>\
+						<input type='hidden' name='profession' value='"+json.data[i].profession+"'/>\
+					</form>";
 		
 		$(".job_list").append(html);
+		
 	}//for
 }//result
 
 function modifyingSumm(summary){	
 	// -를 기준으로 줄바꿈이 일어남
 	// - gi를 붙이면 모든 문자열 변경이 발생함	
-	return summary.replace(/ - /gi, "<br> -");
+	return summary.replace(/-/gi, "<br> ▶ ");
 }
 
 

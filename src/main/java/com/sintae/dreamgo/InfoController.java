@@ -106,7 +106,7 @@ public class InfoController {
 		logger.info(url);
 		
 			//데이터 뽑아오기
-			List<Map<String, Object>> dataList = CreateData.createDATA(url,false);
+			List<Map<String, Object>> dataList = CreateData.createDATA(url,"");
 
 			int totalCount = CreateData.getTotalCount();
 			
@@ -147,7 +147,7 @@ public class InfoController {
 		logger.info(url);
 
 		//데이터 뽑아오기
-		List<Map<String, Object>> dataList = CreateData.createDATA(url,false);
+		List<Map<String, Object>> dataList = CreateData.createDATA(url,"");
 		
 		//총 결과수
 		int totalCount = CreateData.getTotalCount();
@@ -187,7 +187,7 @@ public class InfoController {
 		
 			logger.info(url);
 			
-			List<Map<String, Object>> data = CreateData.createDATA(url,true);
+			List<Map<String, Object>> data = CreateData.createDATA(url,"d");
 			
 			model.addAttribute("data",data);
 			model.addAttribute("gubun", gubun);
@@ -197,7 +197,7 @@ public class InfoController {
 	}
 	
 
-	//perForm logic for job information
+	//perform logic for job information
 	@RequestMapping(value="/job_search", method= RequestMethod.POST)
 	public @ResponseBody Map<String, Object> job_search(@RequestParam("gubun") String gubun,
 			@RequestParam(value="pgubn",defaultValue="") String pgubn,
@@ -220,7 +220,7 @@ public class InfoController {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		List<Map<String, Object>> dataList = CreateData.createDATA(url, false);
+		List<Map<String, Object>> dataList = CreateData.createDATA(url, "");
 		int totalCount = CreateData.getTotalCount();
 		logger.info("최종 데이터 : "+dataList);
 		
@@ -249,4 +249,21 @@ public class InfoController {
 		return map;
 	}
 
+	//peform logic for job_detail
+	@RequestMapping(value="/detail/{jobdicseq}", method= RequestMethod.POST)
+	public String job_detail(@PathVariable("jobdicseq") String jobdicSeq,Model model,
+			@RequestParam("salary") String salary,
+			@RequestParam("profession") String profession){
+		logger.info("job_detail page called !");
+		
+		String url = globalURL+""
+				+ "svcCode=JOB_VIEW&"
+				+ "jobdicSeq="+jobdicSeq;
+		
+		logger.info(url);
+		model.addAttribute("salary", salary);
+		model.addAttribute("profession", profession);
+		model.addAttribute("data",CreateData.createDATA(url, "J"));
+		return "/info/job_detail";
+	}
 }

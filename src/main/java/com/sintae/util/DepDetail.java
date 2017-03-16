@@ -9,10 +9,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class CreateDetailData {
+public class DepDetail {
 
 	public static ArrayList<Map<String, Object>> getDetailData(Document doc){
-		System.out.println("detail");
+		System.out.println("dep_detail");
 		
 		
 		Map<String, Object> c_tags = new HashMap<String, Object>();//태그
@@ -48,7 +48,6 @@ public class CreateDetailData {
 								tags_data = new HashMap<String, String>();//태그의 자식 값 담기
 								
 								//자손 content 뽑기
-								
 								 for(Element dddEle : ddEle.children()){	
  
 									String dddname = dddEle.tagName();

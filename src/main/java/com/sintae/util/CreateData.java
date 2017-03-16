@@ -19,7 +19,7 @@ import org.omg.CORBA.OBJECT_NOT_EXIST;
 public class CreateData {
 
 	public static Document doc;
-	public static List<Map<String, Object>> createDATA(String url,boolean type){
+	public static List<Map<String, Object>> createDATA(String url,String type){
 		//type = true : detail, false : list
 		
 		
@@ -36,14 +36,13 @@ public class CreateData {
 					"",
 					Parser.xmlParser());
 			//상세정보 데이터 일 경우
-			if(type){
-			
-				
-				
+			if(type.equalsIgnoreCase("D")){			
 				//학과 상세정보
-				return CreateDetailData.getDetailData(doc);
+				return DepDetail.getDetailData(doc);
+			}else if(type.equalsIgnoreCase("J")){
+				//직업 상세정보
+				return JobDetail.getDetailData(doc);
 			}
-			
 			
 			
 			//목록데이터 일 경우
