@@ -1,0 +1,22 @@
+  
+  	#profile{
+  		display: none;
+  	}
+  	#joinForm label{
+  		text-align: center;
+  	}
+  	
+  .profile_box{
+  	border: 1px solid #424242;
+  }
+  
+  .join_footer{
+  	margin-top: 20px;
+  }
+  	
+  .join_title{
+  	margin-bottom:30px;
+  	background:#96ceb4;
+  	padding:10px;
+  	color:white;
+  }

@@ -453,7 +453,7 @@
                                 주요교과목
                             </div>
                             <div class="col-sm-1"></div>
-                            <div class="col-sm-10">
+                            <div class="col-sm-11">
                                 <!-- 반복문 돌려서 뿌리기 -->
                                 <table class="table">
                                     <thead>

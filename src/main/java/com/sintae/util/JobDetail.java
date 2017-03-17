@@ -35,12 +35,9 @@ public class JobDetail {
 		data.put("similarjob", doc.select("similarjob").text());
 		data.put("job", doc.select("job").text());
 
-		Elements chart = doc.select("chart_item_list content");
-		Elements major = doc.select("major content");
-
-		data.put("chart",getList(chart));
-		data.put("major",getList(major));
-		
+		data.put("chart",getList(doc.select("chart_item_list content")));
+		data.put("major",getList(doc.select("major content")));
+		data.put("contact",getList(doc.select("contact content")));
 		list.add(data);
 		
 		

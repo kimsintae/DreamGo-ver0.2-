@@ -310,7 +310,6 @@
 								</div>\
 							</div>\
 							</a>"));
-					
 					}//for
 	
 					
@@ -331,7 +330,7 @@
 			},
 			
 			error:function(xhr,error){
-				alert("실패!");
+				alert("검색 결과가 없습니다.");
 			}
 		});//ajax
 	}

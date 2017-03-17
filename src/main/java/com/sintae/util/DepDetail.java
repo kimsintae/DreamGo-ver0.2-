@@ -87,14 +87,10 @@ public class DepDetail {
 											
 											tags_data.put(based.tagName(), based.text());
 										}
-										
 										tags_list.add(tags_data);							
 								}
-								
 								c_tags.put(content_c.tagName(), tags_list);
 							}//for
-							
-							
 							//System.out.println(c_tags);
 						 }//else if
 						 

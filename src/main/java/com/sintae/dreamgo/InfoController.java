@@ -33,6 +33,16 @@ public class InfoController {
 	ServletContext context; 
 	
 	
+	
+	//test
+	@RequestMapping("/test")
+	public String test(){
+		logger.info("test called!");
+		return "/test";
+	}
+	
+	
+	
 	//intro !
 	@RequestMapping("/intro")
 	public String intro(){

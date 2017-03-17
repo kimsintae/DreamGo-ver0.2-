@@ -26,4 +26,4 @@
         $(".typeSelector").val(type);
         $(".orderSelector").val(order);
 
-    })
+    });

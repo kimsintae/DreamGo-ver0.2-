@@ -64,6 +64,7 @@
                         <a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'four_tab')">취업현황</a>
                         <a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'five_tab')">직업전망</a>
                         <a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'six_tab')">준비방법</a>
+                        <a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'sevn_tab')">문의기관</a>
                     </div>
 
                     <div id="first_tab" class="tabcontent">
@@ -331,6 +332,40 @@
                             </div>
                         </div>
                         <!--//sub_row-->
+
+                    </div>
+                    
+                    <div id="sevn_tab" class="tabcontent">
+                        <div class="row sub_row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-11">
+                            	 <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>기관명</th>
+                                            <th class="col-sm-5">홈페이지</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+									
+									<c:forEach var="contact" items='${data[0].contact}' >
+                                        <!-- 얘를 반복문 돌리면 된다 -->
+                                        <tr>
+                                            <td>
+                                            	${contact.mapng_nm}
+                                            </td>
+                                            <td>
+                                            	<a href="${contact.mapng_url}">${contact.mapng_url}</a>
+                                            </td>
+                                        </tr>
+									</c:forEach>
+                                    </tbody>
+                                </table>
+                            
+                            </div>
+                        </div>
+                        <!--//sub_row-->
+
 
                     </div>
 

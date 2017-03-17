@@ -63,7 +63,7 @@
 		                                    <button type="submit" form="loginForm" class="btn btn-default">확인</button>
 		                                </div>
 		                                <div class="col-sm-6 text-center">
-		                                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#joinModal" data-dismiss="modal">회원가입</button>
+		                                    <a class="btn btn-default" href="${ctx}/join">회원가입</a>
 		                                </div>
 		                            </div>
 		                        </div>
@@ -71,105 +71,7 @@
 		                    </div>
 		                </div>
 		                <!--//loginModal-->
-		                
-		                <!-- 회원가입 -->
-		                <div id="joinModal" class="modal fade" role="dialog">
-						    <div class="modal-dialog">
-						        <!-- join -->
-						        <div class="modal-content">
-						            <div class="modal-header">
-						                <button type="button" class="close" data-dismiss="modal">&times;</button>
-						                <h4 class="modal-title">회원가입</h4>
-						            </div>
-						            <div class="modal-body">
-						                <form id="joinForm" action="/join" method="post" enctype="multipart/form-data">
-						                    <div class="row email_row form-group">
-						                        <label class="col-sm-4" for="email">이메일</label>
-						                        <div class="col-sm-6">
-						                            <input type="text" id="email" name="email" class="col-sm-12 form-control" placeholder="kimstcool01@naver.com" />
-						                        </div>
-						                        <div class="col-sm-2">
-						                            <button type="button" class="btn btn-default">인증</button>
-						                        </div>
-						                        <!-- 인증 되면 회원가입 진행 -->
-						                    </div>
-						                    <!--//email_row-->
-						
-						                    <div class="row pwd_row form-group">
-						                        <label class="col-sm-4" for="password">비밀번호</label>
-						
-						                        <div class="col-sm-6">
-						                            <input type="password" id="password" name="password" class="col-sm-12 form-control" />
-						                        </div>
-						                        <div class="col-sm-2"></div>
-						                    </div>
-						                    <!--//pwd_row-->
-						
-						                    <div class="row pwd_row form-group">
-						                        <label class="col-sm-4" for="pwd_check">비밀번호 확인</label>
-						                        <div class="col-sm-6">
-						                            <input type="password" id="pwd_check" name="pwd_check" class="col-sm-12 form-control" />
-						                        </div>
-						                        <div class="col-sm-2"></div>
-						                    </div>
-						                    <!--//pwd_row-->
-						
-						                    <div class="row nickname_row form-group">
-						                        <label class="col-sm-4" for="nickname">닉네임</label>
-						                        <div class="col-sm-6">
-						                            <input type="text" id="nickname" name="nickname" maxlength="10" class="col-sm-12 form-control" placeholder="10자 이내" />
-						                        </div>
-						                        <div class="col-sm-2"></div>
-						                    </div>
-						                    <!--//nickname_row-->
-						                    <div class="row nickname_row form-group">
-						                        <label class="col-sm-4" for="profile">프로필사진</label>
-						                        <div class="col-sm-6">
-						                           <label class="col-sm-12 text-center" for="profile" id="profileArea">
-						                               <img src="" class="img-rounded profile_box" alt="" width="150" height="150" title="클릭해서 원하는 사진 등록">
-						                            <input type="file" id="profile" name="profile" class="col-sm-12 form-control" accept="image/*" />
-						                           </label>
-						                           <span id="img_name" class="text-center col-sm-12"></span>
-						                        </div>
-						                        <div class="col-sm-2"></div>
-						                    </div>
-						                    <!--//nickname_row-->
-						
-						                    <div class="row person_type_row form-group">
-						                        <label class="col-sm-4" for="#typeSelector">구분</label>
-						                        <div class="col-sm-6">
-						                            <select class="form-control" id="typeSelector" name="type">
-						                                <option value="e" selected>초등학생</option>
-						                                <option value="m">중학생</option>
-						                                <option value="h">고등학생</option>
-						                                <option value="u">대학생</option>
-						                                <option value="o">일반인</option>
-						                            </select>
-						                        </div>
-						                        <div class="col-sm-2"></div>
-						                    </div>
-						                    <!--//person_type_row-->
-						                    
-											<div class="row dream_row form-group">
-						                        <label class="col-sm-4" for="dream">나의 꿈은?</label>
-						                        <div class="col-sm-6">
-						                            <input type="text" id="dream" name="nickname" class="col-sm-12 form-control" placeholder="꿈은 이루어집니다" />
-						                        </div>
-						                        <div class="col-sm-2"></div>
-						                    </div>
-						                    <!--//dream_row-->
-						
-						                </form>
-						                <!--//joinForm-->
-						            </div>
-						            <div class="modal-footer">
-						                <button type="submit" form="joinForm" class="btn btn-default col-sm-12">가입</button>
-						            </div>
-						        </div>
-					
-					    </div>
-					</div>
-					<!--//joinModal-->
+
 
 
 
