@@ -223,6 +223,9 @@
 		//ajax 호출
 		sch_ajax(formData);
 	
+		
+		//스크롤이동
+		fnMove("sch_result");
 	})//button
 	
 
@@ -325,7 +328,7 @@
 				
 				//paginate 불러오기
 				$sch_pager.append(json.pagination);
-					
+			
 				$(".sch_result").show();	
 			},
 			
@@ -335,7 +338,11 @@
 		});//ajax
 	}
 
-	
+	//검색후 검색결과로 스크롤이동
+	function fnMove(ele){
+       var offset = $("."+ele).offset();
+       $('html, body').animate({scrollTop : offset.top}, 400);
+	}
 </script>
 </body>
 

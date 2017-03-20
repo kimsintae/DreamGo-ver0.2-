@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <title>학과정보</title>
     <meta charset="utf-8">
@@ -97,6 +96,7 @@ function getFormData(){
     	
     	formData = $("#depar_Form").serialize();
     	dep_ajax();
+
     }
 
 }
@@ -104,6 +104,9 @@ function getFormData(){
 
 //ajax
 function dep_ajax(){
+	
+	//스크롤이동
+	fnMove("result_area");
 	$.ajax({
 		type:"POST",
 		url:'${ctx}/dep_search?thisPage='+thisPage,
@@ -148,7 +151,7 @@ function result(json){
 				  </a>";
 		
 		$(".dep_body").append(html);
-		
+
 	}
 	
 	//pagination
@@ -178,6 +181,13 @@ $(".dep_pager").on('click','span',function(){
 				 break;
 	}
 })
+
+//검색후 검색결과로 스크롤이동
+	function fnMove(ele){
+       var offset = $("."+ele).offset();
+       $('html, body').animate({scrollTop : offset.top}, 400);
+	}
+
 
 </script>
 </body>

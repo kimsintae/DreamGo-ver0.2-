@@ -159,6 +159,9 @@ $(".searchBtn").click(function(){
 
 	//ajax 호출
 	job_ajax();
+	
+	//스크롤이동
+	fnMove("result_area");
 });
 
 
@@ -214,7 +217,7 @@ function result(json){
 					</form>";
 		
 		$(".job_list").append(html);
-		
+
 	}//for
 }//result
 
@@ -248,6 +251,11 @@ function modifyingSumm(summary){
 		} 
 	});
 
+	//검색후 검색결과로 스크롤이동
+		function fnMove(ele){
+	       var offset = $("."+ele).offset();
+	       $('html, body').animate({scrollTop : offset.top}, 400);
+		}
 
 </script>
 </body>

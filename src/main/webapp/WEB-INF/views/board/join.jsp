@@ -67,6 +67,14 @@
   })
   
   
+  //취소 버튼 누르면 전 페이지로 이동
+  $(".cancle").click(function(){
+	var result =  confirm("입력 하신 정보가 초기화 됩니다 취소 하시겠습니까?")
+	if(!result){return false;}
+	  history.back();
+  })
+
+	  
 });
 
   </script>
@@ -163,7 +171,7 @@
 	           <button type="submit" form="joinForm" class="btn btn-default col-sm-6">가입</button>
 	           
 	           <!-- 취소 누르면 이전 페이지로 이동 -->
-	           <a href="" class="btn btn-default col-sm-6">취소</a>
+	           <button type="button" class="btn btn-default col-sm-6 cancle">취소</button>
 	       </div>
     </div>
 

@@ -4,7 +4,6 @@
 <c:set var="ctx" value="<%=request.getContextPath()%>" scope="application" />
 <html>
 <head>
-<script src="${ctx}/resources/js/main.js"></script>
 <link rel="stylesheet" href="${ctx}/resources/css/main.css"/>
 </head>
 <body>
