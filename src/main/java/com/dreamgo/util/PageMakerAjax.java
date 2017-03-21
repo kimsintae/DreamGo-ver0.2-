@@ -1,4 +1,4 @@
-package com.sintae.util;
+package com.dreamgo.util;
 
 public class PageMakerAjax {
 

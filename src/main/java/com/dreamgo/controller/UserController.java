@@ -1,4 +1,4 @@
-package com.sintae.dreamgo;
+package com.dreamgo.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sintae.util.MailSender;
+import com.dreamgo.util.MailSender;
 
 @Controller
 public class UserController {

@@ -1,4 +1,4 @@
-package com.sintae.util;
+package com.dreamgo.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;

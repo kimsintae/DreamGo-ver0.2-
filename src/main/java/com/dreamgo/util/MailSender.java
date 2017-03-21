@@ -1,4 +1,4 @@
-package com.sintae.util;
+package com.dreamgo.util;
 
 
 import javax.mail.MessagingException;

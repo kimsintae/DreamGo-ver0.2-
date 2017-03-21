@@ -1,4 +1,4 @@
-package com.sintae.dreamgo;
+package com.dreamgo.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sintae.util.CreateData;
-import com.sintae.util.PageMakerAjax;
+import com.dreamgo.util.CreateData;
+import com.dreamgo.util.PageMakerAjax;
 
 @Controller
 public class InfoController {

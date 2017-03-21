@@ -1,4 +1,4 @@
-package com.sintae.dreamgo;
+package com.dreamgo.controller;
 
 import org.springframework.stereotype.Controller;
 
