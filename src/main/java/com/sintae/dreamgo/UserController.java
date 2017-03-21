@@ -45,6 +45,7 @@ public class UserController {
 		public @ResponseBody Map<String, String> sending(@RequestParam("preEmail") String preEmail,
 				@RequestParam("sufEmail") String sufEmail,
 				@RequestParam(value="authCheckNumber",defaultValue="0") int authCheckNumber){
+			
 			Map<String, String> resultMap = new HashMap<String, String>();
 			
 			logger.info("mailSeding page called!");
