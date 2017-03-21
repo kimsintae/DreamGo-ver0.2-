@@ -17,30 +17,33 @@ public class MailSender {
 		//javaMail 주입
 		@Autowired
 	    private JavaMailSender mailSender;
-	     
-	    /**
+	    
+		private int authNumber;
+		
+	    public int getAuthNumber() {
+			return authNumber;
+		}
+
+		/**
 	     * 메일 보내는 메서드 
 	     * */
-	    public boolean sendMail(String to, String subject, int authNumber) 
+	    public boolean sendMail(String to) 
 	    {
+			
+			//6자리 인증번호 생성
+			double randomVal = Math.random();			
+			authNumber = (int)(randomVal*999999)+000000;
 	    	
 	        MimeMessage message = mailSender.createMimeMessage();
 	        try {
 	        	String html = ""
 	        			+ "<h2 style='background:silver; width:200px;'>"
 	        			+ "인증번호 : "+authNumber+""
-	        			+ "</h2>"
-	        			+ "<br/>"
-	        			+ "<form action='localhost/dreamgo/doMailAuth' method='POST'>"
-	        			+ "<h3>인증번호 입력</h3>"
-	        			+ "<input type='text' name='checkedNumber'/>"
-	        			+ "<button type='button'>확인</button>"
-	        			+ "</form>";
-	        	
+	        			+ "</h2>";
 	        	
 				message.setFrom(new InternetAddress("kimstcool01@gmail.com"));//발신자
 				message.addRecipient(RecipientType.TO, new InternetAddress(to));//수신자
-				message.setSubject(subject,"UTF-8");//제목
+				message.setSubject("DreamGo- 인증번호입니다","UTF-8");//제목
 				message.setText(html,"UTF-8","html");
 				mailSender.send(message);
 

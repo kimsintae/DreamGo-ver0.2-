@@ -11,15 +11,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="${ctx}/resources/css/main.css?v=3"/>
   <link rel="stylesheet" href="${ctx}/resources/css/join.css?v=2"/>
-  
-  <style type="text/css">
-  
-    
-  .authCheck{
-  	margin-top: 5px;
-  	display: none;
-  }
-  </style>
+
 </head>
 <body>
   
@@ -31,15 +23,27 @@
 	     <!-- join -->
 	           <form id="joinForm"  action="${ctx}/doJoin" method="POST" enctype="multipart/form-data">
 	               <div class="row email_row form-group">
-	                   <label class="col-sm-4" for="email">이메일</label>
+	                   <label class="col-sm-4" for="preEmail">이메일</label>
 	                   <div class="col-sm-6">
-	                       <input type="text" id="email" name="email" class="col-sm-12 form-control" placeholder="kimstcool01@naver.com" />
+	                       <input type="text" id="preEmail" name="preEmail" class="col-sm-2 form-control" style="width:60%;"/>
+	                       <select id="sufEmail" name="sufEmail" class="form-control" style="width:40%;">
+		                       	<option>gmail.com</option>
+		                       	<option>naver.com</option>
+		                       	<option>nate.com</option>
+		                       	<option>hanmail.net</option>
+		                       	<option>hotmail.com</option>
+		                       	<option>yahoo.com</option>
+	                       </select>
 	                       
-	                       <span class="bg-success col-sm-12 text-center authCheck">인증되었습니다.</span>
-	                       <span class="bg-danger col-sm-12 text-center authCheck">이메일주소를 확인해주세요.</span>
+	                      <div class="authCheckBox" style="display:none;">
+	                       <input type="text" class="text-center authNumber form-control" placeholder="인증번호 입력" style="width:198px;margin-top:20px;display:inline-block;"/>
+	                       <button type="button" class="btn btn-default authCheckBtn">확인</button>
+	                      </div>
+	                       <span class="bg-success col-sm-12 text-center authOk" style="display:none;font-weight:bold;padding:10px;">인증되었습니다.</span>
+	                       <span class="bg-danger col-sm-12 text-center	authFail" style="display:none;font-weight:bold;padding:10px;">인증 실패로 인증번호 재발송 합니다.</span>
 	                   </div>
 	                   <div class="col-sm-2">
-	                       <button type="button" class="btn btn-default mailAuth">인증</button>
+	                       <button type="button" class="btn btn-info mailAuth">인증</button>
 	                   </div>
 	               </div>
 	               <!--//email_row-->
@@ -48,7 +52,7 @@
 	                   <label class="col-sm-4" for="password">비밀번호</label>
 	
 	                   <div class="col-sm-6">
-	                       <input type="password" id="password" name="password" class="col-sm-12 form-control" />
+	                       <input type="password" id="password" name="password" class="col-sm-12 form-control" maxlength="12" placeholder="비밀번호는 12자 이내"/>
 	                   </div>
 	                   <div class="col-sm-2"></div>
 	               </div>
@@ -57,7 +61,7 @@
 	               <div class="row pwd_row form-group">
 	                   <label class="col-sm-4" for="pwd_check">비밀번호 확인</label>
 	                   <div class="col-sm-6">
-	                       <input type="password" id="pwd_check" name="pwd_check" class="col-sm-12 form-control" />
+	                       <input type="password" id="pwd_check" name="pwd_check" class="col-sm-12 form-control" maxlength="12"/>
 	                   </div>
 	                   <div class="col-sm-2"></div>
 	               </div>
@@ -124,6 +128,13 @@
 </div>
 <script type="text/javascript">
 
+$.ajaxSetup({
+	  url: "${ctx}/doMailAuth",
+	  type: "POST",
+	  dataType:"json"
+	});
+	
+	
 //회원가입 이미지 선택 js
 $("#profile").change(function(){
             
@@ -161,54 +172,67 @@ reader.onload = function  () {
 
 //x버튼 누르면 선택한 이미지 삭제
 $(".close").click(function(){
-$(".profile_box").attr("src","");
-$(".profile_box").attr("src","${ctx}/resources/img/plus.png");
-
-/* 	  if ($.browser.msie) {
-		// ie 일때 input[type=file] init.
-		$("#profile").replaceWith( $("#filename").clone(true) );
-	} else {
-		// other browser 일때 input[type=file] init.
-	
-	} */
-	
-$("#profile").val(""); // input 초기화
-$("#img_name").text("선택된 파일 없음");
-})
+	$(".profile_box").attr("src","");
+	$(".profile_box").attr("src","${ctx}/resources/img/plus.png");
+		
+	$("#profile").val(""); // input 초기화
+	$("#img_name").text("선택된 파일 없음");
+});
 
 
 //취소 버튼 누르면 전 페이지로 이동
 $(".cancle").click(function(){
-	var result =  confirm("입력 하신 정보가 초기화 됩니다 취소 하시겠습니까?")
+	var result =  confirm("입력 하신 정보가 초기화 됩니다 취소 하시겠습니까?");
 	if(!result){return false;}
 	  history.back();
 });
 
+
+var preEmail='';
+var sufEmail='';
+var authCheckNumber=0;
+//이메일 인증 보내는 ajax
 $(".mailAuth").click(function(){
-		var email = $("#email").val();
-		mailAuth(email);
+		preEmail = $("#preEmail").val();
+		sufEmail = $("#sufEmail option:selected").text();
+		mailAuth(preEmail,sufEmail,authCheckNumber);
 });
 
-function mailAuth(email){
+//인증 확인번호 보내는 ajax
+$(".authCheckBtn").click(function(){
+	authCheckNumber = $(".authNumber").val();
+	mailAuth(preEmail,sufEmail,authCheckNumber);
+});
+
+//인증번호 발송과 인증번호확인하는 ajax
+function mailAuth(preEmail,sufEmail,authCheckNumber){
 	$.ajax({
-		type:"POST",
-		url:"${ctx}/doMailAuth",
-		data:{'email':email},
-		dataType:"json",
+		data:{'preEmail':preEmail,'sufEmail':sufEmail,'authCheckNumber':authCheckNumber},
 		success:function(json){
-			
-			
-			if(json.result=='success'){
-				alert("성공!");
-			}
-			
-			
+			switch(json.result){
+				case 'success' :alert("인증번호가 발송되었습니다.");
+								$(".authCheckBox").css("display","block");				
+								break;
+				case 'failed' :alert("메일주소를 확인해 주세요!");break;
+				case 'isEmpty':alert("이메일을 입력해주세요!");
+							   $("#preEmail").focus();
+							   break;
+				case 'authOk' :$(".authOk").css("display","block");
+							   $(".authCheckBox").css("display","none");
+							   break;//인증 됨		
+				case 'reSubmit':$(".authFail").css("display","block");
+								$(".authFail").css("display","none");
+								break; //인증 실패로 인증번호 재전송
+			}//switch
 		},
-		error:function(){
-			alert("이메일을 다시 확인해주세요");
-		}
-	})
+		error:function(xhr,error){alert("실패!");}
+	});
 }
+
+
+
+
+
 	
 </script>
 </body>

@@ -40,35 +40,61 @@ public class UserController {
 			
 		}
 		
-		
+		//메일인증
 		@RequestMapping(value="/doMailAuth", method = RequestMethod.POST)
-		public @ResponseBody Map<String, String> sending(@RequestParam("email") String email){
-			//boolean rex=true;
+		public @ResponseBody Map<String, String> sending(@RequestParam("preEmail") String preEmail,
+				@RequestParam("sufEmail") String sufEmail,
+				@RequestParam(value="authCheckNumber",defaultValue="0") int authCheckNumber){
 			Map<String, String> resultMap = new HashMap<String, String>();
 			
 			logger.info("mailSeding page called!");
-			System.out.println("인증보낼 메일 주소:" + email);
 			
-			if (email==null){
-				//email이 작성되있으면 유효성 검사 시작
-			 //rex = Pattern.matches("[\\w\\~\\-\\.]+@[\\w\\~\\-]+(\\.[\\w\\~\\-]+)+",email.trim());
+			String email = preEmail+"@"+sufEmail;
+			logger.info("인증보낼 메일 주소:" + email);
+
+			
+			if(preEmail.isEmpty()){
+				//비어있을경우
+				resultMap.put("result", "isEmpty");	
+				return resultMap;
 			}
 			
-			double randomVal = Math.random();			
-			//6자리 인증번호 생성
-			
-			//메일함에서 인증번호를 입력하기 전
-				int authNumber = (int)(randomVal*999999)+000000;
-				//메일발송
-				boolean result = mailSender.sendMail(email, "인증번호입니다.",authNumber);
 				
+			//인증 확인 번호가 넘어오기 전이면 메일발송
+			if(authCheckNumber<1){
 				
-				if(result){
+				//email이 작성되있으면 유효성 검사 시작
+				boolean rex = 
+						Pattern.matches("[\\w\\~\\-\\.]+@[\\w\\~\\-]+(\\.[\\w\\~\\-]+)+",email.trim());
+				
+				//이메일형식이 올바를때 인증번호 발송
+				if(rex){
+					//메일발송
+					mailSender.sendMail(email);
 					resultMap.put("result", "success");
-				}else{
-					resultMap.put("result", "failed");	
-				}			
-			return resultMap;
+					return resultMap;
+				}
+				
+				//이메일 형식이 올바르지 않으면 실패처리
+				resultMap.put("result", "failed");
+				return resultMap;
+				
+			}else{
+				
+				//인증 확인번호가 넘어왔으면 발송한 인증번호랑 매칭시킴
+				
+				if(mailSender.getAuthNumber()==authCheckNumber){
+					resultMap.put("result", "authOk");
+					return resultMap;
+				};
+					//재발송
+					logger.info("재발송 합니다.");
+					mailSender.sendMail(email);
+					resultMap.put("result", "reSubmit");
+					return resultMap;
+			}
+						
+			
 			
 		}
 	
