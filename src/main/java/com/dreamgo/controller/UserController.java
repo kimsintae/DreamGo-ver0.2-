@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.dreamgo.domain.UserVO;
 import com.dreamgo.service.UserService;
 import com.dreamgo.util.MailSender;
+import com.dreamgo.util.UploadUtil;
 
 @Controller
 public class UserController {
@@ -47,13 +48,20 @@ public class UserController {
 		public void doJoin(@RequestParam("profile") MultipartFile profile,
 				@RequestParam("preEmail") String preEmail,
 				@RequestParam("sufEmail") String sufEmail,
-				@ModelAttribute UserVO user,BindingResult bindResult){
+				@ModelAttribute UserVO user,
+				BindingResult bindResult){
 //커맨드객체를 파라미터로 지정만 하면 400에러가 뜬다?
 			
 			
 			logger.info("doJoin page called!");
 			user.setEmail(preEmail.trim()+"@"+sufEmail.trim());//email
-			user.setProfile(profile.getOriginalFilename());//파일이름
+			try {
+			//파일 업로드 후 파일명 리턴
+			user.setProfile(UploadUtil.upload(profile));
+			} catch (Exception e) {
+				logger.info("파일 업로드 에러");
+				e.printStackTrace();
+			}
 			
 //			logger.info("이메일 : "+user.getEmail());
 //			logger.info("비밀번호 : "+user.getPassword());
@@ -62,7 +70,7 @@ public class UserController {
 //			logger.info("타입 : "+user.getType());
 //			logger.info("꿈 : "+user.getDream());
 			
-			//int result = service.insertUser(user);
+			int result = service.insertUser(user);
 			/*return "redirect:/intro";*/
 		}
 		
