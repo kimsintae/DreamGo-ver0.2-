@@ -10,8 +10,31 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="${ctx}/resources/css/main.css?v=3"/>
-  <link rel="stylesheet" href="${ctx}/resources/css/join.css?v=2"/>
-
+	<style type="text/css">
+	  
+  	#profile{
+  		display: none;
+  	}
+  	#joinForm label{
+  		text-align: center;
+  	}
+  	
+  .profile_box{
+  	border: 1px solid #424242;
+  }
+  
+  .join_footer{
+  	margin-top: 20px;
+  }
+  	
+  .join_title{
+  	margin-bottom:30px;
+  	background:#96ceb4;
+  	padding:10px;
+  	color:white;
+  }
+	
+	</style>
 </head>
 <body>
   
@@ -61,7 +84,7 @@
 	               <div class="row pwd_row form-group">
 	                   <label class="col-sm-4" for="pwd_check">비밀번호 확인</label>
 	                   <div class="col-sm-6">
-	                       <input type="password" id="pwd_check" name="pwd_check" class="col-sm-12 form-control" maxlength="12"/>
+	                       <input type="password" id="pwd_check" name="pwdCheck" class="col-sm-12 form-control" maxlength="12"/>
 	                   </div>
 	                   <div class="col-sm-2"></div>
 	               </div>
@@ -90,14 +113,14 @@
 	               <!--//nickname_row-->
 	
 	               <div class="row person_type_row form-group">
-	                   <label class="col-sm-4" for="#typeSelector">구분</label>
+	                   <label class="col-sm-4" for="typeSelector">구분</label>
 	                   <div class="col-sm-6">
 	                       <select class="form-control" id="typeSelector" name="type">
-	                           <option value="e" selected>초등학생</option>
-	                           <option value="m">중학생</option>
-	                           <option value="h">고등학생</option>
-	                           <option value="u">대학생</option>
-	                           <option value="o">일반인</option>
+	                           <option value="E" selected>초등학생</option>
+	                           <option value="M">중학생</option>
+	                           <option value="H">고등학생</option>
+	                           <option value="U">대학생</option>
+	                           <option value="O">일반인</option>
 	                       </select>
 	                   </div>
 	                   <div class="col-sm-2"></div>
@@ -107,20 +130,20 @@
 					<div class="row dream_row form-group">
 	                   <label class="col-sm-4" for="dream">나의 꿈은?</label>
 	                   <div class="col-sm-6">
-	                       <input type="text" id="dream" name="nickname" class="col-sm-12 form-control" placeholder="꿈은 이루어집니다" />
+	                       <input type="text" id="dream" name="dream" class="col-sm-12 form-control" placeholder="꿈은 이루어집니다" />
 	                   </div>
 	                   <div class="col-sm-2"></div>
 	               </div>
 	               <!--//dream_row-->
-	
-	           </form>
-	           <!--//joinForm-->
-	       <div class="col-sm-12 join_footer">
-	           <button type="submit" form="joinForm" class="btn btn-default col-sm-6">가입</button>
-	           
-	           <!-- 취소 누르면 이전 페이지로 이동 -->
-	           <button type="button" class="btn btn-default col-sm-6 cancle">취소</button>
-	       </div>
+		
+			       <div class="col-sm-12 join_footer">
+			           <input type="submit" class="btn btn-default col-sm-6" value="가입"/>
+			           
+			           <!-- 취소 누르면 이전 페이지로 이동 -->
+			           <button type="button" class="btn btn-default col-sm-6 cancle">취소</button>
+			       </div>
+          </form>
+          <!--//joinForm-->
     </div>
     <div class="col-sm-3 sidenav">
     </div>
@@ -188,27 +211,30 @@ $(".cancle").click(function(){
 });
 
 
-var preEmail='';
-var sufEmail='';
+var email='';
 var authCheckNumber=0;
 //이메일 인증 보내는 ajax
 $(".mailAuth").click(function(){
-		preEmail = $("#preEmail").val();
-		sufEmail = $("#sufEmail option:selected").text();
-		mailAuth(preEmail,sufEmail,authCheckNumber);
+		var preEmail = $("#preEmail").val();
+		var sufEmail = $("#sufEmail option:selected").text();
+		
+		email = preEmail+"@"+sufEmail;
+		mailAuth(email,authCheckNumber);
 });
 
 //인증 확인번호 보내는 ajax
 $(".authCheckBtn").click(function(){
 	authCheckNumber = $(".authNumber").val();
-	mailAuth(preEmail,sufEmail,authCheckNumber);
+	mailAuth(email,authCheckNumber);
 });
 
 //인증번호 발송과 인증번호확인하는 ajax
-function mailAuth(preEmail,sufEmail,authCheckNumber){
+function mailAuth(email,authCheckNumber){
+	
 	$.ajax({
-		data:{'preEmail':preEmail,'sufEmail':sufEmail,'authCheckNumber':authCheckNumber},
+		data:{'email':email,'authCheckNumber':authCheckNumber},
 		success:function(json){
+			alert(json.result);
 			switch(json.result){
 				case 'success' :alert("인증번호가 발송되었습니다.");
 								$(".authCheckBox").css("display","block");				
@@ -219,9 +245,10 @@ function mailAuth(preEmail,sufEmail,authCheckNumber){
 							   break;
 				case 'authOk' :$(".authOk").css("display","block");
 							   $(".authCheckBox").css("display","none");
+							   $(".authFail").css("display","none");
 							   break;//인증 됨		
-				case 'reSubmit':$(".authFail").css("display","block");
-								$(".authFail").css("display","none");
+				case 'reSubmit':alert("인증번호가 틀려 재전송 합니다.");
+								$(".authFail").css("display","block");
 								break; //인증 실패로 인증번호 재전송
 			}//switch
 		},

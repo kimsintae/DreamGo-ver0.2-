@@ -5,21 +5,29 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
+import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.dreamgo.domain.UserVO;
+import com.dreamgo.service.UserService;
 import com.dreamgo.util.MailSender;
 
 @Controller
 public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(InfoController.class);
 	
+	@Inject
+	private UserService service;
 	
 	//서비스객체 생성
 	@Resource(name="mailService")
@@ -29,32 +37,47 @@ public class UserController {
 		@RequestMapping("/join")
 		public String join(){
 			logger.info("join page called!");
+			
+			
 			return "/board/join";
 		}
 		
 		//회원가입 페이지 !!
-		@RequestMapping(value="/doJoin", method = RequestMethod.POST)
-		public void doJoin(){
+		@RequestMapping(value="/doJoin", method=RequestMethod.POST)
+		public void doJoin(@RequestParam("profile") MultipartFile profile,
+				@RequestParam("preEmail") String preEmail,
+				@RequestParam("sufEmail") String sufEmail,
+				@ModelAttribute UserVO user,BindingResult bindResult){
+//커맨드객체를 파라미터로 지정만 하면 400에러가 뜬다?
+			
 			
 			logger.info("doJoin page called!");
+			user.setEmail(preEmail.trim()+"@"+sufEmail.trim());//email
+			user.setProfile(profile.getOriginalFilename());//파일이름
 			
+//			logger.info("이메일 : "+user.getEmail());
+//			logger.info("비밀번호 : "+user.getPassword());
+//			logger.info("닉네임 : "+user.getNickname());
+//			logger.info("사진 : "+user.getProfile());
+//			logger.info("타입 : "+user.getType());
+//			logger.info("꿈 : "+user.getDream());
+			
+			//int result = service.insertUser(user);
+			/*return "redirect:/intro";*/
 		}
 		
 		//메일인증
 		@RequestMapping(value="/doMailAuth", method = RequestMethod.POST)
-		public @ResponseBody Map<String, String> sending(@RequestParam("preEmail") String preEmail,
-				@RequestParam("sufEmail") String sufEmail,
+		public @ResponseBody Map<String, String> sending(@RequestParam("email") String email,
 				@RequestParam(value="authCheckNumber",defaultValue="0") int authCheckNumber){
 			
 			Map<String, String> resultMap = new HashMap<String, String>();
 			
 			logger.info("mailSeding page called!");
-			
-			String email = preEmail+"@"+sufEmail;
 			logger.info("인증보낼 메일 주소:" + email);
 
 			
-			if(preEmail.isEmpty()){
+			if(email.isEmpty()){
 				//비어있을경우
 				resultMap.put("result", "isEmpty");	
 				return resultMap;
@@ -90,8 +113,8 @@ public class UserController {
 				};
 					//재발송
 					logger.info("재발송 합니다.");
-					mailSender.sendMail(email);
 					resultMap.put("result", "reSubmit");
+					mailSender.sendMail(email);
 					return resultMap;
 			}
 						
