@@ -33,7 +33,7 @@ public class MailSender {
 			//6자리 인증번호 생성
 			double randomVal = Math.random();			
 			authNumber = (int)(randomVal*999999)+000000;
-	    	
+	    	System.out.println("===============인증번호: "+authNumber+"==============");
 	        MimeMessage message = mailSender.createMimeMessage();
 	        try {
 	        	String html = ""

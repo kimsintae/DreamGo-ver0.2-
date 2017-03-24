@@ -6,10 +6,10 @@
             cursor: pointer;
         }
         
-        .content .content_span {
+        .contentTd .content_span {
             white-space: nowrap;
             display: inline-block;
-            width: 600px;
+            width: 400px;
             overflow: hidden;
             text-overflow: ellipsis;
         }

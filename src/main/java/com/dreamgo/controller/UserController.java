@@ -85,6 +85,7 @@ public class UserController {
 				@RequestParam(value="emailAuthResult",defaultValue="false") boolean emailAuthResult,
 				@ModelAttribute UserVO user,
 				BindingResult joinResult,
+				@RequestHeader(value="referer",required=false) String referer,
 				Model model){
 			
 			logger.info("doJoin page called!");
@@ -136,7 +137,7 @@ public class UserController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			return "redirect:/intro";
+			return "redirect:"+referer;
 		}
 		
 		//메일인증

@@ -1,5 +1,9 @@
 package com.dreamgo.controller;
 
+import java.util.List;
+
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -7,13 +11,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.dreamgo.domain.BoardVO;
+import com.dreamgo.service.BoardService;
+
 @Controller
+@RequestMapping("/board/*")
 public class BoardController {
+	
+	@Inject
+	private BoardService service;
+	
 	private static final Logger logger = LoggerFactory.getLogger(InfoController.class);
 	
 	
 	//글 보기 페이지 !!
-	@RequestMapping("/board/read")
+	@RequestMapping("/read")
 	public String read(){
 		logger.info("read page called!");
 		return "/board/read";
@@ -21,21 +33,32 @@ public class BoardController {
 	
 	
 	//리스트 페이지 !!
-	@RequestMapping("/board/list")
-	public String board(){
+	@RequestMapping("/list")
+	public String board(Model model){
 		logger.info("board page called!");
+		
+		try {
+			List<BoardVO> list =  service.list();
+			model.addAttribute("list",list);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
 		return "/board/list";
 	}
 	
 	//글 작성 페이지 !!
-	@RequestMapping("/board/write")
+	@RequestMapping("/write")
 	public String writeForm(){
 		logger.info("writeForm page called!");
 		return "/board/articleForm";
 	}
 	
 	//글 작성 로직 !!
-	@RequestMapping("/board/writeLoc")
+	@RequestMapping("/writeLoc")
 	public void write(@RequestParam("title") String title,
 			@RequestParam("type") String type,
 			@RequestParam("content") String content){
@@ -45,7 +68,7 @@ public class BoardController {
 	}
 	
 	//글 수정 페이지!!
-	@RequestMapping("/board/modify")
+	@RequestMapping("/modify")
 	public String modifyForm(Model model){
 		logger.info("modifyForm page called!");
 		

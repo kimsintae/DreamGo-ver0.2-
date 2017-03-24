@@ -63,54 +63,26 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th class="col-sm-1">No.</th>
-                                <th class="col-sm-5">제목</th>
-                                <th class="col-sm-1">내용</th>
-                                <th class="col-sm-3">작성자</th>
-                                <th class="col-sm-1">분류</th>
-                                <th class="col-sm-1">조회수</th>
+                                <th>No.</th>
+                                <th>제목</th>
+                                <th>내용</th>
+                                <th>작성자</th>
+                                <th>분류</th>
+                                <th>조회수</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td class="title" title="웹프로그래머가 되고 싶습니다."><a href="${ctx}/board/read">웹프로그래머가 되고 싶습니다.</a><span class="badge" title="댓글 수">5</span></td>
-                                <td class="content"><span class="content_span">안녕하세요. 웹 프로그래머가 꿈인 학생입니다. 자바개발을 기반으로 한 웹 개발자가 되고 싶습니다. 꼭 되고 싶습니다!</span>
-                                </td>
-                                <td class="writer"><img src="../resources/img/img.jpg" class="img-thumbnail" alt="Cinque Terre" width="35" height="35"> c++</td>
-                                <td class="cate">진로</td>
-                                <td class="readCnt">23</td>
-                            </tr>
-
-                            <tr>
-                                <td>1</td>
-                                <td class="title" title="웹프로그래머가 되고 싶습니다."><a href="${pageContext.request.contextPath}/board/read">웹프로그래머가 되고 싶습니다.</a><span class="badge" title="댓글 수">5</span></td>
-                                <td class="content"><span class="content_span">안녕하세요. 웹 프로그래머가 꿈인 학생입니다. 자바개발을 기반으로 한 웹 개발자가 되고 싶습니다. 꼭 되고 싶습니다!</span>
-                                </td>
-                                <td class="writer"><img src="../resources/img/img.jpg" class="img-thumbnail" alt="Cinque Terre" width="35" height="35"> 개발자</td>
-                                <td class="type">진로</td>
-                                <td class="readCnt">23</td>
-                            </tr>
-
-                            <tr>
-                                <td>1</td>
-                                <td class="title" title="웹프로그래머가 되고 싶습니다."><a href="${ctx}/board/read">웹프로그래머가 되고 싶습니다.</a><span class="badge" title="댓글 수">5</span></td>
-                                <td class="content"><span class="content_span">안녕하세요. 웹 프로그래머가 꿈인 학생입니다. 자바개발을 기반으로 한 웹 개발자가 되고 싶습니다. 꼭 되고 싶습니다!</span>
-                                </td>
-                                <td class="writer"><img src="../resources/img/img.jpg" class="img-thumbnail" alt="Cinque Terre" width="35" height="35"> python</td>
-                                <td class="type">진로</td>
-                                <td class="readCnt">23</td>
-                            </tr>
-
-                            <tr>
-                                <td>1</td>
-                                <td class="title" title="웹프로그래머가 되고 싶습니다."><a href="${ctx}/board/read">웹프로그래머가 되고 싶습니다.</a><span class="badge" title="댓글 수">5</span></td>
-                                <td class="content"><span class="content_span">안녕하세요. 웹 프로그래머가 꿈인 학생입니다. 자바개발을 기반으로 한 웹 개발자가 되고 싶습니다. 꼭 되고 싶습니다!</span>
-                                </td>
-                                <td class="writer"><img src="../resources/img/img.jpg" class="img-thumbnail" alt="Cinque Terre" width="35" height="35"> john</td>
-                                <td class="type">진로</td>
-                                <td class="readCnt">23</td>
-                            </tr>
+                        	<c:forEach var="board" items="${list}">
+	                            <tr>
+	                                <td>1</td>
+	                                <td class="title" title="웹프로그래머가 되고 싶습니다."><a href="${ctx}/board/read">${board.title}</a><span class="badge" title="댓글 수">5</span></td>
+	                                <td class="contentTd"><span class="content_span">${board.content}</span>
+	                                </td>
+	                                <td class="writer"><img src="c:\dream_go\upload\${board.profile}" class="img-thumbnail" alt="Cinque Terre" width="35" height="35">${board.writer}</td>
+	                                <td class="cate">${board.type}</td>
+	                                <td class="readCnt">${board.readCnt}</td>
+	                            </tr>
+                            </c:forEach>
                         </tbody>
                     </table>
                 </div>
