@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="../resources/js/tabs.js?v=1"></script>
-    <script src="../resources/js/sch_info.js?v=1"></script>
-    <link rel="stylesheet" href="../resources/css/sch_info.css?v=1" />
+    <script src="${pageContext.request.contextPath}/resources/js/tabs.js?v=1"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/sch_info.js?v=1"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sch_info.css?v=1" />
 
 
 <style type="text/css">
@@ -260,7 +260,7 @@
 
 		$.ajax({
 			type:"POST",
-			url:'${ctx}/sch_info/search?thisPage='+thisPage,
+			url:'${pageContext.request.contextPath}/sch_info/search?thisPage='+thisPage,
 			data:formData,//전송할 파라미터
 		 	dataType:"json",
 			success:function(json){

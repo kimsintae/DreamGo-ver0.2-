@@ -10,10 +10,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="${ctx}/resources/css/dep_detail.css?v=2"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/dep_detail.css?v=2"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="${ctx}/resources/js/tabs.js?v=1"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/tabs.js?v=1"></script>
 	
     <!-- chart -->
     <script src="https://code.highcharts.com/highcharts.js"></script>

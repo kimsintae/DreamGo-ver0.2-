@@ -13,9 +13,17 @@ public class UserServiceImpl implements UserService {
 	@Inject
 	private UserDAO dao;
 	
+	
+	//회원가입
 	@Override
-	public int insertUser(UserVO user) {
+	public int insertUser(UserVO user)throws Exception {
 		return dao.insertUser(user);
+	}
+	
+	//로그인
+	@Override
+	public UserVO login(UserVO user) throws Exception {
+		return dao.login(user);
 	}
 	
 }

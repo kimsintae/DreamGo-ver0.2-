@@ -17,8 +17,13 @@ public class UserDAOImpl implements UserDAO {
 			"com.dreamgo.mapper.UserMapper";
 	
 	@Override
-	public int insertUser(UserVO vo) {
-		return sqlSession.insert(namespace+".insertUser",vo);
+	public int insertUser(UserVO user)throws Exception {
+		return sqlSession.insert(namespace+".insertUser",user);
+	}
+	
+	@Override
+	public UserVO login(UserVO user) throws Exception {
+		return sqlSession.selectOne(namespace+".login",user);
 	}
 	
 }

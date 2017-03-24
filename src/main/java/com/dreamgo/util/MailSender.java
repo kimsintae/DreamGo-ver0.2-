@@ -37,9 +37,12 @@ public class MailSender {
 	        MimeMessage message = mailSender.createMimeMessage();
 	        try {
 	        	String html = ""
-	        			+ "<h2 style='background:silver; width:200px;'>"
+	        			+ "<h1>Dreams come true ! - DreamGo -</h1>"
+	        			+ "<h2 style='width:200px;'>"
 	        			+ "인증번호 : "+authNumber+""
-	        			+ "</h2>";
+	        			+ "</h2>"
+	        			+ "<br/>"
+	        			+ "<span>인증번호를 입력하셔야 회원가입이 가능합니다</span>";
 	        	
 				message.setFrom(new InternetAddress("kimstcool01@gmail.com"));//발신자
 				message.addRecipient(RecipientType.TO, new InternetAddress(to));//수신자

@@ -109,7 +109,7 @@ function dep_ajax(){
 	fnMove("result_area");
 	$.ajax({
 		type:"POST",
-		url:'${ctx}/dep_search?thisPage='+thisPage,
+		url:'${pageContext.request.contextPath}/dep_search?thisPage='+thisPage,
 		data:formData,
 		error:function(xhr,error){
 			alert("실패!");
@@ -137,7 +137,7 @@ function dep_ajax(){
 function result(json){
 	
 	for(var i = 0 ; i<json.data.length;i++){
-		var html = "<a href='${ctx}/detail/"+gubun+"/"+json.data[i].majorseq+"\' class='list-group-item'>\
+		var html = "<a href='${pageContext.request.contextPath}/detail/"+gubun+"/"+json.data[i].majorseq+"\' class='list-group-item'>\
 				    <div class='row'>\
 				        <div class='col-sm-6 title text-left'>학과명 : <span>"+json.data[i].mclass+"</span></div>\
 				        <div class='col-sm-6 text-left'>계열 : <span>"+json.data[i].lclass+"</span></div>\

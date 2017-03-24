@@ -7,8 +7,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="${ctx}/resources/css/job_info.css?v=1"/>
-    <script src="${ctx}/resources/js/tabs.js?v=1"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/job_info.css?v=1"/>
+    <script src="${pageContext.request.contextPath}/resources/js/tabs.js?v=1"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     
@@ -169,7 +169,7 @@ $(".searchBtn").click(function(){
 function job_ajax(){
 	$.ajax({
 		type:"POST",
-		url:"${ctx}/job_search?thisPage="+thisPage,
+		url:"${pageContext.request.contextPath}/job_search?thisPage="+thisPage,
 		data:formDate,
 		dataType:"json",
 		success:function(json){
@@ -196,7 +196,7 @@ function job_ajax(){
 function result(json){
 	
 	for(var i=0;i<json.data.length;i++){
-		var html = "<form action=\'${ctx}/detail/"+json.data[i].jobdicseq+"\' method='POST'>\
+		var html = "<form action=\'${pageContext.request.contextPath}/detail/"+json.data[i].jobdicseq+"\' method='POST'>\
 					<li class='list-group-item row'>\
 						<div class='col-sm-12 result_row'>\
 							직업명 : <span class='job_title'><button class='btn-default detail_btn'>"+json.data[i].job+"</button></span>\

@@ -10,8 +10,8 @@
   <!-- editor 외부링크 -->
   
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="${ctx}/resources/css/main.css?v=1">
-  <link rel="stylesheet" href="${ctx}/resources/css/writeForm.css?v=1">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css?v=1">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/writeForm.css?v=1">
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -61,7 +61,7 @@
 		                  <div class="form-group"> 
 		                    <div class="col-sm-offset-2 col-sm-10 text-right write_btns">
 		                      <button type="button" class="btn btn-default write_btn glyphicon glyphicon-saved" style="font-size:18px;" title="등록"></button>
-		                      <a href="${ctx}/board/list" class="btn btn-default cancle_btn glyphicon glyphicon-remove"style="font-size:18px;" title="취소"></a>
+		                      <a href="${pageContext.request.contextPath}/board/list" class="btn btn-default cancle_btn glyphicon glyphicon-remove"style="font-size:18px;" title="취소"></a>
 		                      
 		                      <!-- 수정일때는 list.jsp로 돌아가는게 아니라 read.jsp 로 -->
 		                    </div>

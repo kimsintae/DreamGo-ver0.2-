@@ -9,10 +9,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../resources/css/list.css?v=1" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/list.css?v=1" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
-    <script src="../resources/js/list.js?v=1"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/list.js?v=1"></script>
 </head>
 
 <body>
@@ -35,7 +35,7 @@
                 <div class="container col-sm-12 board_wrap">
 	                <div class="row">
 	                    <div class="col-sm-9">
-							<a href="${ctx}/board/write" class="btn btn-default glyphicon glyphicon-pencil write_btn" title="글쓰기"></a>
+							<a href="${pageContext.request.contextPath}/board/write" class="btn btn-default glyphicon glyphicon-pencil write_btn" title="글쓰기"></a>
 	                    </div>
 		                    <form action="board.html" method="get" id="selectorForm">
 		                        <div class="col-sm-1 text-right">
@@ -84,7 +84,7 @@
 
                             <tr>
                                 <td>1</td>
-                                <td class="title" title="웹프로그래머가 되고 싶습니다."><a href="${ctx}/board/read">웹프로그래머가 되고 싶습니다.</a><span class="badge" title="댓글 수">5</span></td>
+                                <td class="title" title="웹프로그래머가 되고 싶습니다."><a href="${pageContext.request.contextPath}/board/read">웹프로그래머가 되고 싶습니다.</a><span class="badge" title="댓글 수">5</span></td>
                                 <td class="content"><span class="content_span">안녕하세요. 웹 프로그래머가 꿈인 학생입니다. 자바개발을 기반으로 한 웹 개발자가 되고 싶습니다. 꼭 되고 싶습니다!</span>
                                 </td>
                                 <td class="writer"><img src="../resources/img/img.jpg" class="img-thumbnail" alt="Cinque Terre" width="35" height="35"> 개발자</td>

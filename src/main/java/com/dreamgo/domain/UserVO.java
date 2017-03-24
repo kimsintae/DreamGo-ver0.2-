@@ -5,12 +5,13 @@ public class UserVO {
 	private int no;
 	private String email;
 	private String password;
+	private String checkPwd;
 	private String nickname;
 	private char type;
 	private String dream;
 	private String profile;
-	private String auth;
 	
+	private boolean emailAuth;
 	
 	public int getNo() {
 		return no;
@@ -54,11 +55,20 @@ public class UserVO {
 	public void setProfile(String profile) {
 		this.profile = profile;
 	}
-	public String getAuth() {
-		return auth;
+	public String getCheckPwd() {
+		return checkPwd;
 	}
-	public void setAuth(String auth) {
-		this.auth = auth;
+	public void setCheckPwd(String checkPwd) {
+		this.checkPwd = checkPwd;
 	}
+	
+	public boolean isEmailAuth() {
+		return emailAuth;
+	}
+	public void setEmailAuth(boolean emailAuth) {
+		this.emailAuth = emailAuth;
+	}
+	
+	
 
 }

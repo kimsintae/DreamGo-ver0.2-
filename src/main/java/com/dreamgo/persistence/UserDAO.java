@@ -4,5 +4,6 @@ import com.dreamgo.domain.UserVO;
 
 public interface UserDAO {
 
-	public int insertUser(UserVO vo);
+	public int insertUser(UserVO vo)throws Exception;
+	public UserVO login(UserVO user)throws Exception;
 }

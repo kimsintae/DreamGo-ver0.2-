@@ -1,17 +1,23 @@
 package com.dreamgo.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,8 +28,10 @@ import com.dreamgo.domain.UserVO;
 import com.dreamgo.service.UserService;
 import com.dreamgo.util.MailSender;
 import com.dreamgo.util.UploadUtil;
+import com.dreamgo.util.ValidatorUtil;
 
 @Controller
+@RequestMapping("/admin/*")
 public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(InfoController.class);
 	
@@ -34,30 +42,60 @@ public class UserController {
 	@Resource(name="mailService")
 	private MailSender mailSender;
 	
+		//로그인  !!
+		@RequestMapping("/login")
+		public void login(@ModelAttribute UserVO user,
+							HttpSession session,
+							Model model)throws Exception{
+		
+			
+			logger.info("login page called!");
+			logger.info("로그인 될 email : "+user.getEmail());
+			logger.info("로그인 될 paw : "+user.getPassword());
+			
+			//로그인 한 유저 객체
+			UserVO userVO = service.login(user);
+
+			logger.info("로그인 된 유저? : "+userVO);
+			//인터셉터가 받아서 처리할 모델객체
+			model.addAttribute("userVO", userVO);
+		}
+		
+		//로그아웃
+		@RequestMapping("/logout")
+		public String logout(HttpSession session,
+				@RequestHeader(value="referer",required=false) final String referer){
+			session.invalidate();
+			
+			return "redirect:"+referer;
+		}
+	
 		//회원가입 페이지 !!
 		@RequestMapping("/join")
 		public String join(){
 			logger.info("join page called!");
-			
-			
-			return "/board/join";
+			return "/admin/join";
 		}
 		
-		//회원가입 페이지 !!
+		//회원가입 수행 !!
 		@RequestMapping(value="/doJoin", method=RequestMethod.POST)
-		public void doJoin(@RequestParam("profile") MultipartFile profile,
+		public String doJoin(@RequestParam("file") MultipartFile profile,
 				@RequestParam("preEmail") String preEmail,
 				@RequestParam("sufEmail") String sufEmail,
+				@RequestParam(value="emailAuthResult",defaultValue="false") boolean emailAuthResult,
 				@ModelAttribute UserVO user,
-				BindingResult bindResult){
-//커맨드객체를 파라미터로 지정만 하면 400에러가 뜬다?
-			
+				BindingResult joinResult,
+				Model model){
 			
 			logger.info("doJoin page called!");
 			user.setEmail(preEmail.trim()+"@"+sufEmail.trim());//email
+			user.setEmailAuth(emailAuthResult);
 			try {
 			//파일 업로드 후 파일명 리턴
-			user.setProfile(UploadUtil.upload(profile));
+			//파일선택시에만 업로드
+			if(!profile.isEmpty()){
+				user.setProfile(UploadUtil.upload(profile));
+			}
 			} catch (Exception e) {
 				logger.info("파일 업로드 에러");
 				e.printStackTrace();
@@ -70,8 +108,35 @@ public class UserController {
 //			logger.info("타입 : "+user.getType());
 //			logger.info("꿈 : "+user.getDream());
 			
-			int result = service.insertUser(user);
-			/*return "redirect:/intro";*/
+			ValidatorUtil validatorUtil = new ValidatorUtil();
+			validatorUtil.validate(user, joinResult);
+			
+			//만약에 회원가입폼 검증에서 에러가 발생 할 경우
+			//다시 회원가입폼으로 돌려보냄
+			
+			Map<String, String> errors = new HashMap<String, String>();
+			List<FieldError> errorList =  joinResult.getFieldErrors();
+
+			if(joinResult.hasErrors()){
+				for (int i = 0; i < errorList.size(); i++) {
+					//각 에러의 필드(에러명)과 에러코드(메세지)를 errors에 담기
+					errors.put(errorList.get(i).getField(), errorList.get(i).getCode());
+				}
+				
+				System.out.println(errors);
+				model.addAttribute("errors", errors);
+				model.addAttribute("user",user);
+				
+				return "/admin/join";
+			}
+			
+			//회원가입 로직 수행
+			try {
+				service.insertUser(user);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return "redirect:/intro";
 		}
 		
 		//메일인증
@@ -117,6 +182,7 @@ public class UserController {
 				
 				if(mailSender.getAuthNumber()==authCheckNumber){
 					resultMap.put("result", "authOk");
+					
 					return resultMap;
 				};
 					//재발송

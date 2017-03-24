@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>        
-<c:set var="ctx" value="<%=request.getContextPath()%>" scope="application" />
 <html>
 <head>
-<link rel="stylesheet" href="${ctx}/resources/css/main.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css"/>
 </head>
 <body>
  <nav class="navbar navbar-inverse">
@@ -15,25 +14,21 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="${ctx}/intro">Dream Go!</a>
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/intro">Dream Go!</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="${ctx}/intro">Home</a></li>
-                    <li><a href="${ctx}/info/job_info">직업정보</a></li>
-                    <li><a href="${ctx}/info/sch_info">학교정보</a></li>
-                    <li><a href="${ctx}/info/dep_info">학과정보</a></li>
-                    <li><a href="${ctx}/board/list">우리끼리</a></li>
-                    <li><a href="${ctx}/aptitudeTest/apti_test">적성 심리 검사</a></li>
+                    <li><a href="${pageContext.request.contextPath}/intro">Home</a></li>
+                    <li><a href="${pageContext.request.contextPath}/info/job_info">직업정보</a></li>
+                    <li><a href="${pageContext.request.contextPath}/info/sch_info">학교정보</a></li>
+                    <li><a href="${pageContext.request.contextPath}/info/dep_info">학과정보</a></li>
+                    <li><a href="${pageContext.request.contextPath}/board/list">우리끼리</a></li>
+                    <li><a href="${pageContext.request.contextPath}/aptitudeTest/apti_test">적성 심리 검사</a></li>
                 </ul>
 
-
-
-		            <!-- login 버튼 누르면 나오는 팝업창 -->
 		                <div class="modal fade" id="loginModal" role="dialog">
 		                    <div class="modal-dialog">
-		
-		                        <!-- 로그인 창 -->
+
 		                        <div class="modal-content">
 		                            <div class="modal-header">
 		                                <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -42,10 +37,10 @@
 		
 		                            <div class="modal-body">
 		
-		                                <form action="/login" method="post" id="loginForm">
+		                                <form action="${pageContext.request.contextPath}/admin/login" method="post" id="loginForm">
 		                                    <div class="form-group">
 		                                        <label for="email">Email:</label>
-		                                        <input type="email" class="form-control" name="id" id="email" placeholder="Enter email">
+		                                        <input type="email" class="form-control" name="email" id="email" placeholder="Enter email">
 		                                    </div>
 		                                    <div class="form-group">
 		                                        <label for="pwd">Password:</label>
@@ -62,20 +57,25 @@
 		                                    <button type="submit" form="loginForm" class="btn btn-default">확인</button>
 		                                </div>
 		                                <div class="col-sm-6 text-center">
-		                                    <a class="btn btn-default" href="${ctx}/join">회원가입</a>
+		                                    <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/join">회원가입</a>
 		                                </div>
 		                            </div>
 		                        </div>
 		
 		                    </div>
 		                </div>
-		                <!--//loginModal-->
-
 
 
 
                 <ul class="nav navbar-nav navbar-right">
-                 <li><a href="#" data-toggle="modal" data-target="#loginModal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <c:choose>	
+                <c:when test="${loginUser==null}">
+                	 <li><a href="#" data-toggle="modal" data-target="#loginModal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                 </c:when>
+                 <c:otherwise>
+                 	<li><a class="btn btn-default" href="${pageContext.request.contextPath}/admin/logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+                 </c:otherwise>
+                 </c:choose>	
                 </ul>
             </div>
         </div>

@@ -8,10 +8,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../resources/css/job_detail.css?v=1">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/job_detail.css?v=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="../resources/js/tabs.js?v=1"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/tabs.js?v=1"></script>
     <!-- chart -->
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/data.js"></script>
@@ -142,7 +142,7 @@
                                 <!-- 자바에서 "학과명":"이름","url","값" 으로 넘기자-->
                                 <div class="list-group major_list col-sm-3">
                                 <c:forEach var="major" items="${data[0].major}">
-                                    <a href="${ctx}/detail/univ_list/${major.major_seq}" class="list-group-item major_name">${major.major_nm}</a>
+                                    <a href="${pageContext.request.contextPath}/detail/univ_list/${major.major_seq}" class="list-group-item major_name">${major.major_nm}</a>
                                 </c:forEach>
                                 </div>
                             </div>

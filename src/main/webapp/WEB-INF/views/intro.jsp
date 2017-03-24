@@ -44,12 +44,12 @@
 
     <div class="btnBox">
         <div class="btn-group-vertical">
-            <a href="${ctx}/info/job_info" class="btn btn-info" role="button">직업 정보</a>
-            <a href="${ctx}/info/sch_info" class="btn btn-info" role="button">학교 정보</a>
+            <a href="${pageContext.request.contextPath}/info/job_info" class="btn btn-info" role="button">직업 정보</a>
+            <a href="${pageContext.request.contextPath}/info/sch_info" class="btn btn-info" role="button">학교 정보</a>
         </div>
         <div class="btn-group-vertical">
-            <a href="${ctx}/info/dep_info" class="btn btn-info" role="button">학과 정보</a>
-            <a href="${ctx}/aptitudeTest/apti_test" class="btn btn-info" role="button">직업 심리 검사</a>
+            <a href="${pageContext.request.contextPath}/info/dep_info" class="btn btn-info" role="button">학과 정보</a>
+            <a href="${pageContext.request.contextPath}/aptitudeTest/apti_test" class="btn btn-info" role="button">직업 심리 검사</a>
         </div>
     </div>
 

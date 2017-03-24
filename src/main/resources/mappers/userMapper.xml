@@ -9,4 +9,10 @@
   		values(#{email},sha1(#{password}),#{nickname},#{type},#{dream},#{profile})
   	</insert>
   
+  	<!-- 로그인 -->
+  	<select id="login" resultType="UserVO">
+  		SELECT * 
+  		FROM user 
+  		where password= sha1(#{password}) and email=#{email}
+  	</select>
   </mapper>
