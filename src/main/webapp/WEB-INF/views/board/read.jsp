@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Dream Go!</title>
+    <title>${board.title}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -16,9 +18,6 @@
 	<script type="text/javascript">
 	
 	<!-- 신고 창  -->
-	
-	
-	
 		$(document).ready(function(){
 		    
 
@@ -47,7 +46,8 @@
 			        modal.style.display = "none";
 			    }
 			}		
-		})
+			
+		});
 	</script>
 </head>
 <body>
@@ -70,31 +70,41 @@
                         </thead>
                         <tbody>
                             <tr class="board_detaile_contentBar">
-                                <td class="col-sm-5">웹프로그래머가 되고 싶습니다.</td>
-                                <td class="col-sm-2">
-                                    <img src="${pageContext.request.contextPath}/resources/img/img.jpg" class="img-thumbnail" alt="Cinque Terre" width="50" height="50">자바
+                                <td class="col-sm-4">${board.title}</td>
+                                <td class="col-sm-4">
+                                    <img src="${pageContext.request.contextPath}/resources/upload/${board.profile}" class="img-thumbnail" alt="Cinque Terre" width="50" height="50">${board.writer}
                                 </td>
-                                <td class="col-sm-1 text-center">수다</td>
-                                <td class="col-sm-2 text-center">23</td>
-                                <td class="col-sm-2 text-center">2017-03-03</td>
+                                <td class="col-sm-1 text-center">${board.realType}</td>
+                                <td class="col-sm-1 text-center">${board.readCnt}</td>
+                                <td class="col-sm-2 text-center"><fmt:formatDate value="${board.regdate}"/></td>
                             </tr>
                         </tbody>
                     </table>
 
                     <div class="row col-sm-12 board_content">
-                        <p>
-                            되고싶어요 되고싶어요 되고싶어요 되고싶어요 되고싶어요 되고싶어요 되고싶어요 되고싶어요 되고싶어요 되고싶어요 되고싶어요
-                            <br/> 되고싶어요 되고싶어요 되고싶어요
-                            <br/> 되고싶어요 되고싶어요 되고싶어요
-                            <br/> 되고싶어요 되고싶어요 되고싶어요
-                        </p>
+                        ${board.content}
                     </div>
                     <div class="row col-sm-12 btn_row">
-                        <div class="col-sm-9"></div>
+                        <div class="col-sm-9">
+                 			  <a class="btn btn-warning" href="${pageContext.request.contextPath}/board/list" title="목록"><i class="glyphicon glyphicon-list"></i></a>
+                        </div>
                         <div class="col-sm-3 text-right btn_box">
-                            <a href="${pageContext.request.contextPath}/board/modifyForm" class="btn btn-success" title="수정"><i class="glyphicon glyphicon-erase"></i></a>
-                            <a class="btn btn-warning" title="삭제"><i class="glyphicon glyphicon-trash"></i></a>
-                            <button id="report_btn" type="button" class="btn btn-danger" title="신고"><i class="glyphicon glyphicon-flag"></i></button>
+                            <c:choose>
+                            	<c:when test="${loginUser.nickname==board.writer}">
+                           	          <a href="${pageContext.request.contextPath}/board/modifyForm/${board.bno}" class="btn btn-success" title="수정"><i class="glyphicon glyphicon-erase"></i></a>
+                          			  <a href="${pageContext.request.contextPath}/board/remove/${board.bno}" class="btn btn-warning" id="removeBtn" title="삭제"><i class="glyphicon glyphicon-trash"></i></a>
+                          			  <script type="text/javascript">
+		                          			//글삭제 클릭시
+		                          			$("#removeBtn").click(function(){
+		                          			  var result = confirm("정말 삭제 하시겠습니까?\n-해당 내용과 모든 댓글도 함께 삭제됩니다.");
+		                          			        if(!result){return false;}
+		                          			})
+                          			  </script>
+                            	</c:when>
+                            	<c:otherwise>
+		                            <button id="report_btn" type="button" class="btn btn-danger" title="신고"><i class="glyphicon glyphicon-flag"></i></button>
+                            	</c:otherwise>
+                            </c:choose>
                             
 							  <!-- 신고 modal -->
                             
@@ -102,14 +112,14 @@
 
 							  <div class="modal-content rep__mc">
 							    <div class="modal-header rep_mh">
-							      <span class="close rep_ic">&times;</span>
+							      <span class="close rep_ic" data-dismiss="modal">&times;</span>
 							      	신고하기
 							    </div>
 							    <div class="modal-body rep_b">
 							      
 									  <form action="/admin/report" id="report_from">
 									    <label for="reporter" class="col-sm-12">신고자</label>
-									    <input type="text" id="reporter" name="reporter" disabled="disabled">
+									    <input type="text" id="reporter" name="reporter" value="${loginUser.nickname}" disabled="disabled">
 									
 									    <label for="cause" class="col-sm-12">신고사유</label>
 									    <textarea id="cause" name="cause" style="height:200px" placeholder="욕설/비방/광고성/음란물에 해당하는 게시글을 신고해주세요"></textarea>
@@ -121,9 +131,9 @@
 							    
 							    <div class="modal-footer rep_f">
 							      	<span class="col-sm-12 text-danger text-left">
-									    신고하시면 해당 게시물은 삭제될 수 있으며, 해당 게시물 작성자의 글쓰기 또한 금지될 수 있습니다. <br/>
+									    신고하시면 해당 게시물은 삭제될 수 있으며, <br/>해당 게시물 작성자의 글쓰기 또한 금지될 수 있습니다. <br/>
 									    단, 허위신고일 경우 신고자의 활동에 제한을 받게 되오니 이점 유의해 주시기 바랍니다.
-									    </span>
+									</span>
 							    </div>
 							  </div>
 
@@ -141,7 +151,7 @@
 
                         <div class="col-sm-12 reply_box">
                             <div class="col-sm-2 text-center reply_profile">
-                                <img src="../resources/img/img.jpg" class="img-thumbnail" alt="Cinque Terre" width="100" height="100">
+                                <img src="${pageContext.request.contextPath}/resources/img/img.jpg" class="img-thumbnail" alt="Cinque Terre" width="100" height="100">
                                 <br/>
                                 <div class="reply_writer">
                                     <span>별나라여행</span>
@@ -159,50 +169,7 @@
                             <div class="col-sm-1 reply_btns">
                                 <button class="btn btn-default">수정</button>
                                 <button class="btn btn-default">삭제</button>
-                            </div>
-                            <!--//reply_content-->
-                        </div>
-                        <!--//reply_box-->
-
-                        <div class="col-sm-12 reply_box">
-                            <div class="col-sm-2 text-center reply_profile">
-                                <img src="../resources/img/img.jpg" class="img-thumbnail" alt="Cinque Terre" width="100" height="100">
-                                <br/>
-                                <div class="reply_writer">
-                                    <span>별나라여행</span>
-                                </div>
-                            </div>
-                            <!--댓글 내용창-->
-                            <div class="col-sm-9 reply_content">
-                                <p>잘됬으면 좋겠습니다 !!!
-                                    <br/> 잘됬으면 좋겠습니다 !!!
-                                </p>
-                            </div>
-                            <div class="col-sm-1 reply_btns">
-                                <button class="btn btn-default">수정</button>
-                                <button class="btn btn-default">삭제</button>
-                            </div>
-                            <!--//reply_content-->
-                        </div>
-                        <!--//reply_box-->
-
-                        <div class="col-sm-12 reply_box">
-                            <div class="col-sm-2 text-center reply_profile">
-                                <img src="../resources/img/img.jpg" class="img-thumbnail" alt="Cinque Terre" width="100" height="100">
-                                <br/>
-                                <div class="reply_writer">
-                                    <span>별나라여행</span>
-                                </div>
-                            </div>
-                            <!--댓글 내용창-->
-                            <div class="col-sm-9 reply_content">
-                                <p>잘됬으면 좋겠습니다 !!!
-                                    <br/> 잘됬으면 좋겠습니다 !!!
-                                </p>
-                            </div>
-                            <div class="col-sm-1 reply_btns">
-                                <button class="btn btn-default">수정</button>
-                                <button class="btn btn-default">삭제</button>
+                                <button class="btn btn-info">답글</button>
                             </div>
                             <!--//reply_content-->
                         </div>
@@ -221,7 +188,7 @@
                         <form action="" method="post" id="replyForm">
                            <!--댓글 작성자 프로필 -->
                             <div class="col-sm-2 text-center reply_profile">
-                                <img src="img/img.jpg" class="../img-thumbnail" alt="Cinque Terre" width="100" height="100">
+                                <img src="${pageContext.request.contextPath}/resources/img/img.jpg" class="../img-thumbnail" alt="Cinque Terre" width="100" height="100">
                                 <br/>
                                 <div class="reply_writer">
                                     <span>별나라여행</span>

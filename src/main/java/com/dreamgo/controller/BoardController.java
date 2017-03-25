@@ -3,13 +3,17 @@ package com.dreamgo.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.dreamgo.domain.BoardVO;
 import com.dreamgo.service.BoardService;
@@ -25,9 +29,28 @@ public class BoardController {
 	
 	
 	//글 보기 페이지 !!
-	@RequestMapping("/read")
-	public String read(){
+	@RequestMapping("/read/{bno}")
+	public String read(HttpSession session,Model model,@PathVariable int bno,HttpServletRequest request){
+		
+		logger.info("접속자 IP 주소 : "+request.getRemoteAddr());
+
 		logger.info("read page called!");
+		logger.info("넘어온 글번호 : "+bno);
+		
+		try {
+			//조회수 증가
+			service.increaseReadCnt(bno);
+			
+			//해당 글 가져오기
+			BoardVO board = service.read(bno);
+			
+			model.addAttribute("board", board);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return "/board/read";
 	}
 	
@@ -39,52 +62,104 @@ public class BoardController {
 		
 		try {
 			List<BoardVO> list =  service.list();
+
 			model.addAttribute("list",list);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
+	
 		return "/board/list";
 	}
 	
 	//글 작성 페이지 !!
-	@RequestMapping("/write")
+	@RequestMapping("/writeForm")
 	public String writeForm(){
 		logger.info("writeForm page called!");
 		return "/board/articleForm";
 	}
 	
 	//글 작성 로직 !!
-	@RequestMapping("/writeLoc")
-	public void write(@RequestParam("title") String title,
-			@RequestParam("type") String type,
-			@RequestParam("content") String content){
-		logger.info("제목" + title);
-		logger.info("구분" + type);
-		logger.info("내용" + content);
+	@RequestMapping(value="/write", method=RequestMethod.POST)
+	public String write(@ModelAttribute BoardVO board){
+		logger.info("제목 : " + board.getTitle());
+		logger.info("구분 : " + board.getType());
+		logger.info("내용 : " + board.getContent());
+		logger.info("프로필사진 :" + board.getProfile());
+		logger.info("글쓴이 :" + board.getWriter());
+		
+		try {
+			
+			//글등록
+			int result = service.insertBoard(board);
+			
+			if(result>0){
+				System.out.println("================== 글이 등록 되었습니다 =================");
+			}
+
+			return "redirect:/board/read/"+board.getBno();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "";
+		}
 	}
 	
 	//글 수정 페이지!!
-	@RequestMapping("/modify")
-	public String modifyForm(Model model){
+	@RequestMapping("/modifyForm/{bno}")
+	public String modifyForm(Model model,@PathVariable int bno){
 		logger.info("modifyForm page called!");
 		
-		
-		//DB연동 되면 이곳에서는
-		//넘어온 글 번호를 가지고 SELECT문 실시
-		
-		//받아온 객체를 넘기게 된다.
-		
-		//TEST용 파라미터
-		model.addAttribute("title","안녕");
-		model.addAttribute("content","안녕하세요");
+		try {
+			//수정할 글 가져오기
+			BoardVO board =  service.read(bno);
+			model.addAttribute("board", board);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return "/board/articleForm";
 	}
 	
+	
+	//글 수정
+	@RequestMapping(value="/modify", method=RequestMethod.POST)
+	public String modify(BoardVO board){
+		
+		logger.info("modify called....!");
+		logger.info("bno : "+board.getBno());
+		try {
+			
+			//글수정 
+			int result = service.modifyArticle(board);
+			
+			if(result==1){
+				System.out.println("=============== 글 수정 성공 ================");
+				
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "redirect:/board/read/"+board.getBno();
+	}
+	
+	
+	//글 삭제
+	@RequestMapping("/remove/{bno}")
+	public String remove(@PathVariable int bno){
+		
+		try {
+			//글삭제
+			service.removeArticle(bno);
+			System.out.println("=============== 글 삭제 성공 ================");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "redirect:/board/list";
+	}
 	
 	
 }

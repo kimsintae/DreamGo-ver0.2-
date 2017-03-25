@@ -4,10 +4,45 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.dreamgo.mapper.BoardMapper">
+  
+  	<!-- 글 목록 -->
 	<select id="list" resultType="BoardVO">
-		select bno, title, content, writer, type, readCnt, regdate
+		select bno, title, content, writer, type, profile, readCnt, regdate
 		from board
 		order by bno desc, regdate desc
 	</select>
 	
+	<!-- 글 등록 -->
+	<insert id="insertBoard" parameterType="BoardVO">
+		insert into board(title,content,writer,type,profile)
+		values(#{title},#{content},#{writer},#{type},#{profile})
+		
+		<selectKey keyProperty="bno" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<!-- 게시글보기 -->
+	<select id="read" parameterType="int" resultType="BoardVO">
+		select *
+		from board
+		where bno=#{bno}
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="increaseReadCnt" parameterType="int">
+		update board set readCnt=readCnt+1 where bno = #{bno}
+	</update>
+	
+	<!-- 글 수정 -->
+	<update id="modifyArticle" parameterType="BoardVO">
+		update board 
+		set title=#{title},content=#{content},type=#{type}
+		where bno=#{bno}
+	</update>
+	
+	<!-- 글 삭제 -->
+	<delete id="removeArticle">
+		delete from board where bno=#{bno}
+	</delete>
   </mapper>

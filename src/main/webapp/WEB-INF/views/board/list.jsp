@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,53 +35,68 @@
                 <!-- 게시판 -->
                 <div class="container col-sm-12 board_wrap">
 	                <div class="row">
-	                    <div class="col-sm-9">
-							<a href="${pageContext.request.contextPath}/board/write" class="btn btn-default glyphicon glyphicon-pencil write_btn" title="글쓰기"></a>
+	                    <div class="col-sm-4">
+							<a href="${pageContext.request.contextPath}/board/writeForm" class="btn btn-default glyphicon glyphicon-pencil write_btn" title="글쓰기"></a>
 	                    </div>
+	                    <div class="col-sm-3"></div>
+	                    <div class="col-sm-5" >
 		                    <form action="board.html" method="get" id="selectorForm">
-		                        <div class="col-sm-1 text-right">
-		                            <select name="order" class="orderSelector selector form-control">
-		                                <option value="recent">최신순</option>
+		                        <div class="col-sm-4">
+		                            <select name="order" class="orderSelector selector form-control ">
+		                                <option value="recent" selected="selected">최신순</option>
 		                                <option value="readCnt">조회순</option>
 		                                <option value="reply">댓글순</option>
 		                            </select>
 		                        </div>
 		
-		                        <div class="col-sm-1 text-right">
-		                            <select name="type" class="typeSelector selector form-control">
-		                                <option value="list">전체</option>
-		                                <option value="career">진로</option>
-		                                <option value="school">학교</option>
-		                                <option value="job">직업</option>
-		                                <option value="talk">수다</option>
+		                        <div class="col-sm-4">
+		                            <select name="type" class="typeSelector selector form-control ">
+		                                <option value="list" selected="selected">전체</option>
+		                                <option value='C'>진로</option>
+		                                <option value='S'>학교</option>
+		                                <option value='J'>직업</option>
+		                                <option value='T'>수다</option>
 		                            </select>
 		                        </div>
-		                        <div class="col-sm-1">
+		                        <div class="col-sm-2">
 		                            <button type="submit" form="selectorForm" class="btn btn-default">정렬</button>
 		                        </div>
 		                    </form>
+		                    </div>
 		            </div>
                     <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>제목</th>
-                                <th>내용</th>
                                 <th>작성자</th>
-                                <th>분류</th>
-                                <th>조회수</th>
+                                <th>제목</th>
+                                <th class="text-center">분류</th>
+                                <th class="text-center">조회수</th>
+                                <th>등록일</th>
                             </tr>
                         </thead>
                         <tbody>
                         	<c:forEach var="board" items="${list}">
 	                            <tr>
-	                                <td>1</td>
-	                                <td class="title" title="웹프로그래머가 되고 싶습니다."><a href="${ctx}/board/read">${board.title}</a><span class="badge" title="댓글 수">5</span></td>
-	                                <td class="contentTd"><span class="content_span">${board.content}</span>
-	                                </td>
-	                                <td class="writer"><img src="c:\dream_go\upload\${board.profile}" class="img-thumbnail" alt="Cinque Terre" width="35" height="35">${board.writer}</td>
-	                                <td class="cate">${board.type}</td>
-	                                <td class="readCnt">${board.readCnt}</td>
+	                                <td class="text-center">${board.bno}</td>
+	                                <c:choose>
+	                                	<c:when test="${board.writer==loginUser.nickname}">
+		                                	<td class="writer" style="width:25%; color:#e06377;">
+			                                <img src="${pageContext.request.contextPath}/resources/upload/${board.profile}" class="img-thumbnail" alt="Cinque Terre" width="35" height="35"/>
+			                                ${board.writer}
+			                                </td>
+	                                	</c:when>
+	                                	<c:otherwise>
+		                                 	<td class="writer" style="width:25%;">
+				                                <img src="${pageContext.request.contextPath}/resources/upload/${board.profile}" class="img-thumbnail" alt="Cinque Terre" width="35" height="35"/>
+				                                ${board.writer}
+			                                </td>
+	                                	</c:otherwise>
+	                                </c:choose>
+	                                <td class="title" style="width:40%;"><a href="${pageContext.request.contextPath}/board/read/${board.bno}">${board.title}</a><span class="badge" title="댓글 수">5</span></td>
+	                                <td class="type text-center">${board.realType}</td>
+	                                <td class="readCnt text-center">${board.readCnt}</td>
+	                                <td class="regdate"><fmt:formatDate value="${board.regdate}" type="date" dateStyle="default"/></td>
 	                            </tr>
                             </c:forEach>
                         </tbody>
@@ -96,7 +112,11 @@
         </div>
     </div>
 <%@include file="../include/footer.jsp" %>
+<script type="text/javascript">
+var msg = '${writeMsg}';
+if(msg=='info'){alert("로그인 후에 이용해주세요!");}
 
+</script>
 </body>
 
 </html>

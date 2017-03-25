@@ -36,7 +36,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		if(user!=null){
 			logger.info("user "+user);
 			session.setAttribute("loginUser", user);
-			
 		}else{
 			
 		}

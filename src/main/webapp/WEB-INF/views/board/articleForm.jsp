@@ -30,7 +30,7 @@
             <!-- 글쓰기 본문 -->
     
             <div class="col-sm-12 write_wrap">
-                <form id="write_modify_Form" action="" method="get">
+                <form id="write_modify_Form" action="" method="POST">
 	                    <div class="col-sm-12 write_top">
 	
 	                       <div class="form-group title_box">
@@ -44,10 +44,10 @@
 	                            <label for="type" class="col-sm-1 control-label">구분</label>
 	                            <div class="col-sm-2">
 	                                <select name="type" id="type" class="form-control">
-	                                    <option value="career">진로</option>
-	                                    <option value="school">학교</option>
-	                                    <option value="job">직업</option>
-	                                    <option value="talk">수다</option>
+	                                    <option value='C' selected="selected">진로</option>
+	                                    <option value='S'>학교</option>
+	                                    <option value='J'>직업</option>
+	                                    <option value='T'>수다</option>
 	                                </select>
 	                            </div>
 	                        </div>
@@ -62,25 +62,30 @@
                         	<script type="text/javascript">
                         	  
                         	  //받아온 글이 존재한다면 (수정)
-                        	  if('${content}!=null') {
+                        	  if('${board}!=null') {
                         	  
-                        	  Editor.modify({'content': '${content}'});
-                        	  $("#title").attr("value",'${title}');
-                        	  $("#type").val("job");
-                        	  
+                        	  Editor.modify({'content': '${board.content}'});
+                        	  $("#title").attr("value",'${board.title}');
+                        	  $("#type").val('${board.realType}').attr("selected","selected");
                         	  
                         	  //컨텐츠 가져오기 호출
                         	  //loadContent();
                         	 }
                         	</script>
                     	</div><!--//editor_box-->
-						<textarea id="modifiedText" style="display:none;"></textarea>                
+						<textarea id="modifiedText" style="display:none;"></textarea>           
+						<input type="hidden" name="profile" value="${loginUser.profile}"/>     
+						<input type="hidden" name="writer" value="${loginUser.nickname}"/>     
+						<input type="hidden" name="bno" value="${board.bno}"/>     
             	</form><!-- //write_modify_Form --> 
 	                    
 		                  <div class="form-group"> 
 		                    <div class="col-sm-offset-2 col-sm-10 text-right write_btns">
+
 		                      <button type="button" class="btn btn-default write_btn glyphicon glyphicon-saved" style="font-size:18px;" title="등록"></button>
-		                      <a href="${pageContext.request.contextPath}/board/list" class="btn btn-default cancle_btn glyphicon glyphicon-remove"style="font-size:18px;" title="취소"></a>
+
+		                      <a href="${pageContext.request.contextPath}/board/read/${board.bno}" class="btn btn-default cancle_btn glyphicon glyphicon-remove"style="font-size:18px;" title="취소"></a>
+		                      
 		                      
 		                      <!-- 수정일때는 list.jsp로 돌아가는게 아니라 read.jsp 로 -->
 		                    </div>
@@ -206,7 +211,13 @@
   //이 함수는
   //submit 기능이 있다.
   //즉 버튼 클릭시 서버로 내용을 전송한다.
-  $("#write_modify_Form").attr('action','${ctx}/board/writeLoc');
+  if('${board}'!=''){
+	  //수정폼일때
+  	$("#write_modify_Form").attr('action','${pageContext.request.contextPath}/board/modify');
+  }else{
+	//작성폼일때	  
+  	$("#write_modify_Form").attr('action','${pageContext.request.contextPath}/board/write');
+  }
   
   Editor.save();
 

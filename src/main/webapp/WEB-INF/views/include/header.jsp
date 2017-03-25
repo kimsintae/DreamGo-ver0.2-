@@ -69,16 +69,21 @@
 
                 <ul class="nav navbar-nav navbar-right">
                 <c:choose>	
-                <c:when test="${loginUser==null}">
-                	 <li><a href="#" data-toggle="modal" data-target="#loginModal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                 </c:when>
-                 <c:otherwise>
-                 	<li><a class="btn btn-default" href="${pageContext.request.contextPath}/admin/logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
-                 </c:otherwise>
+	                <c:when test="${loginUser==null}">
+	                	 <li><a href="#" data-toggle="modal" data-target="#loginModal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+	                 </c:when>
+	                 <c:otherwise>
+	                 	<li><a class="btn btn-default" href="${pageContext.request.contextPath}/admin/logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+	                 </c:otherwise>
                  </c:choose>	
                 </ul>
             </div>
         </div>
     </nav>
+    <script type="text/javascript">
+    	var msg = '${msg}';
+    	if(msg=='failed'){alert('아이디 혹은 비밀번호가 틀렸습니다.');}
+    
+    </script>
 </body>
 </html>

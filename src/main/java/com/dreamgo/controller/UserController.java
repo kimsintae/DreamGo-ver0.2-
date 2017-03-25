@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dreamgo.domain.UserVO;
 import com.dreamgo.service.UserService;
@@ -44,9 +45,10 @@ public class UserController {
 	
 		//로그인  !!
 		@RequestMapping("/login")
-		public void login(@ModelAttribute UserVO user,
+		public String login(@ModelAttribute UserVO user,
 							HttpSession session,
-							Model model)throws Exception{
+							@RequestHeader(value="referer",required=false) final String referer,
+							RedirectAttributes rtts)throws Exception{
 		
 			
 			logger.info("login page called!");
@@ -56,16 +58,29 @@ public class UserController {
 			//로그인 한 유저 객체
 			UserVO userVO = service.login(user);
 
-			logger.info("로그인 된 유저? : "+userVO);
-			//인터셉터가 받아서 처리할 모델객체
-			model.addAttribute("userVO", userVO);
+			
+			
+			if(userVO!=null){
+				logger.info("로그인 된 유저 : "+userVO);
+				//로그인
+				session.setAttribute("loginUser", userVO);
+				return "redirect:"+referer;
+			}else{
+				logger.info("로그인 실패 ");
+				//로그인 실패시
+				rtts.addFlashAttribute("msg", "failed");
+				return "redirect:"+referer;
+						
+			}
 		}
 		
 		//로그아웃
 		@RequestMapping("/logout")
 		public String logout(HttpSession session,
 				@RequestHeader(value="referer",required=false) final String referer){
+			
 			session.invalidate();
+			
 			
 			return "redirect:"+referer;
 		}

@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class BoardVO {
 
-	private int bno;
+	private Integer bno;
 	private String title;
 	private String content;
 	private String writer;
@@ -14,10 +14,12 @@ public class BoardVO {
 	private Date regdate;
 	
 	
-	public int getBno() {
+	private String realType;
+	
+	public Integer getBno() {
 		return bno;
 	}
-	public void setBno(int bno) {
+	public void setBno(Integer bno) {
 		this.bno = bno;
 	}
 	public String getTitle() {
@@ -62,5 +64,17 @@ public class BoardVO {
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
+	public String getRealType() {
 		
+		switch (this.type) {
+		case 'C': realType="진로";break;
+		case 'T': realType="수다";break;
+		case 'J': realType="직업";break;
+		case 'S': realType="학교";break;
+		}
+		return realType;
+	}
+	
+	
+	
 }
