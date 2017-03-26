@@ -1,5 +1,6 @@
 package com.dreamgo.controller;
 
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.dreamgo.domain.BoardVO;
 import com.dreamgo.service.BoardService;
+import com.dreamgo.util.PageMaker;
 
 @Controller
 @RequestMapping("/board/*")
@@ -56,14 +58,24 @@ public class BoardController {
 	
 	
 	//리스트 페이지 !!
-	@RequestMapping("/list")
-	public String board(Model model){
+	@RequestMapping("/list/{thisPage}")
+	public String board(HttpServletRequest request,Model model,@PathVariable int thisPage){
 		logger.info("board page called!");
-		
 		try {
-			List<BoardVO> list =  service.list();
+			
+			int totalCount = service.totalCount();
+			logger.info("현재페이지 : "+thisPage);
+			logger.info("총 게시글 수 : "+totalCount);
+			
+			PageMaker pm = new PageMaker();
+			pm.setThisPage(thisPage);
+			pm.setTotalCount(totalCount);
+			
+			List<BoardVO> list =  service.list(pm);
 
 			model.addAttribute("list",list);
+			model.addAttribute("pagination", pm.getBoardPagination(request));
+			model.addAttribute("pageMaker", pm);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

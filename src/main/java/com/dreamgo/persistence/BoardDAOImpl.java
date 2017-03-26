@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.dreamgo.domain.BoardVO;
+import com.dreamgo.util.PageMaker;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -19,8 +20,13 @@ public class BoardDAOImpl implements BoardDAO {
 			"com.dreamgo.mapper.BoardMapper";
 	
 	@Override
-	public List<BoardVO> list() throws Exception {
-		return sqlSession.selectList(namespace+".list");
+	public int totalCount() throws Exception {
+		return sqlSession.selectOne(namespace+".totalCount");
+	}
+	
+	@Override
+	public List<BoardVO> list(PageMaker pm) throws Exception {
+		return sqlSession.selectList(namespace+".list",pm);
 	}
 	
 	@Override

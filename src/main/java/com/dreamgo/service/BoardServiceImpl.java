@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.dreamgo.domain.BoardVO;
 import com.dreamgo.persistence.BoardDAO;
+import com.dreamgo.util.PageMaker;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -16,8 +17,13 @@ public class BoardServiceImpl implements BoardService {
 	private BoardDAO dao;
 	
 	@Override
-	public List<BoardVO> list() throws Exception {
-		return dao.list();
+	public int totalCount() throws Exception {
+		return dao.totalCount();
+	}
+	
+	@Override
+	public List<BoardVO> list(PageMaker pm) throws Exception {
+		return dao.list(pm);
 	}
 	
 	@Override

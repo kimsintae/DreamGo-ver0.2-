@@ -22,7 +22,7 @@
                     <li><a href="${pageContext.request.contextPath}/info/job_info">직업정보</a></li>
                     <li><a href="${pageContext.request.contextPath}/info/sch_info">학교정보</a></li>
                     <li><a href="${pageContext.request.contextPath}/info/dep_info">학과정보</a></li>
-                    <li><a href="${pageContext.request.contextPath}/board/list">우리끼리</a></li>
+                    <li><a href="${pageContext.request.contextPath}/board/list/1">우리끼리</a></li>
                     <li><a href="${pageContext.request.contextPath}/aptitudeTest/apti_test">적성 심리 검사</a></li>
                 </ul>
 

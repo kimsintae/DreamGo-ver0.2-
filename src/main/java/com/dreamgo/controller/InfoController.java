@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dreamgo.util.CreateData;
-import com.dreamgo.util.PageMakerAjax;
+import com.dreamgo.util.PageMaker;
 
 @Controller
 public class InfoController {
@@ -121,7 +121,7 @@ public class InfoController {
 			int totalCount = CreateData.getTotalCount();
 			
 			//페이징 객체 
-			PageMakerAjax pka = new PageMakerAjax();
+			PageMaker pka = new PageMaker();
 			pka.setThisPage(thisPage);
 			pka.setTotalCount(totalCount==0?0:totalCount);
 			
@@ -132,7 +132,7 @@ public class InfoController {
 			
 			map.put("data",dataList);//데이터담기
 			map.put("pka", pka);//페이징객체 넘기기
-			map.put("pagination",pka.getPagination());// pagination HTML 보내기
+			map.put("pagination",pka.getAjaxPagination());// pagination HTML 보내기
 
 		return map;
 	}//sch_search
@@ -162,7 +162,7 @@ public class InfoController {
 		//총 결과수
 		int totalCount = CreateData.getTotalCount();
 		
-			PageMakerAjax pka = new PageMakerAjax();
+			PageMaker pka = new PageMaker();
 			pka.setThisPage(thisPage);
 			pka.setTotalCount(totalCount==0?0:totalCount);
 
@@ -173,13 +173,13 @@ public class InfoController {
 			System.out.println("totalCount : "+pka.getTotalCount());
 			
 		
-			System.out.println(pka.getPagination());
+			System.out.println(pka.getAjaxPagination());
 			Map<Object, Object> map = new HashMap<Object, Object>();
 			
 			
 			map.put("data", dataList);
 			map.put("pka",pka);
-			map.put("pagination", pka.getPagination());
+			map.put("pagination", pka.getAjaxPagination());
 			return map;
 	}
 	
@@ -236,7 +236,7 @@ public class InfoController {
 		
 		
 		//페이징 객체
-		PageMakerAjax pka = new PageMakerAjax();
+		PageMaker pka = new PageMaker();
 		pka.setThisPage(thisPage);
 		pka.setTotalCount(totalCount==0?0:totalCount);
 
@@ -248,11 +248,11 @@ public class InfoController {
 		System.out.println("총검색수 : "+pka.getTotalCount());
 		
 		System.out.println("===========");
-		System.out.println("페이징 : "+pka.getPagination());
+		System.out.println("페이징 : "+pka.getAjaxPagination());
 		
 		map.put("data", dataList);
 		map.put("pka", pka);//페이징객체 넘기기
-		map.put("pagination", pka.getPagination());
+		map.put("pagination", pka.getAjaxPagination());
 		
 		
 		//logger.info(map.toString());

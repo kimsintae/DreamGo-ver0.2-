@@ -5,11 +5,19 @@
   
   <mapper namespace="com.dreamgo.mapper.BoardMapper">
   
+  	<!-- 총 게시글 수 -->
+  	<select id="totalCount" resultType="int">
+  		select count(*)
+  		from board
+  		where bno>0
+  	</select>
+  
   	<!-- 글 목록 -->
 	<select id="list" resultType="BoardVO">
 		select bno, title, content, writer, type, profile, readCnt, regdate
 		from board
 		order by bno desc, regdate desc
+		limit #{startNum}, #{perPageNum}
 	</select>
 	
 	<!-- 글 등록 -->
