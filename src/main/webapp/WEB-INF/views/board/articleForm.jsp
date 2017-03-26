@@ -10,13 +10,13 @@
   <!-- editor 외부링크 -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/editor/css/editor.css" type="text/css" charset="utf-8"/>
   <script src="${pageContext.request.contextPath}/resources/editor/js/editor_loader.js" type="text/javascript" charset="utf-8"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css?v=1">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/writeForm.css?v=1">
   
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   
 
 </head>
@@ -43,12 +43,12 @@
 	                        <div class="form-group type_box"> 
 	                            <label for="type" class="col-sm-1 control-label">구분</label>
 	                            <div class="col-sm-2">
-	                                <select name="type" id="type" class="form-control">
-	                                    <option value='C' selected="selected">진로</option>
+								    <select name="type" class="form-control" id="typeSel">
+								        <option value='C'>진로</option>
 	                                    <option value='S'>학교</option>
 	                                    <option value='J'>직업</option>
 	                                    <option value='T'>수다</option>
-	                                </select>
+								    </select>
 	                            </div>
 	                        </div>
 	                    </div><!--//write_top-->
@@ -66,7 +66,7 @@
                         	  
                         	  Editor.modify({'content': '${board.content}'});
                         	  $("#title").attr("value",'${board.title}');
-                        	  $("#type").val('${board.realType}').attr("selected","selected");
+                        	  $("#typeSel").val('${board.realType}').attr("selected","selected");
                         	  
                         	  //컨텐츠 가져오기 호출
                         	  //loadContent();
@@ -84,7 +84,7 @@
 
 		                      <button type="button" class="btn btn-default write_btn glyphicon glyphicon-saved" style="font-size:18px;" title="등록"></button>
 
-		                      <a href="${pageContext.request.contextPath}/board/read/${board.bno}" class="btn btn-default cancle_btn glyphicon glyphicon-remove"style="font-size:18px;" title="취소"></a>
+		                      <a href="${pageContext.request.contextPath}/board/list" class="btn btn-default cancle_btn glyphicon glyphicon-remove"style="font-size:18px;" title="취소"></a>
 		                      
 		                      
 		                      <!-- 수정일때는 list.jsp로 돌아가는게 아니라 read.jsp 로 -->
@@ -97,10 +97,8 @@
     </div>
   </div>
 </div>
+<%@ include file="../include/footer.jsp" %>
 
-<footer class="container-fluid text-center">
-  <p>Footer Text</p>
-</footer>
 <script type="text/javascript">
 
 //글 쓰다 다른 페이지로 넘어가려 할 때 메시지 띄우기

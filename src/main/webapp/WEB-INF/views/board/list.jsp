@@ -41,22 +41,22 @@
 	                    <div class="col-sm-3"></div>
 	                    <div class="col-sm-5" >
 		                    <form action="board.html" method="get" id="selectorForm">
-		                        <div class="col-sm-4">
-		                            <select name="order" class="orderSelector selector form-control ">
-		                                <option value="recent" selected="selected">최신순</option>
+		                        <div class="col-sm-4 form-group">
+		                            <select name="order" class="form-control" id="orderSelector">
+								       	<option value="recent">최신순</option>
 		                                <option value="readCnt">조회순</option>
 		                                <option value="reply">댓글순</option>
-		                            </select>
+								      </select>
 		                        </div>
 		
-		                        <div class="col-sm-4">
-		                            <select name="type" class="typeSelector selector form-control ">
-		                                <option value="list" selected="selected">전체</option>
+		                        <div class="col-sm-4 form-group">
+		                            <select name="type" class="form-control" id="typeSelector">
+								       	<option value="l">전체</option>
 		                                <option value='C'>진로</option>
 		                                <option value='S'>학교</option>
 		                                <option value='J'>직업</option>
 		                                <option value='T'>수다</option>
-		                            </select>
+								      </select>
 		                        </div>
 		                        <div class="col-sm-2">
 		                            <button type="submit" form="selectorForm" class="btn btn-default">정렬</button>
@@ -96,11 +96,27 @@
 	                                <td class="title" style="width:40%;"><a href="${pageContext.request.contextPath}/board/read/${board.bno}">${board.title}</a><span class="badge" title="댓글 수">5</span></td>
 	                                <td class="type text-center">${board.realType}</td>
 	                                <td class="readCnt text-center">${board.readCnt}</td>
-	                                <td class="regdate"><fmt:formatDate value="${board.regdate}" type="date" dateStyle="default"/></td>
+	                                <td class="regdate"><fmt:formatDate value="${board.regdate}" type="both" dateStyle="short" timeStyle="short"/></td>
 	                            </tr>
                             </c:forEach>
                         </tbody>
                     </table>
+                    
+                    <!-- 페이징 -->
+                    <div class="row">
+                    	<div class="col-sm-4"></div>
+						<div class="pagination col-sm-4 text-center">
+						  <a href="#">&laquo;</a>
+						  <a href="#">1</a>
+						  <a class="active" href="#">2</a>
+						  <a href="#">3</a>
+						  <a href="#">4</a>
+						  <a href="#">5</a>
+						  <a href="#">6</a>
+						  <a href="#">&raquo;</a>
+						</div>		
+						<div class="col-sm-4"></div>			
+                    </div>
                 </div>
                 <!--//board_wrap-->
                 <div class="row col-sm-12">

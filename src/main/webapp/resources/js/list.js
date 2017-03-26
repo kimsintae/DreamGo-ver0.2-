@@ -23,7 +23,7 @@
         var type = $.getUrlVar("type");
 
         //페이지 전환되도 선택된 값 유지하기
-        $(".typeSelector").val(type);
-        $(".orderSelector").val(order);
+        $("#orderSelector").val(order);
+        $("#typeSelector").val(type);
 
     });
