@@ -30,9 +30,15 @@
 	
 	<!-- 답글 작성 -->
 	<insert id="insertReplySub" parameterType="ReplySubVO">
-		insert into reply_sub(content,userNo,mainNo)
-		values(#{content},#{userNo},#{mainNo})
+		insert into reply_sub(content,userNo,mainNo,articleNo)
+		values(#{content},#{userNo},#{mainNo},#{articleNo})
 	</insert>
+	
+	<select id="listReplySub" parameterType="int" resultType="ReplySubVO">
+		SELECT sno,content,userNo,mainNo,articleNo,rs.regdate,u.nickname,u.profile
+		FROM reply_sub rs, user u
+		WHERE articleNo=#{articleNo} AND rs.userNo = u.no
+	</select>
 	
 	
   </mapper>

@@ -38,4 +38,9 @@ public class ReplyDAOImpl implements ReplyDAO {
 	public int removeReply(int rno) throws Exception {
 		return sqlSession.delete(namespace+".removeReply",rno);
 	}
+	
+	@Override
+	public List<ReplySubVO> listReplySub(int articleNo) throws Exception {
+		return sqlSession.selectList(namespace+".listReplySub",articleNo);
+	}
 }

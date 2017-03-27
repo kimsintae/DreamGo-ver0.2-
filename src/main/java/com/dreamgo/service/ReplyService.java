@@ -25,4 +25,7 @@ public interface ReplyService {
 	//----------------답글 관련 --------------- 
 	//답글 작성
 	public int insertReplySub(ReplySubVO rs)throws Exception;
+	
+	//답글 목록
+	public List<ReplySubVO> listReplySub(int articleNo)throws Exception;
 }

@@ -15,4 +15,5 @@ public interface ReplyDAO {
 	
 	//답글 관련
 	public int insertReplySub(ReplySubVO rs)throws Exception;
+	public List<ReplySubVO> listReplySub(int articleNo)throws Exception;
 }

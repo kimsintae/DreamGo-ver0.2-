@@ -28,7 +28,8 @@ public class ReplyController {
 	
 	//댓글 등록
 	@RequestMapping("/writeMainReply")
-	public String writeMainReply(@ModelAttribute ReplyMainVO rm){
+	public String writeMainReply(@ModelAttribute ReplyMainVO rm,
+			@RequestHeader("referer") String referer){
 		logger.info("write page called !!");
 		
 		logger.info("content : "+rm.getContent());
@@ -46,7 +47,7 @@ public class ReplyController {
 			e.printStackTrace();
 		}
 		
-		return "redirect:/board/read/"+rm.getArticleNo();
+		return "redirect:"+referer;
 		
 	}
 	
@@ -78,13 +79,12 @@ public class ReplyController {
 	//답글 등록
 	@RequestMapping("/writeSubReply")
 	public String writeSubReply(@ModelAttribute ReplySubVO rs,
-			@RequestParam("articleNo") int articleNo){
-		logger.info("write page called !!");
+			@RequestHeader("referer") String referer){
+		logger.info("writeSubReply page called !!");
 		
 		logger.info("content : "+rs.getContent());
 		logger.info("userNo : "+rs.getUserNo());
 		logger.info("mainNo : "+rs.getMainNo());
-		logger.info("articleNo : "+articleNo);
 		
 		try {
 		int result = service.insertReplySub(rs);
@@ -96,7 +96,7 @@ public class ReplyController {
 			e.printStackTrace();
 		}
 		
-		return "redirect:/board/read/"+articleNo;
+		return "redirect:"+referer;
 	}
 
 		

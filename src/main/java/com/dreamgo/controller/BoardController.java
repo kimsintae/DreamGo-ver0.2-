@@ -19,9 +19,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dreamgo.domain.BoardVO;
 import com.dreamgo.domain.ReplyMainVO;
+import com.dreamgo.domain.ReplySubVO;
 import com.dreamgo.service.BoardService;
 import com.dreamgo.service.ReplyService;
 import com.dreamgo.util.PageMaker;
+
+import sun.security.krb5.internal.ReplayCache;
 
 @Controller
 @RequestMapping("/board/*")
@@ -61,8 +64,27 @@ public class BoardController {
 			
 			//댓글 목록 가져오기
 			List<ReplyMainVO> replyMainList = replyService.listReplyMain(bno);
+			
+			//답글 목록 가져오기
+			List<ReplySubVO> replySubList = replyService.listReplySub(bno);
 			logger.info("reply_main 수 : "+replyMainList.size());
+			logger.info("reply_sub 수 : "+replySubList.size());
+			
+			for(ReplyMainVO rm : replyMainList){
+			//	System.out.println("main : "+rm.getRno());
+				System.out.println(rm.getRno()+"번 댓글");
+				for(ReplySubVO rs : replySubList){
+					//System.out.println("sub : "+rs.getMainNo());
+					if(rm.getRno()==rs.getMainNo()){
+						System.out.println("\t\t\t"+rm.getRno()+"번 댓글의 답글 내용"+rs.getContent());
+					}
+				}
+			}
+			
+			
+			
 			model.addAttribute("replyMainList", replyMainList);
+			model.addAttribute("replySubList", replySubList);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
