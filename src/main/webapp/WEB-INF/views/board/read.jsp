@@ -14,9 +14,16 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/readForm.css?v=2">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/read.js?v=2"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <style type="text/css">
+        .subReply_writeForm{
+        	display: none;
+       	}
+        
+    
+    </style>
 	<script type="text/javascript">
-	
 	<!-- 신고 창  -->
 		$(document).ready(function(){
 		    
@@ -156,8 +163,7 @@
                                 <div class="reply_writer">
                                     <span>별나라여행</span>
                                 </div>
-                            </div>
-                            <!--댓글 내용창-->
+                            </div><!--댓글 내용창-->
                             <div class="col-sm-9 reply_content">
                                 <p>잘됬으면 좋겠습니다 !!!
                                     <br/> 잘됬으면 좋겠습니다 !!!
@@ -169,11 +175,102 @@
                             <div class="col-sm-1 reply_btns">
                                 <button class="btn btn-default">수정</button>
                                 <button class="btn btn-default">삭제</button>
-                                <button class="btn btn-info">답글</button>
-                            </div>
-                            <!--//reply_content-->
+                                <button class="btn btn-info subReply_btn">답글</button>
+                            </div><!--//reply_content-->
+                            
+                            <!-- 답글 폼 -->
+                            <div class="col-sm-12 subReply_writeForm">
+						        	<hr/>
+						            <form action="" method="post" id='replyForm'>
+						               <!--답글 작성자 프로필 -->
+						                <div class='col-sm-2 text-center reply_profile'>
+						                    <img src='${pageContext.request.contextPath}/resources/upload/${loginUser.profile}' class='../img-thumbnail' alt='Cinque Terre' width='100' height='100'>
+						                    <br/>
+						                    <div class='reply_writer'>
+						                        <span>${loginUser.nickname}</span>
+						                    </div>
+						                </div>
+						                <!--답글 작성 박스 -->
+						                <div class='col-sm-9 form-group'>
+						                      <textarea class='form-control' rows='5' id='comment'></textarea>
+						                </div>
+						                <!--답글 작성 버튼 박스 -->
+						                    <div class='col-sm-1 reply_btns'>
+						                        <button class='btn btn-default'>확인</button>
+						                        <button type='reset' class='btn btn-default subReply_cancle'>취소</button>
+						                    </div>
+						                </form>
+			       		 	</div><!--//subReply_writeForm-->
+			       		 	
+			       		 	
+                            <!-- 답글 내용 -->
+                            <div class="subRply_box">
+                            	<div class="col-sm-2 text-right">
+                            		<i class="material-icons" style="font-size:45px">subdirectory_arrow_right</i>
+                            	</div>
+	                            <div class="col-sm-2 text-center reply_profile">
+	                                <img src="${pageContext.request.contextPath}/resources/img/img.jpg" class="img-thumbnail" alt="Cinque Terre" width="100" height="100">
+	                                <br/>
+	                                <div class="reply_writer">
+	                                    <span>별나라여행</span>
+	                                </div>
+	                            </div><!--댓글 내용창-->
+	                            <div class="col-sm-7 reply_content">
+	                                <p>이님 말에 동의합니다.
+	                                </p>
+	                            </div>
+	                            <div class="col-sm-1 reply_btns">
+	                                <button class="btn btn-default">수정</button>
+	                                <button class="btn btn-default">삭제</button>
+	                            </div><!--//reply_content-->
+                            </div><!-- //subRply_box -->
+                            
+                            <div class="subRply_box">
+                            	<div class="col-sm-2 text-right">
+                            		<i class="material-icons" style="font-size:45px">subdirectory_arrow_right</i>
+                            	</div>
+	                            <div class="col-sm-2 text-center reply_profile">
+	                                <img src="${pageContext.request.contextPath}/resources/img/img.jpg" class="img-thumbnail" alt="Cinque Terre" width="100" height="100">
+	                                <br/>
+	                                <div class="reply_writer">
+	                                    <span>별나라여행</span>
+	                                </div>
+	                            </div><!--댓글 내용창-->
+	                            <div class="col-sm-7 reply_content">
+	                                <p>이님 말에 동의합니다.
+	                                </p>
+	                            </div>
+	                            <div class="col-sm-1 reply_btns">
+	                                <button class="btn btn-default">수정</button>
+	                                <button class="btn btn-default">삭제</button>
+	                            </div><!--//reply_content-->
+                            </div><!-- //subRply_box -->
+                            
+                            <div class="subRply_box">
+                            	<div class="col-sm-2 text-right">
+                            		<i class="material-icons" style="font-size:45px">subdirectory_arrow_right</i>
+                            	</div>
+	                            <div class="col-sm-2 text-center reply_profile">
+	                                <img src="${pageContext.request.contextPath}/resources/img/img.jpg" class="img-thumbnail" alt="Cinque Terre" width="100" height="100">
+	                                <br/>
+	                                <div class="reply_writer">
+	                                    <span>별나라여행</span>
+	                                </div>
+	                            </div><!--댓글 내용창-->
+	                            <div class="col-sm-7 reply_content">
+	                                <p>이님 말에 동의합니다.
+	                                </p>
+	                            </div>
+	                            <div class="col-sm-1 reply_btns">
+	                                <button class="btn btn-default">수정</button>
+	                                <button class="btn btn-default">삭제</button>
+	                            </div><!--//reply_content-->
+                            </div><!-- //subRply_box -->
+ 
                         </div>
                         <!--//reply_box-->
+
+                        
                     </div>
                     <!--//reply_wrap-->
                     
@@ -188,10 +285,10 @@
                         <form action="" method="post" id="replyForm">
                            <!--댓글 작성자 프로필 -->
                             <div class="col-sm-2 text-center reply_profile">
-                                <img src="${pageContext.request.contextPath}/resources/img/img.jpg" class="../img-thumbnail" alt="Cinque Terre" width="100" height="100">
+                                <img src="${pageContext.request.contextPath}/resources/upload/${loginUser.profile}" class="../img-thumbnail" alt="Cinque Terre" width="100" height="100">
                                 <br/>
                                 <div class="reply_writer">
-                                    <span>별나라여행</span>
+                                    <span>${loginUser.nickname}</span>
                                 </div>
                             </div>
 
@@ -221,6 +318,18 @@
         </div>
         <!--//content-->
         <%@include file="../include/footer.jsp" %>
+        
+        
+        <script type="text/javascript">
+			
+        
+        //답글 작성 폼 나타내기
+        	$(".reply_wrap").on('click','.subReply_btn',function(){
+				var $subReply = $(this).parent(".reply_btns").next(".subReply_writeForm");
+				$subReply.toggle();
+			})
+
+        </script>
 </body>
 
 
