@@ -32,10 +32,10 @@ public class BoardController {
 	
 	
 	//글 보기 페이지 !!
-	@RequestMapping(value="/read/{bno}",method=RequestMethod.POST)
+	@RequestMapping(value="/read/{bno}",method={RequestMethod.POST,RequestMethod.GET})
 	public String read(HttpSession session,Model model,
 			@PathVariable int bno,
-			@RequestParam(value="thisPage") int thisPage,
+			@RequestParam(value="thisPage", defaultValue="1") int thisPage,
 			HttpServletRequest request){
 		
 		logger.info("접속자 IP 주소 : "+request.getRemoteAddr());
@@ -115,11 +115,12 @@ public class BoardController {
 				System.out.println("================== 글이 등록 되었습니다 =================");
 			}
 
-			return "redirect:/board/read/"+board.getBno();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "";
 		}
+		
+		//read가 post방식이라 안넘어감
+		return "redirect:/board/read/"+board.getBno();
 	}
 	
 	//글 수정 페이지!!
@@ -176,7 +177,7 @@ public class BoardController {
 			e.printStackTrace();
 		}
 		
-		return "redirect:/board/list";
+		return "redirect:/board/list/1";
 	}
 	
 	
