@@ -86,7 +86,7 @@
                     </div>
                     <div class="row col-sm-12 btn_row">
                         <div class="col-sm-9">
-                 			  <a class="btn btn-warning" href="${pageContext.request.contextPath}/board/list" title="목록"><i class="glyphicon glyphicon-list"></i></a>
+                 			  <a class="btn btn-warning" href="${pageContext.request.contextPath}/board/list/${thisPage}" title="목록"><i class="glyphicon glyphicon-list"></i></a>
                         </div>
                         <div class="col-sm-3 text-right btn_box">
                             <c:choose>

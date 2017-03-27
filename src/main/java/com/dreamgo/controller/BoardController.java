@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dreamgo.domain.BoardVO;
 import com.dreamgo.service.BoardService;
@@ -31,13 +32,17 @@ public class BoardController {
 	
 	
 	//글 보기 페이지 !!
-	@RequestMapping("/read/{bno}")
-	public String read(HttpSession session,Model model,@PathVariable int bno,HttpServletRequest request){
+	@RequestMapping(value="/read/{bno}",method=RequestMethod.POST)
+	public String read(HttpSession session,Model model,
+			@PathVariable int bno,
+			@RequestParam(value="thisPage") int thisPage,
+			HttpServletRequest request){
 		
 		logger.info("접속자 IP 주소 : "+request.getRemoteAddr());
 
 		logger.info("read page called!");
 		logger.info("넘어온 글번호 : "+bno);
+		logger.info("넘어온 현재페이지 번호 : "+thisPage);
 		
 		try {
 			//조회수 증가
@@ -47,6 +52,7 @@ public class BoardController {
 			BoardVO board = service.read(bno);
 			
 			model.addAttribute("board", board);
+			model.addAttribute("thisPage", thisPage);
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

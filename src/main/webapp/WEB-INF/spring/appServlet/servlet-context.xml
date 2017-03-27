@@ -37,9 +37,9 @@
 	<beans:bean id="boardInterceptor" class="com.dreamgo.interceptor.BoardInterceptor"></beans:bean>
 	<interceptors>
 		<interceptor>
-			<mapping path="/board/write"/>
+			<mapping path="/board/writeForm"/>
 			<!-- 글쓰기폼에 들어가서 시간이지나서 로그인객체 세션이 끊겼을 경우에도 글쓰기폼을 빠져나오게끔 -->
-			<mapping path="/board/writeLoc"/>
+			<mapping path="/board/write"/>
 			<beans:ref bean="boardInterceptor"/>
 		</interceptor>
 	</interceptors>

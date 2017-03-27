@@ -77,6 +77,7 @@
                         </thead>
                         <tbody>
                         	<c:forEach var="board" items="${list}">
+                            	<form action="${pageContext.request.contextPath}/board/read/${board.bno}" method="POST">
 	                            <tr>
 	                                <td class="text-center">${board.bno}</td>
 	                                <c:choose>
@@ -93,11 +94,13 @@
 			                                </td>
 	                                	</c:otherwise>
 	                                </c:choose>
-	                                <td class="title" style="width:40%;"><a href="${pageContext.request.contextPath}/board/read/${board.bno}">${board.title}</a><span class="badge" title="댓글 수">5</span></td>
+	                                <td class="title" style="width:40%;"><button type="submit" class="titleBtn btn btn-default" style="border:none;">${board.title}</button><span class="badge" title="댓글 수">5</span></td>
 	                                <td class="type text-center">${board.realType}</td>
 	                                <td class="readCnt text-center">${board.readCnt}</td>
 	                                <td class="regdate"><fmt:formatDate value="${board.regdate}" type="both" dateStyle="short" timeStyle="short"/></td>
+	                                <input type="hidden" name="thisPage" value="${pageMaker.thisPage}"/>
 	                            </tr>
+	                            </form>
                             </c:forEach>
                         </tbody>
                     </table>
