@@ -15,4 +15,10 @@
   		FROM user 
   		where password= sha1(#{password}) and email=#{email}
   	</select>
+  	
+  	<!-- 회원수정 -->
+  	<update id="modifyInfo" parameterType="UserVO">
+  		update user set password= sha1(#{password}),nickname=#{nickname},profile=#{profile},type=#{type},dream=#{dream}
+  		where no = #{no}
+  	</update>
   </mapper>

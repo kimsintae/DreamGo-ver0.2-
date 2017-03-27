@@ -41,9 +41,9 @@
   <div class="row content">
     <div class="col-sm-3 sidenav"></div>
     <div class="col-sm-6 text-left"> 
-     	<h2 class="col-sm-12 text-center join_title">회원가입</h2>
+     	<h2 class="col-sm-12 text-center join_title"></h2>
 	     <!-- join -->
-	           <form id="joinForm"  action="${pageContext.request.contextPath}/admin/doJoin" method="POST" enctype="multipart/form-data">
+	           <form id="joinForm"  action="${pageContext.request.contextPath}/admin/do_join_modify" method="POST" enctype="multipart/form-data">
 	               <div class="row email_row form-group">
 	                   <label class="col-sm-4" for="preEmail">이메일</label>
 	                   <div class="col-sm-6">
@@ -125,7 +125,7 @@
 	                   <div class="col-sm-6">
 	                      <label class="col-sm-12 text-center" for="profile" id="profileArea">
 	                      	  <button type="button" class="close">&times;</button>
-	                          <img src="${pageContext.request.contextPath}/resources/img/plus.png" class="img-rounded profile_box" alt="" width="150" height="150" title="클릭해서 원하는 사진 등록">
+	                          <img src="" class="img-rounded profile_box" alt="" width="150" height="150" title="클릭해서 원하는 사진 등록">
 	                       <input type="file" id="profile" name="file" class="col-sm-12 form-control" accept="image/*" />
 	                      </label>
 	                      <span id="img_name" class="text-center col-sm-12"></span>
@@ -159,7 +159,18 @@
 	               <!--//dream_row-->
 		
 			       <div class="col-sm-12 join_footer">
-			           <input type="submit" class="btn btn-default col-sm-6" value="가입"/>
+			 
+			 		   <c:choose>
+			 		   	<c:when test="${loginUser==null}">
+			           		<input type="submit" class="btn btn-default col-sm-6" id="joinBtn" value="가입"/>
+			 		   	</c:when>
+			 		   	<c:otherwise>
+			 		   	<!-- false를 보내서 수정 로직을 처리하도록 만듬 -->
+			 		   		<input type="hidden" name="isJoin" value="false"/>
+			 		   		<input type="hidden" name="no" value="${loginUser.no}"/>
+			 		   		<input type="submit" class="btn btn-default col-sm-6" id="modifyBtn" value="수정"/>
+			 		   	</c:otherwise>
+			 		   </c:choose>	
 			           
 			           <!-- 취소 누르면 이전 페이지로 이동 -->
 			           <button type="button" class="btn btn-default col-sm-6 cancle">취소</button>
@@ -172,6 +183,9 @@
   </div><!-- //row content -->
 </div>
 <script type="text/javascript">
+var user = '${loginUser}';
+var userEmail='${loginUser.email}';
+
 
 $.ajaxSetup({
 	  url: "${pageContext.request.contextPath}/admin/doMailAuth",
@@ -251,14 +265,19 @@ $(".authCheckBtn").click(function(){
 });
 
 //인증번호 발송과 인증번호확인하는 ajax
+
+//회원가입, 수정일때 동적으로 메일메시지 보내기 위한 변수
+var isJoin = (user=='')?true:false;
+alert(isJoin);
 function mailAuth(email,authCheckNumber){
 	
 	$.ajax({
-		data:{'email':email,'authCheckNumber':authCheckNumber},
+		data:{'email':email,'authCheckNumber':authCheckNumber,'isJoin':isJoin},
 		success:function(json){
 			switch(json.result){
 				case 'success' :alert("인증번호가 발송되었습니다.");
-								$(".authCheckBox").css("display","block");				
+								$(".authCheckBox").css("display","block");		
+								$(".emailError").css("display","none");
 								break;
 				case 'failed' :alert("메일주소를 확인해 주세요!");break;
 				case 'isEmpty':alert("이메일을 입력해주세요!");
@@ -289,6 +308,22 @@ if('${errors.emailAuth}'!=''){
 if('${errors.emailAuth}'!=''){
 	alert('${errors.emailAuth}');
 }	
+
+//로그인 되있을 경우 수정페이지, 그렇지않으면 회원가입페이지
+
+if(user!=''){
+	$(".join_title").text("회원정보 수정");
+	$("#preEmail").attr("value",userEmail.substring(0,userEmail.indexOf('@')));
+	$("#sufEmail").val(userEmail.substring(userEmail.indexOf('@')+1,userEmail.length)).attr("selected","selected");
+	//$("#preEmail,#sufEmail").attr("disabled","disabled");
+	$("#nickname").val('${loginUser.nickname}');
+	$(".profile_box").attr("src",'${pageContext.request.contextPath}/resources/upload/${loginUser.profile}');
+	$("#typeSelector").val('${loginUser.type}').attr("selected","selected");
+	$("#dream").val('${loginUser.dream}');
+}else{
+	$(".join_title").text("회원가입");
+	$(".profile_box").attr("src",'${pageContext.request.contextPath}/resources/img/plus.png');
+}
 	
 </script>
 </body>

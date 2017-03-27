@@ -26,4 +26,9 @@ public class UserDAOImpl implements UserDAO {
 		return sqlSession.selectOne(namespace+".login",user);
 	}
 	
+	@Override
+	public void modifyInfo(UserVO user) throws Exception {
+		sqlSession.update(namespace+".modifyInfo",user);
+	}
+	
 }

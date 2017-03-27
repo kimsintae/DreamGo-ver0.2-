@@ -27,7 +27,7 @@ public class MailSender {
 		/**
 	     * 메일 보내는 메서드 
 	     * */
-	    public boolean sendMail(String to) 
+	    public boolean sendMail(String to,boolean isJoin) 
 	    {
 			
 			//6자리 인증번호 생성
@@ -36,17 +36,22 @@ public class MailSender {
 	    	System.out.println("===============인증번호: "+authNumber+"==============");
 	        MimeMessage message = mailSender.createMimeMessage();
 	        try {
-	        	String html = ""
-	        			+ "<h1>Dreams come true ! - DreamGo -</h1>"
-	        			+ "<h2 style='width:200px;'>"
-	        			+ "인증번호 : "+authNumber+""
-	        			+ "</h2>"
-	        			+ "<br/>"
-	        			+ "<span>인증번호를 입력하셔야 회원가입이 가능합니다</span>";
-	        	
+	        	String html= "<h1>Dreams come true ! - DreamGo -</h1>"
+		        			+ "<h2 style='width:200px;'>"
+		        			+ "인증번호 : "+authNumber+""
+		        			+ "</h2>"
+		        			+ "<br/>";
+	        	if(isJoin){
+	        		//회원가입일 때 
+    				html+="<span>인증번호를 입력하셔야 회원가입이 가능합니다</span>";
+    				message.setSubject("DreamGo- 인증번호입니다","UTF-8");//제목
+	        	}else{
+	        		//수정일때
+	        		html+="<span style='color:blue;'>인증번호를 입력하셔야 회원정보 수정이 가능합니다</span>";
+    				message.setSubject("DreamGo- 회원정보변경 인증번호입니다.","UTF-8");//제목
+	        	}
 				message.setFrom(new InternetAddress("kimstcool01@gmail.com"));//발신자
 				message.addRecipient(RecipientType.TO, new InternetAddress(to));//수신자
-				message.setSubject("DreamGo- 인증번호입니다","UTF-8");//제목
 				message.setText(html,"UTF-8","html");
 				mailSender.send(message);
 

@@ -74,7 +74,7 @@
                         	</script>
                     	</div><!--//editor_box-->
 						<textarea id="modifiedText" style="display:none;"></textarea>           
-						<input type="hidden" name="profile" value="${loginUser.profile}"/>     
+						<input type="hidden" name="profile" value="${loginUser.profile}"/>
 						<input type="hidden" name="writer" value="${loginUser.nickname}"/>     
 						<input type="hidden" name="bno" value="${board.bno}"/>     
             	</form><!-- //write_modify_Form --> 
@@ -84,7 +84,7 @@
 
 		                      <button type="button" class="btn btn-default write_btn glyphicon glyphicon-saved" style="font-size:18px;" title="등록"></button>
 
-		                      <a href="${pageContext.request.contextPath}/board/list" class="btn btn-default cancle_btn glyphicon glyphicon-remove"style="font-size:18px;" title="취소"></a>
+		                      <a href="${pageContext.request.contextPath}/board/list/1" class="btn btn-default cancle_btn glyphicon glyphicon-remove"style="font-size:18px;" title="취소"></a>
 		                      
 		                      
 		                      <!-- 수정일때는 list.jsp로 돌아가는게 아니라 read.jsp 로 -->

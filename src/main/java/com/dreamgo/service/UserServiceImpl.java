@@ -26,4 +26,8 @@ public class UserServiceImpl implements UserService {
 		return dao.login(user);
 	}
 	
+	@Override
+	public void modifyInfo(UserVO user) throws Exception {
+		dao.modifyInfo(user);
+	}
 }

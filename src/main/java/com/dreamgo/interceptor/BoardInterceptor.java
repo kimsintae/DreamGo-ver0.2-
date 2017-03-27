@@ -22,7 +22,7 @@ public class BoardInterceptor extends HandlerInterceptorAdapter {
 		
 		if(session.getAttribute("loginUser")==null){
 			//로그인 안되있을 경우
-			response.sendRedirect(request.getContextPath()+"/board/list");
+			response.sendRedirect(request.getContextPath()+"/board/list/1");
 			return false;
 		}
 		

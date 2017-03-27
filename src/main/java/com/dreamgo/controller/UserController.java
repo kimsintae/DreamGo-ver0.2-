@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -80,8 +81,6 @@ public class UserController {
 				@RequestHeader(value="referer",required=false) final String referer){
 			
 			session.invalidate();
-			
-			
 			return "redirect:"+referer;
 		}
 	
@@ -92,18 +91,27 @@ public class UserController {
 			return "/admin/join";
 		}
 		
+		//회원정보 수정 페이지 !!
+		@RequestMapping("/modifyForm")
+		public String modifyForm(){
+			logger.info("join page called!");
+			return "/admin/join";
+		}
+		
 		//회원가입 수행 !!
-		@RequestMapping(value="/doJoin", method=RequestMethod.POST)
+		@RequestMapping(value="/do_join_modify", method={RequestMethod.POST,RequestMethod.GET})
 		public String doJoin(@RequestParam("file") MultipartFile profile,
-				@RequestParam("preEmail") String preEmail,
-				@RequestParam("sufEmail") String sufEmail,
+				@RequestParam(value="preEmail") String preEmail,
+				@RequestParam(value="sufEmail") String sufEmail,
 				@RequestParam(value="emailAuthResult",defaultValue="false") boolean emailAuthResult,
 				@ModelAttribute UserVO user,
 				BindingResult joinResult,
 				@RequestHeader(value="referer",required=false) String referer,
-				Model model){
+				@RequestParam(value="isJoin",defaultValue="true") boolean isJoin, //수정인지 가입인지를 판단하는 파라미터
+				Model model,
+				HttpSession session){
 			
-			logger.info("doJoin page called!");
+			logger.info("do_join_modify page called!");
 			user.setEmail(preEmail.trim()+"@"+sufEmail.trim());//email
 			user.setEmailAuth(emailAuthResult);
 			try {
@@ -117,12 +125,12 @@ public class UserController {
 				e.printStackTrace();
 			}
 			
-//			logger.info("이메일 : "+user.getEmail());
-//			logger.info("비밀번호 : "+user.getPassword());
-//			logger.info("닉네임 : "+user.getNickname());
-//			logger.info("사진 : "+user.getProfile());
-//			logger.info("타입 : "+user.getType());
-//			logger.info("꿈 : "+user.getDream());
+			logger.info("이메일 : "+user.getEmail());
+			logger.info("비밀번호 : "+user.getPassword());
+			logger.info("닉네임 : "+user.getNickname());
+			logger.info("사진 : "+user.getProfile());
+			logger.info("타입 : "+user.getType());
+			logger.info("꿈 : "+user.getDream());
 			
 			ValidatorUtil validatorUtil = new ValidatorUtil();
 			validatorUtil.validate(user, joinResult);
@@ -146,19 +154,29 @@ public class UserController {
 				return "/admin/join";
 			}
 			
-			//회원가입 로직 수행
 			try {
-				service.insertUser(user);
+				if(isJoin){
+					//회원가입
+					service.insertUser(user);
+					logger.info("회원가입 성공 !");
+				}else{
+					//수정
+					service.modifyInfo(user);
+					logger.info("회원정보 수정 성공 !");
+					session.invalidate();//수정 후 로그인객체 세션에서 제거
+				}
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			return "redirect:"+referer;
+			return "redirect:/intro";
 		}
 		
 		//메일인증
 		@RequestMapping(value="/doMailAuth", method = RequestMethod.POST)
 		public @ResponseBody Map<String, String> sending(@RequestParam("email") String email,
-				@RequestParam(value="authCheckNumber",defaultValue="0") int authCheckNumber){
+				@RequestParam(value="authCheckNumber",defaultValue="0") int authCheckNumber,
+				@RequestParam("isJoin") boolean isJoin){
 			
 			Map<String, String> resultMap = new HashMap<String, String>();
 			
@@ -183,7 +201,7 @@ public class UserController {
 				//이메일형식이 올바를때 인증번호 발송
 				if(rex){
 					//메일발송
-					mailSender.sendMail(email);
+					mailSender.sendMail(email,isJoin);
 					resultMap.put("result", "success");
 					return resultMap;
 				}
@@ -204,7 +222,7 @@ public class UserController {
 					//재발송
 					logger.info("재발송 합니다.");
 					resultMap.put("result", "reSubmit");
-					mailSender.sendMail(email);
+					mailSender.sendMail(email,isJoin);
 					return resultMap;
 			}
 						

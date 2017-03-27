@@ -98,8 +98,8 @@
 	                                <td class="type text-center">${board.realType}</td>
 	                                <td class="readCnt text-center">${board.readCnt}</td>
 	                                <td class="regdate"><fmt:formatDate value="${board.regdate}" type="both" dateStyle="short" timeStyle="short"/></td>
-	                                <input type="hidden" name="thisPage" value="${pageMaker.thisPage}"/>
 	                            </tr>
+	                                <input type="hidden" name="thisPage" value="${pageMaker.thisPage}"/>
 	                            </form>
                             </c:forEach>
                         </tbody>
