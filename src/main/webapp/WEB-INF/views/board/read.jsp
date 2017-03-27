@@ -17,11 +17,17 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
     <style type="text/css">
-        .subReply_writeForm{
-        	display: none;
-       	}
-        
+    .subReply_writeForm{
+    	display: none;
+  	}
+     
+    .subRply_box{
+    	margin-bottom: 10px;
+    }
     
+    .sub_content{
+    	width: 57%;
+    }
     </style>
 	<script type="text/javascript">
 	<!-- 신고 창  -->
@@ -163,6 +169,9 @@
                                 <div class="reply_writer">
                                     <span>별나라여행</span>
                                 </div>
+                                <div class="reply_regdate">
+                                    <span>2017-03-24</span>
+                                </div>
                             </div><!--댓글 내용창-->
                             <div class="col-sm-9 reply_content">
                                 <p>잘됬으면 좋겠습니다 !!!
@@ -179,7 +188,7 @@
                             </div><!--//reply_content-->
                             
                             <!-- 답글 폼 -->
-                            <div class="col-sm-12 subReply_writeForm">
+                            <div class="row subReply_writeForm">
 						        	<hr/>
 						            <form action="" method="post" id='replyForm'>
 						               <!--답글 작성자 프로필 -->
@@ -204,9 +213,9 @@
 			       		 	
 			       		 	
                             <!-- 답글 내용 -->
-                            <div class="subRply_box">
+                            <div class="row subRply_box">
                             	<div class="col-sm-2 text-right">
-                            		<i class="material-icons" style="font-size:45px">subdirectory_arrow_right</i>
+                            		<i class="material-icons" style="font-size:35px">subdirectory_arrow_right</i>
                             	</div>
 	                            <div class="col-sm-2 text-center reply_profile">
 	                                <img src="${pageContext.request.contextPath}/resources/img/img.jpg" class="img-thumbnail" alt="Cinque Terre" width="100" height="100">
@@ -214,8 +223,11 @@
 	                                <div class="reply_writer">
 	                                    <span>별나라여행</span>
 	                                </div>
+	                                <div class="reply_regdate">
+	                                    <span>2017-03-23</span>
+	                                </div>
 	                            </div><!--댓글 내용창-->
-	                            <div class="col-sm-7 reply_content">
+	                            <div class="col-sm-7 reply_content sub_content">
 	                                <p>이님 말에 동의합니다.
 	                                </p>
 	                            </div>
@@ -225,9 +237,9 @@
 	                            </div><!--//reply_content-->
                             </div><!-- //subRply_box -->
                             
-                            <div class="subRply_box">
+                            <div class="row subRply_box">
                             	<div class="col-sm-2 text-right">
-                            		<i class="material-icons" style="font-size:45px">subdirectory_arrow_right</i>
+                            		<i class="material-icons" style="font-size:35px">subdirectory_arrow_right</i>
                             	</div>
 	                            <div class="col-sm-2 text-center reply_profile">
 	                                <img src="${pageContext.request.contextPath}/resources/img/img.jpg" class="img-thumbnail" alt="Cinque Terre" width="100" height="100">
@@ -235,8 +247,11 @@
 	                                <div class="reply_writer">
 	                                    <span>별나라여행</span>
 	                                </div>
+	                                <div class="reply_regdate">
+	                                    <span>2017-03-23</span>
+	                                </div>
 	                            </div><!--댓글 내용창-->
-	                            <div class="col-sm-7 reply_content">
+	                            <div class="col-sm-7 reply_content sub_content">
 	                                <p>이님 말에 동의합니다.
 	                                </p>
 	                            </div>
@@ -246,9 +261,9 @@
 	                            </div><!--//reply_content-->
                             </div><!-- //subRply_box -->
                             
-                            <div class="subRply_box">
+                            <div class="row subRply_box">
                             	<div class="col-sm-2 text-right">
-                            		<i class="material-icons" style="font-size:45px">subdirectory_arrow_right</i>
+                            		<i class="material-icons" style="font-size:35px">subdirectory_arrow_right</i>
                             	</div>
 	                            <div class="col-sm-2 text-center reply_profile">
 	                                <img src="${pageContext.request.contextPath}/resources/img/img.jpg" class="img-thumbnail" alt="Cinque Terre" width="100" height="100">
@@ -256,8 +271,11 @@
 	                                <div class="reply_writer">
 	                                    <span>별나라여행</span>
 	                                </div>
+	                                <div class="reply_regdate">
+	                                    <span>2017-03-23</span>
+	                                </div>
 	                            </div><!--댓글 내용창-->
-	                            <div class="col-sm-7 reply_content">
+	                            <div class="col-sm-7 reply_content sub_content">
 	                                <p>이님 말에 동의합니다.
 	                                </p>
 	                            </div>
