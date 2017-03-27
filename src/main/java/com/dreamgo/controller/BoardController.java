@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dreamgo.domain.BoardVO;
+import com.dreamgo.domain.ReplyMainVO;
 import com.dreamgo.service.BoardService;
+import com.dreamgo.service.ReplyService;
 import com.dreamgo.util.PageMaker;
 
 @Controller
@@ -27,6 +29,9 @@ public class BoardController {
 	
 	@Inject
 	private BoardService service;
+	
+	@Inject
+	private ReplyService replyService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(InfoController.class);
 	
@@ -54,6 +59,10 @@ public class BoardController {
 			model.addAttribute("board", board);
 			model.addAttribute("thisPage", thisPage);
 			
+			//댓글 목록 가져오기
+			List<ReplyMainVO> replyMainList = replyService.listReplyMain(bno);
+			logger.info("reply_main 수 : "+replyMainList.size());
+			model.addAttribute("replyMainList", replyMainList);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
