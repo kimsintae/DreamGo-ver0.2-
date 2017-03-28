@@ -19,11 +19,21 @@
 		where rm.userNo = u.no and articleNo=#{articleNo}
 	</select>
 	
+	
+	<!-- 댓글 삭제 -->
 	<delete id="removeReply" parameterType="int">
 		delete
 		from reply_main
 		where rno=#{rno}
 	</delete>
+	
+	<!-- 댓글 수정 -->
+	<update id="modifyMainReply" parameterType="ReplyMainVO">
+		update reply_main
+		set content=#{content}
+		where rno=#{rno}
+	</update>
+	
 	
 	<!-- ***************** 답글 관련 ******************* -->
 	
@@ -34,11 +44,24 @@
 		values(#{content},#{userNo},#{mainNo},#{articleNo})
 	</insert>
 	
+	<!-- 답글 목록 -->
 	<select id="listReplySub" parameterType="int" resultType="ReplySubVO">
 		SELECT sno,content,userNo,mainNo,articleNo,rs.regdate,u.nickname,u.profile
 		FROM reply_sub rs, user u
 		WHERE articleNo=#{articleNo} AND rs.userNo = u.no
 	</select>
 	
+	<!-- 답글 수정 -->
+	<update id="modifySubReply" parameterType="ReplySubVO">
+		update reply_sub
+		set content=#{content}
+		where sno=#{sno}
+	</update>
 	
+	<!-- 답글 삭제 -->
+	<delete id="removeSub" parameterType="int">
+		delete
+		from reply_sub
+		where sno=#{sno}
+	</delete>
   </mapper>

@@ -43,4 +43,19 @@ public class ReplyDAOImpl implements ReplyDAO {
 	public List<ReplySubVO> listReplySub(int articleNo) throws Exception {
 		return sqlSession.selectList(namespace+".listReplySub",articleNo);
 	}
+	
+	@Override
+	public int modifyMainReply(ReplyMainVO rm) throws Exception {
+		return sqlSession.update(namespace+".modifyMainReply",rm);
+	}
+	
+	@Override
+	public int modifySubReply(ReplySubVO rs) throws Exception {
+		return sqlSession.update(namespace+".modifySubReply",rs);
+	}
+	
+	@Override
+	public int removeSub(int sno) throws Exception {
+		return sqlSession.delete(namespace+".removeSub",sno);
+	}
 }

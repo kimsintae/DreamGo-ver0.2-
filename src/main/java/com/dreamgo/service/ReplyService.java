@@ -18,7 +18,8 @@ public interface ReplyService {
 	//댓글 삭제
 	public int removeReply(int rno)throws Exception;
 	
-	
+	//댓글 수정
+	public int modifyMainReply(ReplyMainVO rm)throws Exception;
 	
 	
 	
@@ -28,4 +29,10 @@ public interface ReplyService {
 	
 	//답글 목록
 	public List<ReplySubVO> listReplySub(int articleNo)throws Exception;
+	
+	//답글 수정
+	public int modifySubReply(ReplySubVO rs)throws Exception;
+	
+	//답글 삭제
+	public int removeSub(int sno)throws Exception;
 }

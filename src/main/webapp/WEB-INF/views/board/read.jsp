@@ -17,14 +17,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
     <style type="text/css">
-    .subReply_writeForm{
-    	display: none;
-  	}
-     
-    .subRply_box{
-    	margin-bottom: 10px;
-    }
-    
+
     </style>
 	<script type="text/javascript">
 	<!-- 신고 창  -->
@@ -178,7 +171,9 @@
                                 <button class="btn btn-info subReply_btn">답글</button>
                             </div><!--//reply_content-->
                             
-                            <!-- 답글 작성 폼 -->
+		                        <!-- 답글 -->    
+                     			 <c:forEach var="replySub" items="${replySubList}">
+                     			 	 <!-- 답글 작성 폼 -->
                            <div class="col-sm-12 subReply_writeForm">
 						        	<hr/>
 						            <form action="" method="post" class='replyForm'>
@@ -203,16 +198,13 @@
 					                        <button type='reset' class='btn btn-default subReply_cancle'>취소</button>
 					                    </div>
 					                    
+						            	<input type="hidden" name="rno" value="${reply.rno}"/>    
 						            	<input type="hidden" name="mainNo" value="${reply.rno}"/>    
+						            	<input type="hidden" name="sno" value="${replySub.sno}"/>    
 						            	<input type="hidden" name="userNo" value="${loginUser.no}"/>    
 						            	<input type="hidden" name="articleNo" value="${board.bno}"/>    
 					                </form>
 			       		 	</div><!--//subReply_writeForm-->
-			       		 	
-				       		 	
-		                        <!-- 답글 -->    
-                     			 <c:forEach var="replySub" items="${replySubList}">
-                     			 
                      			 	<c:if test="${replySub.mainNo==reply.rno}">
 		                     			 <!-- 답글 내용 -->
 			                            <div class="col-sm-12 subRply_box">
@@ -234,12 +226,13 @@
 				                            </div>
 				                            <div class="col-sm-1 reply_btns">
 				                            	<c:if test="${loginUser.no==replySub.userNo}">
-				                                <button class="btn btn-default">수정</button>
-				                                <button class="btn btn-default">삭제</button>
+				                                <button class="btn btn-default modifySubBtn">수정</button>
+				                                <a href="${pageContext.request.contextPath}/reply/removeSub/${replySub.sno}" class="btn btn-default">삭제</a>
 				                                </c:if>
 				                            </div><!--//reply_content-->
 			                            </div><!-- //subRply_box -->
 		                            </c:if>
+		                  
 		                        </c:forEach>
 		              	 </div><!--//reply_box--> 
 						</c:forEach>
@@ -314,7 +307,8 @@
         <script type="text/javascript">
 			
         
-        //답글 작성 폼 나타내기
+        
+        //답글 버튼 클릭시
         var loginUser = '${loginUser}';	
         $(".reply_wrap").on('click','.subReply_btn',function(){
         		
@@ -334,7 +328,7 @@
 			})
 			
 			
-			//수정버튼
+			//수정버튼 클릭시
 			$(".reply_box").on('click','.modifyMainBtn',function(){
 				
 				$(".replyForm").attr("action",'${pageContext.request.contextPath}/reply/modifyMainReply');
@@ -350,8 +344,31 @@
 								.next(".subReply_writeForm")
 								.children("#comment");
 				//alert(content);
-				$subReply.toggle();
 				$textarea.text(content);
+				$subReply.toggle();
+			})
+			
+			
+			//답글 수정 버튼 클릭시
+			$(".reply_box").on('click','.modifySubBtn',function(){
+				$(".replyForm").attr("action",'${pageContext.request.contextPath}/reply/modifySubReply');
+				
+				var content = $(this).parent().prev().text();
+				
+				var $subReply = $(this)
+								.parent()
+								.parent()
+								.prev(".subReply_writeForm");
+				
+				//var $reply_btns = $(this).parent(".reply_btns");
+				
+				//$reply_btns.after($subReply);
+				
+				var $textarea = $(this)
+								.parent(".reply_btns")
+								.next(".subReply_writeForm")
+								.children("#comment");
+				$subReply.toggle();
 			})
 
         </script>

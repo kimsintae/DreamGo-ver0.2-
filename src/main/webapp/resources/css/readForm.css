@@ -37,11 +37,10 @@
         }
         
         .reply_content{
-            background: white;
+            background: #f0f0f0;
             min-height: 100px;
             font-size: 15px;
             padding: 10px;
-            border:1px solid #424242;
         }
         .board_content p{
             font-size: 15px;
@@ -53,7 +52,6 @@
         .reply_box{
             margin-top: 15px;
         }
-        
         .reply_writeForm{
             margin-top: 35px;
         }
@@ -67,8 +65,20 @@
         	cursor: pointer;
         }
 
-        
-        
+        .subReply_writeForm{
+	    	display: none;
+	  	}
+	     
+	    .subRply_box{
+	    	margin: 25px 10px;
+	    	
+	    }
+	        	
+		.subRply_box .sub_content{
+			border:none;
+			background: #deeaee;
+		}
+	        
         <!-- 신고 창 -->
 	
 		<!-- 신고하기 창 -->

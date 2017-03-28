@@ -40,4 +40,19 @@ public class ReplyServiceImpl implements ReplyService {
 	public List<ReplySubVO> listReplySub(int articleNo) throws Exception {
 		return dao.listReplySub(articleNo);
 	}
+	
+	@Override
+	public int modifyMainReply(ReplyMainVO rm) throws Exception {
+		return dao.modifyMainReply(rm);
+	}
+	
+	@Override
+	public int modifySubReply(ReplySubVO rs) throws Exception {
+		return dao.modifySubReply(rs);
+	}
+	
+	@Override
+	public int removeSub(int sno) throws Exception {
+		return dao.removeSub(sno);
+	}
 }

@@ -40,9 +40,9 @@ public class ReplyController {
 		try {
 		int result =	service.insertReplyMain(rm);
 		
-		if(result==1){
-			logger.info("댓글 작성 성공!");
-		}
+		logger.info("=================");
+		if(result==1)logger.info("댓글 작성 성공!");
+		logger.info("=================");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -54,10 +54,20 @@ public class ReplyController {
 	
 	//댓글수정
 	@RequestMapping(value="/modifyMainReply", method = RequestMethod.POST)
-	public String modifyMainReply(@RequestParam("rno") int rno,
+	public String modifyMainReply(@ModelAttribute ReplyMainVO rm,
 			@RequestHeader("referer") String referer){
 		logger.info("modifyMainReply page called !!");
-		logger.info("rno : "+rno);
+		
+		try {
+			int result = service.modifyMainReply(rm);
+			logger.info("=================");
+			if(result==1)logger.info("댓글 수정 성공!");
+			logger.info("=================");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		return "redirect:"+referer;
 	}
@@ -71,10 +81,9 @@ public class ReplyController {
 			
 			logger.info("rno : "+rno);
 			int result = service.removeReply(rno);
-			
-			if(result==1){
-				logger.info("댓글 삭제 성공!");
-			}
+			logger.info("=================");
+			if(result==1)logger.info("댓글 삭제 성공!");
+			logger.info("=================");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -102,9 +111,9 @@ public class ReplyController {
 		
 		try {
 		int result = service.insertReplySub(rs);
-		if(result==1){
-			logger.info("답글 작성 성공!");
-		}
+		logger.info("=================");
+		if(result==1)logger.info("답글 작성 성공!");
+		logger.info("=================");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -112,6 +121,50 @@ public class ReplyController {
 		
 		return "redirect:"+referer;
 	}
-
+	
+	
+	//답글 수정
+	@RequestMapping(value="/modifySubReply", method = RequestMethod.POST)
+	public String modifySubReply(@ModelAttribute ReplySubVO rs,
+			@RequestHeader("referer") String referer){
+		logger.info("modifySubReply page called !!");
+		
+		try {
+			
+			logger.info("content : "+rs.getContent());
+			logger.info("sno : "+rs.getSno());
+			int result = service.modifySubReply(rs);
+			logger.info("=================");
+			if(result==1)logger.info("****답글 수정 성공*****!");
+			logger.info("=================");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return "redirect:"+referer;
+	}
+	
+	
+	
+		//답글 삭제
+		@RequestMapping("/removeSub/{sno}")
+		public String removeSub(@PathVariable(value="sno") int sno,
+				@RequestHeader("referer") String referer){
+			try {
+				
+				logger.info("rno : "+sno);
+				int result = service.removeSub(sno);
+				logger.info("=================");
+				if(result==1)logger.info("답글 삭제 성공!");
+				logger.info("=================");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			return "redirect:"+referer;
+		}
 		
 }
