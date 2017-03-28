@@ -75,7 +75,7 @@
                     	</div><!--//editor_box-->
 						<textarea id="modifiedText" style="display:none;"></textarea>           
 						<input type="hidden" name="profile" value="${loginUser.profile}"/>
-						<input type="hidden" name="writer" value="${loginUser.nickname}"/>     
+						<input type="hidden" name="userNo" value="${loginUser.no}"/>     
 						<input type="hidden" name="bno" value="${board.bno}"/>     
             	</form><!-- //write_modify_Form --> 
 	                    

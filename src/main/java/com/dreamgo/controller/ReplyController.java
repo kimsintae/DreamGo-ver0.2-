@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dreamgo.domain.ReplyMainVO;
@@ -51,6 +52,15 @@ public class ReplyController {
 		
 	}
 	
+	//댓글수정
+	@RequestMapping(value="/modifyMainReply", method = RequestMethod.POST)
+	public String modifyMainReply(@RequestParam("rno") int rno,
+			@RequestHeader("referer") String referer){
+		logger.info("modifyMainReply page called !!");
+		logger.info("rno : "+rno);
+		
+		return "redirect:"+referer;
+	}
 	
 	
 	//댓글 삭제
@@ -81,10 +91,14 @@ public class ReplyController {
 	public String writeSubReply(@ModelAttribute ReplySubVO rs,
 			@RequestHeader("referer") String referer){
 		logger.info("writeSubReply page called !!");
-		
+
 		logger.info("content : "+rs.getContent());
 		logger.info("userNo : "+rs.getUserNo());
 		logger.info("mainNo : "+rs.getMainNo());
+		
+		//textarea 개행문자 치환
+		String realContent = rs.getContent().replaceAll("\r\n", "<br/>");
+		rs.setContent(realContent);
 		
 		try {
 		int result = service.insertReplySub(rs);

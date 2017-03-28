@@ -70,16 +70,16 @@ public class BoardController {
 			logger.info("reply_main 수 : "+replyMainList.size());
 			logger.info("reply_sub 수 : "+replySubList.size());
 			
-			for(ReplyMainVO rm : replyMainList){
-			//	System.out.println("main : "+rm.getRno());
-				System.out.println(rm.getRno()+"번 댓글");
-				for(ReplySubVO rs : replySubList){
-					//System.out.println("sub : "+rs.getMainNo());
-					if(rm.getRno()==rs.getMainNo()){
-						System.out.println("\t\t\t"+rm.getRno()+"번 댓글의 답글 내용"+rs.getContent());
-					}
-				}
-			}
+//			for(ReplyMainVO rm : replyMainList){
+//				System.out.println("main : "+rm.getRno());
+//				System.out.println(rm.getRno()+"번 댓글");
+//				for(ReplySubVO rs : replySubList){
+//					//System.out.println("sub : "+rs.getMainNo());
+//					if(rm.getRno()==rs.getMainNo()){
+//						System.out.println("\t\t\t"+rm.getRno()+"번 댓글의 답글 내용"+rs.getContent());
+//					}
+//				}
+//			}
 			
 			
 			
@@ -135,7 +135,6 @@ public class BoardController {
 		logger.info("구분 : " + board.getType());
 		logger.info("내용 : " + board.getContent());
 		logger.info("프로필사진 :" + board.getProfile());
-		logger.info("글쓴이 :" + board.getWriter());
 		
 		try {
 			

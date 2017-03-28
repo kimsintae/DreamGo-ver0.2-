@@ -14,17 +14,17 @@
   
   	<!-- 글 목록 -->
 	<select id="list" resultType="BoardVO">
-		select bno, title, content, writer, type, profile, readCnt, regdate
-		from board
+		select bno, title, content, b.type, readCnt, regdate ,userNo, u.profile,u.nickname AS writer
+		from board b, user u
+		where b.userNo = u.no
 		order by bno desc, regdate desc
 		limit #{startNum}, #{perPageNum}
 	</select>
 	
 	<!-- 글 등록 -->
 	<insert id="insertBoard" parameterType="BoardVO">
-		insert into board(title,content,writer,type,profile)
-		values(#{title},#{content},#{writer},#{type},#{profile})
-		
+		insert into board(title,content,type,userNo)
+		values(#{title},#{content},#{type},#{userNo})
 		<selectKey keyProperty="bno" resultType="int" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
@@ -32,9 +32,9 @@
 	
 	<!-- 게시글보기 -->
 	<select id="read" parameterType="int" resultType="BoardVO">
-		select *
-		from board
-		where bno=#{bno}
+		select bno,title,content,userNo,b.type,regdate,readCnt,u.nickname AS writer,u.profile
+		from board b, user u
+		where b.userNo = u.no and bno=#{bno}
 	</select>
 	
 	<!-- 조회수 증가 -->

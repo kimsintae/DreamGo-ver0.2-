@@ -37,10 +37,11 @@
         }
         
         .reply_content{
-            background: #808080;
+            background: white;
             min-height: 100px;
             font-size: 15px;
             padding: 10px;
+            border:1px solid #424242;
         }
         .board_content p{
             font-size: 15px;
@@ -50,7 +51,7 @@
         }
         
         .reply_box{
-            margin-top: 10px;
+            margin-top: 15px;
         }
         
         .reply_writeForm{
@@ -61,6 +62,9 @@
         }
         .pagenation_box{
             margin-top: 10px;
+        }
+        .board_title:hover{
+        	cursor: pointer;
         }
 
         

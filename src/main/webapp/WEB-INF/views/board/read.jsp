@@ -168,11 +168,11 @@
                                 </div>
                             </div><!--댓글 내용창-->
                             <div class="col-sm-8 reply_content">
-                                <p>${reply.content}
+                                ${reply.content}
                             </div>
                             <div class="col-sm-1 reply_btns">
                             	<c:if test="${loginUser.no==reply.userNo}">
-                                <a class="btn btn-default">수정</a>
+                                <a class="btn btn-default modifyMainBtn">수정</a>
                                 <a href="${pageContext.request.contextPath}/reply/remove/${reply.rno}" class="btn btn-default">삭제</a>
                                 </c:if>
                                 <button class="btn btn-info subReply_btn">답글</button>
@@ -181,7 +181,7 @@
                             <!-- 답글 작성 폼 -->
                            <div class="col-sm-12 subReply_writeForm">
 						        	<hr/>
-						            <form action="${pageContext.request.contextPath}/reply/writeSubReply" method="post" id='replyForm'>
+						            <form action="" method="post" class='replyForm'>
 						            
 						               <!--답글 작성자 프로필 -->
 						                <div class='col-sm-2 text-center reply_profile'>
@@ -199,7 +199,7 @@
 						                
 						                <!--답글 작성 버튼 박스 -->
 					                    <div class='col-sm-1 reply_btns'>
-					                        <button type="submit" class='btn btn-default'>확인</button>
+					                        <button type="submit"class='btn btn-default'>확인</button>
 					                        <button type='reset' class='btn btn-default subReply_cancle'>취소</button>
 					                    </div>
 					                    
@@ -323,11 +323,35 @@
         			//로그인 됬을 경우
         			var $subReply = $(this).parent(".reply_btns").next(".subReply_writeForm");
     				$subReply.toggle();
+    				
+    				$(".replyForm").attr("action",'${pageContext.request.contextPath}/reply/writeSubReply');
+    				
         		}else{
         			//로그아웃 상태일 경우
         			alert("로그인을 하셔야 이용 가능합니다.");
         		}
 				
+			})
+			
+			
+			//수정버튼
+			$(".reply_box").on('click','.modifyMainBtn',function(){
+				
+				$(".replyForm").attr("action",'${pageContext.request.contextPath}/reply/modifyMainReply');
+				
+				var content = $(this).parent().prev().text();
+				
+				var $subReply = $(this)
+								.parent(".reply_btns")
+								.next(".subReply_writeForm");
+				
+				var $textarea = $(this)
+								.parent(".reply_btns")
+								.next(".subReply_writeForm")
+								.children("#comment");
+				//alert(content);
+				$subReply.toggle();
+				$textarea.text(content);
 			})
 
         </script>

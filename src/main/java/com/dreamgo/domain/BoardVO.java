@@ -10,6 +10,7 @@ public class BoardVO {
 	private String writer;
 	private char type;
 	private String profile;
+	private int userNo;
 	private int readCnt;
 	private Date regdate;
 	
@@ -45,6 +46,12 @@ public class BoardVO {
 	}
 	public void setType(char type) {
 		this.type = type;
+	}
+	public int getUserNo() {
+		return userNo;
+	}
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
 	public String getProfile() {
 		return profile;

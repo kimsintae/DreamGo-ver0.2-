@@ -77,24 +77,24 @@
                         </thead>
                         <tbody>
                         	<c:forEach var="board" items="${list}">
-                            	<form action="${pageContext.request.contextPath}/board/read/${board.bno}" method="POST">
+                            	<form action="${pageContext.request.contextPath}/board/read/${board.bno}" method="POST" id="form_${board.bno}">
 	                            <tr>
 	                                <td class="text-center">${board.bno}</td>
 	                                <c:choose>
-	                                	<c:when test="${board.writer==loginUser.nickname}">
+	                                	<c:when test="${board.userNo==loginUser.no}">
 		                                	<td class="writer" style="width:25%; color:#e06377;">
 			                                <img src="${pageContext.request.contextPath}/resources/upload/${board.profile}" class="img-thumbnail" alt="Cinque Terre" width="35" height="35"/>
-			                                ${board.writer}
+			                                	${board.writer}
 			                                </td>
 	                                	</c:when>
 	                                	<c:otherwise>
 		                                 	<td class="writer" style="width:25%;">
 				                                <img src="${pageContext.request.contextPath}/resources/upload/${board.profile}" class="img-thumbnail" alt="Cinque Terre" width="35" height="35"/>
-				                                ${board.writer}
+				                               ${board.writer}
 			                                </td>
 	                                	</c:otherwise>
 	                                </c:choose>
-	                                <td class="title" style="width:40%;"><button type="submit" class="titleBtn btn btn-default" style="border:none;">${board.title}</button><span class="badge" title="댓글 수">5</span></td>
+	                                <td class="title" style="width:40%;"><span class="board_title" style="border:none;" onclick="$('#form_${board.bno}').submit();">${board.title}</span><span class="badge" title="댓글 수">5</span></td>
 	                                <td class="type text-center">${board.realType}</td>
 	                                <td class="readCnt text-center">${board.readCnt}</td>
 	                                <td class="regdate"><fmt:formatDate value="${board.regdate}" type="both" dateStyle="short" timeStyle="short"/></td>
