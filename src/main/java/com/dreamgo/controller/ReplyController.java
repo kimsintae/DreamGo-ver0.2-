@@ -31,14 +31,16 @@ public class ReplyController {
 	@RequestMapping("/writeMainReply")
 	public String writeMainReply(@ModelAttribute ReplyMainVO rm,
 			@RequestHeader("referer") String referer){
-		logger.info("write page called !!");
+		logger.info("writeMainReply page called !!");
 		
 		logger.info("content : "+rm.getContent());
 		logger.info("userNo : "+rm.getUserNo());
 		logger.info("articleNo : "+rm.getArticleNo());
-		
+		String realContent = rm.getContent().replaceAll("\r\n", "<br/>");
+		rm.setContent(realContent);
 		try {
-		int result =	service.insertReplyMain(rm);
+			
+		int result =service.insertReplyMain(rm);
 		
 		logger.info("=================");
 		if(result==1)logger.info("댓글 작성 성공!");
@@ -57,7 +59,6 @@ public class ReplyController {
 	public String modifyMainReply(@ModelAttribute ReplyMainVO rm,
 			@RequestHeader("referer") String referer){
 		logger.info("modifyMainReply page called !!");
-		
 		try {
 			int result = service.modifyMainReply(rm);
 			logger.info("=================");

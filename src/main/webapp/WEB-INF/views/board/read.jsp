@@ -90,7 +90,7 @@
                         </div>
                         <div class="col-sm-3 text-right btn_box">
                             <c:choose>
-                            	<c:when test="${loginUser.nickname==board.writer}">
+                            	<c:when test="${loginUser.no==board.userNo}">
                            	          <a href="${pageContext.request.contextPath}/board/modifyForm/${board.bno}" class="btn btn-success" title="수정"><i class="glyphicon glyphicon-erase"></i></a>
                           			  <a href="${pageContext.request.contextPath}/reply/remove/${board.bno}" class="btn btn-warning" id="removeBtn" title="삭제"><i class="glyphicon glyphicon-trash"></i></a>
                           			  <script type="text/javascript">
@@ -164,7 +164,7 @@
                                 ${reply.content}
                             </div>
                             <div class="col-sm-1 reply_btns">
-                            	<c:if test="${loginUser.no==reply.userNo}">
+                            	<c:if test="${loginUser.no==reply.userNo||loginUser.no==1}">
                                 <a class="btn btn-default modifyMainBtn">수정</a>
                                 <a href="${pageContext.request.contextPath}/reply/remove/${reply.rno}" class="btn btn-default">삭제</a>
                                 </c:if>
@@ -205,7 +205,7 @@
 						            	<input type="hidden" name="articleNo" value="${board.bno}"/>    
 					                </form>
 			       		 	</div><!--//subReply_writeForm-->
-                     			 	<c:if test="${replySub.mainNo==reply.rno}">
+                     			 	<c:if test="${replySub.mainNo==reply.rno||loginUser.no==1}">
 		                     			 <!-- 답글 내용 -->
 			                            <div class="col-sm-12 subRply_box">
 			                            	<div class="col-sm-2 text-right">
@@ -225,7 +225,7 @@
 				                                ${replySub.content}
 				                            </div>
 				                            <div class="col-sm-1 reply_btns">
-				                            	<c:if test="${loginUser.no==replySub.userNo}">
+				                            	<c:if test="${loginUser.no==replySub.userNo||loginUser.no==1}">
 				                                <button class="btn btn-default modifySubBtn">수정</button>
 				                                <a href="${pageContext.request.contextPath}/reply/removeSub/${replySub.sno}" class="btn btn-default">삭제</a>
 				                                </c:if>
