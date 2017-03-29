@@ -14,7 +14,7 @@ public class PageMaker {
 	private boolean next; // 다음
 	
 	private int perPageNum = 10;//한 페이지당 보여질 게시글 수
-	private int displayNum = 5; //한블럭당 페이지 수 5면 5페이지까지 보여짐
+	private int displayNum = 10; //한블럭당 페이지 수 5면 5페이지까지 보여짐
 
 	
 	public int getThisPage() {
@@ -73,8 +73,8 @@ public class PageMaker {
 		int tempEndPage = (int)(Math.ceil(totalCount/(double)perPageNum));
 		
 		
-		System.out.println("endPage : "+getEndPage()+"  / "+"temEndPage : "+tempEndPage);
-		
+		System.out.println("endPage : "+endPage+"  / "+"temEndPage : "+tempEndPage);
+		System.out.println("start :"+ startPage +" / "+"thisPage :"+thisPage +" / totalCount : "+totalCount);
 		if(endPage>tempEndPage){
 			endPage=tempEndPage;
 		}
@@ -159,4 +159,40 @@ public class PageMaker {
 		
 		return sb.toString();
 	}
+	
+	//admin_board pagination
+		public String getAdminPagination(HttpServletRequest request){
+			
+			String ctx=request.getContextPath();
+			StringBuffer sb = new StringBuffer();
+			//이전페이지가 존재할 경우
+			if(prev){
+				System.out.println("prev:"+prev);
+				sb.append("<li><a href='"+ctx+"/admin/board/"+(startPage-1)+"' class='glyphicon glyphicon-step-backward' id='prev'></a></li>");
+				sb.append("\n");
+			}
+			
+			
+	 		//페이지번호
+	 		//현재 페이지와 i가 같으면 active를 추가해 현재페이지를 나타냄
+			String spanClas=null;
+			for(int i = startPage;i<=endPage;i++){			
+				if(thisPage==i){
+					spanClas="active";
+				}else{
+					spanClas="pageNum";
+				}
+				sb.append("<li><a href='"+ctx+"/admin/board/"+i+"' class='"+spanClas+"'>"+i+"</a></li>");
+				sb.append("\n");
+			}
+			 
+
+			//다음페이지가 존재할 경우
+			if(next&&endPage>0){
+				System.out.println("next"+next);
+				sb.append("<li><a href='"+ctx+"/admin/board/"+(endPage+1)+"' class='glyphicon glyphicon-step-forward' id='next'></a></li>");
+			}
+			
+			return sb.toString();
+		}
 }

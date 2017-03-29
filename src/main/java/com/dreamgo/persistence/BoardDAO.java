@@ -14,5 +14,4 @@ public interface BoardDAO {
 	public void increaseReadCnt(int bno)throws Exception;
 	public int modifyArticle(BoardVO board)throws Exception;
 	public void removeArticle(int bno)throws Exception;
-	
 }

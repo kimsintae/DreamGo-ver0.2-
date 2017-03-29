@@ -14,7 +14,7 @@
   
   	<!-- 글 목록 -->
 	<select id="list" resultType="BoardVO">
-		select bno, title, content, b.type, readCnt, regdate ,userNo, u.profile,u.nickname AS writer
+		select bno, title, content, b.type, readCnt, regdate ,userNo, u.profile,u.nickname AS writer,u.email
 		from board b, user u
 		where b.userNo = u.no
 		order by bno desc, regdate desc

@@ -14,7 +14,7 @@ public class BoardVO {
 	private int readCnt;
 	private Date regdate;
 	
-	
+	private String email;
 	private String realType;
 	
 	public Integer getBno() {
@@ -80,6 +80,13 @@ public class BoardVO {
 		case 'S': realType="학교";break;
 		}
 		return realType;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	

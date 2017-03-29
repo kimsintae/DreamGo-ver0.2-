@@ -107,11 +107,10 @@
                     
                     <!-- 페이징 -->
                     <div class="row">
-                    	<div class="col-sm-4"></div>
-						<div class="pagination col-sm-4 text-center">
+                    	<div class="col-sm-3"></div>
+						<div class="pagination col-sm-8 text-center">
 						  ${pagination}
 						</div>		
-						<div class="col-sm-4"></div>			
                     </div>
                 </div>
                 <!--//board_wrap-->
