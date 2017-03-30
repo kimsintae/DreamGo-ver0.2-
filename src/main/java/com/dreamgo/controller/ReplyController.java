@@ -96,8 +96,12 @@ public class ReplyController {
 	
 	
 	
+	
+	
+	//답글 관련 
+	
 	//답글 등록
-	@RequestMapping("/writeSubReply")
+	@RequestMapping(value="/writeSubReply", method = RequestMethod.POST)
 	public String writeSubReply(@ModelAttribute ReplySubVO rs,
 			@RequestHeader("referer") String referer){
 		logger.info("writeSubReply page called !!");

@@ -137,10 +137,8 @@
                                 <button class="btn btn-info subReply_btn">답글</button>
                             </div><!--//reply_content-->
                             
-		                        <!-- 답글 -->    
-                     			 <c:forEach var="replySub" items="${replySubList}">
-                     			 	 <!-- 답글 작성 폼 -->
-                           <div class="col-sm-12 subReply_writeForm">
+		                    <!-- 답글 작성폼 -->    
+							<div class="col-sm-12 subReply_writeForm">
 						        	<hr/>
 						            <form action="" method="post" class='replyForm'>
 						            
@@ -171,6 +169,8 @@
 						            	<input type="hidden" name="articleNo" value="${board.bno}"/>    
 					                </form>
 			       		 	</div><!--//subReply_writeForm-->
+			       		 	
+                     			 <c:forEach var="replySub" items="${replySubList}">
                      			 	<c:if test="${replySub.mainNo==reply.rno||loginUser.no==1}">
 		                     			 <!-- 답글 내용 -->
 			                            <div class="col-sm-12 subRply_box">
@@ -205,10 +205,10 @@
                     </div>
                     <!--//reply_wrap-->
                     
+                    <hr/>
                     <!-- 댓글 작성 박스 -->
                     <div class="row col-sm-12 reply_writeForm">
-	                     <c:choose>
-	                     	<c:when test="${loginUser!=null}">
+	                     	<c:if test="${loginUser!=null && loginUser.auth!='UA' && loginUser.auth!='AC'}">
 	                        <form action="${pageContext.request.contextPath}/reply/writeMainReply" method="post" id="replyForm">
 	                           <!--댓글 작성자 프로필 -->
 	                            <div class="col-sm-2 text-center reply_profile">
@@ -232,8 +232,24 @@
 	                                    <button type="reset" class="btn btn-default">삭제</button>
 	                                </div>
 	                            </form>
-	                       </c:when>
-	                       <c:otherwise>
+	                       </c:if>
+	                      
+	                      <!-- 댓글 작성이 제한되있는 회원일 경우 -->
+	                       <c:if test="${loginUser.auth=='UA'|| loginUser.auth=='AC'}">
+	                       		<!--댓글 작성자 프로필 -->
+	                            <div class="col-sm-2 text-center reply_profile">
+	                                <img src="${pageContext.request.contextPath}/resources/upload/default.png" class="../img-thumbnail" alt="Cinque Terre" width="100" height="100">
+	                                <br/>
+	                            </div>
+	
+	                            <!--댓글 작성 박스 -->
+	                            <div class="col-sm-9 form-group">
+	                                  <textarea class="form-control" rows="5" id="comment" disabled="disabled">댓글 작성이 제한되있습니다.</textarea>
+	                            </div>
+	                       </c:if>
+	                       
+	                       <!-- 로그인을 안했을 경우 -->
+	                       <c:if test="${loginUser==null}">
 	                       		<!--댓글 작성자 프로필 -->
 	                            <div class="col-sm-2 text-center reply_profile">
 	                                <img src="${pageContext.request.contextPath}/resources/upload/default.png" class="../img-thumbnail" alt="Cinque Terre" width="100" height="100">
@@ -244,15 +260,8 @@
 	                            <div class="col-sm-9 form-group">
 	                                  <textarea class="form-control" rows="5" id="comment" disabled="disabled">로그인을 하셔야 작성 가능합니다.</textarea>
 	                            </div>
-	
-	                            <!--댓글 작성 버튼 박스 -->
-	                                <div class="col-sm-1 reply_btns">
-	                                	
-	                                    <button class="btn btn-default">확인</button>
-	                                    <button type="reset" class="btn btn-default">삭제</button>
-	                                </div>
-	                       </c:otherwise>
-	                     </c:choose>
+	                       </c:if>
+	                 
                     </div><!--//reply_writeForm-->
                     
                     
@@ -271,13 +280,10 @@
         
         
         <script type="text/javascript">
-			
-        
-        
-        //답글 버튼 클릭시
+        //답글버튼 클릭시
         var loginUser = '${loginUser}';	
+        
         $(".reply_wrap").on('click','.subReply_btn',function(){
-        		
         		
         		if(loginUser!=''){
         			//로그인 됬을 경우
@@ -291,7 +297,7 @@
         			alert("로그인을 하셔야 이용 가능합니다.");
         		}
 				
-			})
+			});
 			
 			
 			//수정버튼 클릭시
@@ -326,10 +332,6 @@
 								.parent()
 								.prev(".subReply_writeForm");
 				
-				//var $reply_btns = $(this).parent(".reply_btns");
-				
-				//$reply_btns.after($subReply);
-				
 				var $textarea = $(this)
 								.parent(".reply_btns")
 								.next(".subReply_writeForm")
@@ -337,8 +339,6 @@
 				$subReply.toggle();
 			})
 			
-			
-			<!-- 신고창 -->
 			// Get the modal
 			var modal = document.getElementById('report_modal');
 
@@ -363,8 +363,7 @@
 			    if (event.target == modal) {
 			        modal.style.display = "none";
 			    }
-			}		
-
+			}
         </script>
 </body>
 
