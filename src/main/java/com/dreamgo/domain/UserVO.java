@@ -1,5 +1,7 @@
 package com.dreamgo.domain;
 
+import java.util.Date;
+
 public class UserVO {
 	
 	private int no;
@@ -10,8 +12,10 @@ public class UserVO {
 	private char type;
 	private String dream;
 	private String profile;
-	
+	private String auth;
 	private boolean emailAuth;
+	private Date regdate;
+	
 	
 	public int getNo() {
 		return no;
@@ -37,8 +41,21 @@ public class UserVO {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
-	public char getType() {
-		return type;
+	public String getType() {
+		String realType=null;
+		switch (type) {
+		case 'E': realType= "초등학생";
+				  break;
+		case 'M': realType= "중학생";
+				  break;	
+		case 'H': realType= "고등학생";
+				  break;
+		case 'U': realType= "대학생";
+				  break;
+		case 'O': realType= "일반인";
+				  break;
+		}
+		return realType;
 	}
 	public void setType(char type) {
 		this.type = type;
@@ -54,6 +71,18 @@ public class UserVO {
 	}
 	public void setProfile(String profile) {
 		this.profile = profile;
+	}
+	public String getAuth() {
+		return auth;
+	}
+	public void setAuth(String auth) {
+		this.auth = auth;
+	}
+	public Date getRegdate() {
+		return regdate;
+	}
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
 	}
 	public String getCheckPwd() {
 		return checkPwd;

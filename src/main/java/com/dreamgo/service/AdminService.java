@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.dreamgo.domain.BoardVO;
+import com.dreamgo.domain.UserVO;
 import com.dreamgo.util.PageMaker;
 
 public interface AdminService {
@@ -15,4 +16,10 @@ public interface AdminService {
 	
 	//선택 글 삭제
 	public int admin_removeCheck(List<Integer> bnoList)throws Exception;
+	
+	//회원리스트
+	public List<UserVO> userList()throws Exception;
+	
+	//회원 권한 수정
+	public int modifyAuth(UserVO user)throws Exception;
 }

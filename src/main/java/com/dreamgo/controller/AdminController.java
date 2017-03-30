@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dreamgo.domain.BoardVO;
+import com.dreamgo.domain.UserVO;
 import com.dreamgo.service.AdminService;
 import com.dreamgo.service.BoardService;
 import com.dreamgo.util.PageMaker;
@@ -62,11 +63,19 @@ public class AdminController {
 		return "/admin/board";
 	}
 	
-	//회원관리 페이지
+	//회원 리스트 가져오기(회원관리 페이지)
 	@RequestMapping("/users/{thisPage}")
-	public String user(){
+	public String user(Model model,@PathVariable("thisPage") int thisPage){
 		logger.info("admin_users page called !!");
-		
+
+		try {
+		List<UserVO> userList = adminService.userList();
+		model.addAttribute("userList", userList);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 		return "/admin/users";
 	}
 	
@@ -157,10 +166,40 @@ public class AdminController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+		return "redirect:"+referer;
+	}
+	
+	
+	//회원리스트
+	@RequestMapping("/user")
+	public String userList(@RequestHeader("referer") String referer,
+			Model model){
 		
 		return "redirect:"+referer;
+	}
+	
+	//회원 권한 수정
+	@RequestMapping(value="/modifyAuth",method = RequestMethod.POST)
+	public @ResponseBody String modifyAuth(@RequestParam("no") int no,
+							@RequestParam("auth") String auth){
+		
+		logger.info("no : "+no);
+		logger.info("auth : "+auth);
+		UserVO user = new UserVO();
+		user.setAuth(auth);
+		user.setNo(no);
+		
+		try {
+		int result =adminService.modifyAuth(user);
+			logger.info("======================");
+			if(result==1)logger.info("관리자가 수정한 회원 권한");
+			logger.info("======================");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "success";
 	}
 	
 }

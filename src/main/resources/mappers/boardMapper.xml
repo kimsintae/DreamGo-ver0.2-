@@ -14,7 +14,7 @@
   
   	<!-- 글 목록 -->
 	<select id="list" resultType="BoardVO">
-		select bno, title, content, b.type, readCnt, regdate ,userNo, u.profile,u.nickname AS writer,u.email
+		select bno, title, content, b.type, readCnt, b.regdate ,userNo, u.profile,u.nickname AS writer,u.email
 		from board b, user u
 		where b.userNo = u.no
 		order by bno desc, regdate desc
@@ -32,7 +32,7 @@
 	
 	<!-- 게시글보기 -->
 	<select id="read" parameterType="int" resultType="BoardVO">
-		select bno,title,content,userNo,b.type,regdate,readCnt,u.nickname AS writer,u.profile
+		select bno,title,content,userNo,b.type,b.regdate,readCnt,u.nickname AS writer,u.profile
 		from board b, user u
 		where b.userNo = u.no and bno=#{bno}
 	</select>

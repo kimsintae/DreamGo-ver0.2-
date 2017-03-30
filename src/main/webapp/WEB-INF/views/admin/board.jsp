@@ -58,7 +58,7 @@
 								      		$("#select_${board.bno}").val("${board.type}").attr("selected",true);
 								      	</script>
 							      </td>
-							      <td><fmt:formatDate value="${board.regdate}"/></td>
+							      <td><fmt:formatDate value="${board.regdate}" pattern="yyyy-MM-dd"/></td>
 							      <td class="text-center">${board.readCnt}</td>
 							      <td class="text-center"><a href="${pageContext.request.contextPath}/admin/remove/${board.bno}" class="btn btn-default removeBtn" title="게시글을 삭제 합니다.">삭제</a></td>
 							      <td class="text-center"><button type="button" onclick="modify(${board.bno});" class="btn btn-default modifyBtn" title="게시글을 성격에 맞게 이동시킵니다." disabled="disabled">수정</button></td>
@@ -100,7 +100,7 @@
 	//글삭제 확인창
  	$(".removeBtn").on('click',function(){
 		 //해당 게시글 선택 유무
- 		var result = confirm("해당 게시글을 수정 하시겠습니까?");
+ 		var result = confirm("해당 게시글을 삭제 하시겠습니까?");
 	      if(!result){return false;}
 	})
 

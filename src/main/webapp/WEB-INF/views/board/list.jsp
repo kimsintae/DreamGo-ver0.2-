@@ -124,9 +124,10 @@
     </div>
 <%@include file="../include/footer.jsp" %>
 <script type="text/javascript">
-var msg = '${writeMsg}';
-if(msg=='info'){alert("로그인 후에 이용해주세요!");}
-
+//글쓰기를 선택하면 회원의 권한을 검사
+var auth = '${param.auth}';
+if(auth=='denied'){alert("글쓰기가 제한 되어있습니다.")};
+if(auth=='unlogin'){alert("로그인 후에 이용해주세요.")};
 </script>
 </body>
 
