@@ -1,5 +1,8 @@
 package com.dreamgo.persistence;
 
+import java.util.HashMap;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -24,5 +27,10 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public int admin_modifyArticle(BoardVO board) throws Exception {
 		return sqlSession.update(namespace+".admin_modifyArticle",board);
+	}
+	
+	@Override
+	public int admin_removeCheck(List<Integer> bnoList) throws Exception {
+		return sqlSession.delete(namespace+".admin_removeCheck",bnoList);
 	}
 }

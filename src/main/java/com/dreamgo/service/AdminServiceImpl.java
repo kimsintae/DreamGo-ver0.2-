@@ -1,5 +1,8 @@
 package com.dreamgo.service;
 
+import java.util.HashMap;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -21,5 +24,10 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public int admin_modifyArticle(BoardVO board) throws Exception {
 		return dao.admin_modifyArticle(board);
+	}
+	
+	@Override
+	public int admin_removeCheck(List<Integer> bnoList) throws Exception {
+		return dao.admin_removeCheck(bnoList);
 	}
 }

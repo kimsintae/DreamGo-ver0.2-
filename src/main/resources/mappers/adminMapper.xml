@@ -16,4 +16,18 @@
 	<delete id="admin_removeArticle" parameterType="int">
 		delete from board where bno=#{bno}
 	</delete>
+	
+	<!-- 선택한 글 삭제 -->
+	<delete id="admin_removeCheck" parameterType="java.util.List">
+		delete 
+		from board 
+		where bno IN
+		<foreach collection="list" item="bno" open="(" separator="," close=")" >
+			#{bno.value}
+		</foreach>
+	</delete>
+	
+	
+	<!-- 회원 리스트 -->
+	<select id=""></select>
   </mapper>

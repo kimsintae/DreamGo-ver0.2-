@@ -1,6 +1,8 @@
 package com.dreamgo.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dreamgo.domain.BoardVO;
 import com.dreamgo.service.AdminService;
@@ -107,7 +111,7 @@ public class AdminController {
 	
 	//게시글 구분 수정
 	@RequestMapping("/modify")
-	public String modify(@RequestHeader("referer") String referer,
+	public @ResponseBody String modify(@RequestHeader("referer") String referer,
 			@RequestParam("bno") int bno,
 			@RequestParam("type") char type){
 		
@@ -129,10 +133,34 @@ public class AdminController {
 		}
 		
 		
-		return "redirect:"+referer;
+		return "success";
 		
 	}
 	
-	
+	//선택삭제
+	@RequestMapping(value="/removeSelc",method = RequestMethod.POST)
+	public String removeSelc(@RequestHeader("referer") String referer,
+			@RequestParam("checkedBoard") List<Integer> checkedBoard){
+		
+		
+		logger.info("removeSelc page called !");
+		logger.info("checkBoardList : "+checkedBoard);
+		try {
+			
+			
+			int result = adminService.admin_removeCheck(checkedBoard);
+			
+			logger.info("======================");
+			if(result==1)logger.info("관리자가 선택한 게시글 삭제 완료 !");
+			logger.info("======================");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		return "redirect:"+referer;
+	}
 	
 }

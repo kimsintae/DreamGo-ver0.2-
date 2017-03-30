@@ -24,7 +24,7 @@
                 <h2>게시글 관리</h2>
                 <hr>
 				<div style="overflow-x:auto;">
-				<form action="" method="POST">
+				<form action="" method="POST" id="multiForm">
 				
 					  <table>
 					    <tr>
@@ -43,21 +43,25 @@
 					    
 					    <c:forEach var="board" items="${boardList}">
 						    <tr>
-							      <td class="text-center"><input class="checkBtn" type="checkbox" name="checkedBoard" style="width:20px; height:20px;"/></td>
+							      <td class="text-center"><input class="checkBtn" type="checkbox" name="checkedBoard" value="${board.bno}" style="width:20px; height:20px;"/></td>
 							      <td>${board.writer}<span style="font-weight:bold;"> ( ${board.email} )</span></td>
 							      <td><a href="${pageContext.request.contextPath}/board/read/${board.bno}" target="_blank">${board.title}</a></td>
 							      <td>
-								      	<select class="form-control typeSelctor">
+								      	<select class="form-control typeSelctor" name="type"  id="select_${board.bno}">
 								      		<option value='C'>진로</option>
 			                                <option value='S'>학교</option>
 			                                <option value='J'>직업</option>
 			                                <option value='T'>수다</option>
 								      	</select>
+								      	<script type="text/javascript">
+								      	//타입 초기값
+								      		$("#select_${board.bno}").val("${board.type}").attr("selected",true);
+								      	</script>
 							      </td>
 							      <td><fmt:formatDate value="${board.regdate}"/></td>
 							      <td class="text-center">${board.readCnt}</td>
 							      <td class="text-center"><a href="${pageContext.request.contextPath}/admin/remove/${board.bno}" class="btn btn-default removeBtn" title="게시글을 삭제 합니다.">삭제</a></td>
-							      <td class="text-center"><a href="#" onclick="modify(${board.bno});" class="btn btn-default modifyBtn" title="게시글을 성격에 맞게 이동시킵니다.">수정</a></td>
+							      <td class="text-center"><button type="button" onclick="modify(${board.bno});" class="btn btn-default modifyBtn" title="게시글을 성격에 맞게 이동시킵니다." disabled="disabled">수정</button></td>
 						   </tr>
 						</c:forEach>
 					   </table>
@@ -95,40 +99,64 @@
 	
 	//글삭제 확인창
  	$(".removeBtn").on('click',function(){
-
 		 //해당 게시글 선택 유무
-
+ 		var result = confirm("해당 게시글을 수정 하시겠습니까?");
+	      if(!result){return false;}
 	})
 
 	
 	
+	var boardType;
 	
-	/*
+	//구분 선택시에만 수정버튼 활성화
+	$("select").change(function(){
+		
+		boardType = $(this).val();
+		
+		//해당 수정 버튼 활성화
+ 		$(this).parent()
+				.next()
+				.next()
+				.next()
+				.next()
+				.children()
+				.attr("disabled",false);
+		
+	});
 	
-			무조건 뿌려줄때 구분에 맞게 셀렉트 되게 해야한다...
-	
-	*/
-
 	//게시글 구분 수정
 	function modify(bno) {
-		
 		var result = confirm("해당 게시글을 수정 하시겠습니까?");
 	      if(!result){
 	    	  return false;
 	    	 }else{
 	    		 //확인버튼 클릭시
-	    		  
-				var type = $(".typeSelctor").val();
-				
-				alert(bno+"\n"+type);
-		  	 	$.ajax({
+		  	 	 $.ajax({
 		 			type:"POST",
 		 			url:"${pageContext.request.contextPath}/admin/modify",
-		 			data:{'bno':bno,'type':type}
+		 			data:{'bno':bno,'type':boardType},
+		 			dataType:"text",
+		 			success:function(msg){
+		 				alert("수정되었습니다.");
+		 			},
+		 			error:function(error,xhr){
+		 				alert("서버에 문제로 수정이 실패했습니다!");
+		 			}
 		 		})
 		 		
 	    	 }
 	}
+	
+	
+	//선택삭제 클릭시
+	$("#checkedRemove").click(function(){
+		
+		
+		$("#multiForm").attr('action','${pageContext.request.contextPath}/admin/removeSelc')
+		$("#multiForm").submit();
+		
+		
+	})
 	</script>
 
 </body>
