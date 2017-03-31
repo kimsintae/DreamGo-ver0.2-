@@ -14,7 +14,9 @@
 	
 	<!-- 글 삭제 -->
 	<delete id="admin_removeArticle" parameterType="int">
-		delete from board where bno=#{bno}
+		update board
+		set content="removed"
+		where bno=#{bno}
 	</delete>
 	
 	<!-- 선택한 글 삭제 -->
@@ -33,6 +35,7 @@
 		select *
 		from user
 		where no>0
+		order by regdate desc
 	</select>
 	
 	<!-- 회원 권한 수정 -->
