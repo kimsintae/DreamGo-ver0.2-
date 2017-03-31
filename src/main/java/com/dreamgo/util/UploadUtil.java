@@ -10,7 +10,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class UploadUtil {
 
-	private static String uploadPath = "C:\\Users\\kim\\Desktop\\workspace\\DreamGo\\src\\main\\webapp\\resources\\upload";
+	//업로드될 경로
+	private static String uploadPath = 
+			"C:\\Users\\kim\\Desktop\\workspace\\Spring-legercy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\dream_go\\resources\\upload";
+	
 	public static String upload(MultipartFile profile)throws Exception{
 		System.out.println(uploadPath);
 		//파일이름의 중복을 피하기 위한 고유키값 생성 
