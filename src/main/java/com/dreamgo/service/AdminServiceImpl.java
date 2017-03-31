@@ -62,5 +62,10 @@ public class AdminServiceImpl implements AdminService {
 	public List<ReportVO> reportList() throws Exception {
 		return dao.reportList();
 	}
+	
+	@Override
+	public int CompleteReport(int no) throws Exception {
+		return dao.CompleteReport(no);
+	}
 
 }

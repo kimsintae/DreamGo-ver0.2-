@@ -64,4 +64,9 @@ public class AdminDAOImpl implements AdminDAO {
 	public List<ReportVO> reportList() throws Exception {
 		return sqlSession.selectList(namespace+".reportList");
 	}
+	
+	@Override
+	public int CompleteReport(int no) throws Exception {
+		return sqlSession.update(namespace+".CompleteReport",no);
+	}
 }

@@ -30,4 +30,9 @@ public interface AdminService {
 	
 	//신고목록
 	public List<ReportVO> reportList()throws Exception;
+	
+	//신고처리
+	public int CompleteReport(int no)throws Exception;
+	
+	
 }

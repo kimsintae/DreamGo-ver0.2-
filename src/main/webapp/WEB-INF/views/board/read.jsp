@@ -36,17 +36,18 @@
                         </thead>
                         <tbody>
                             <tr class="board_detaile_contentBar">
-                                <td class="col-sm-4">${board.title}</td>
-                                <td class="col-sm-4">
-                                    <img src="${pageContext.request.contextPath}/resources/upload/${board.profile}" class="img-thumbnail" alt="Cinque Terre" width="50" height="50">${board.writer}
-                                </td>
-                                <td class="col-sm-1 text-center">${board.realType}</td>
-                                <td class="col-sm-1 text-center">${board.readCnt}</td>
-                                <td class="col-sm-2 text-center"><fmt:formatDate value="${board.regdate}"/></td>
+	                                <td class="col-sm-4 board_title">${board.title}</td>
+	                                <td class="col-sm-4">
+	                                    <img src="${pageContext.request.contextPath}/resources/upload/${board.profile}" class="img-thumbnail" alt="Cinque Terre" width="50" height="50">${board.writer}
+	                                </td>
+	                                <td class="col-sm-1 text-center">${board.realType}</td>
+	                                <td class="col-sm-1 text-center">${board.readCnt}</td>
+	                                <td class="col-sm-2 text-center"><fmt:formatDate value="${board.regdate}"/></td>
                             </tr>
                         </tbody>
                     </table>
 
+					
                     <div class="row col-sm-12 board_content">
                         ${board.content}
                     </div>
@@ -285,6 +286,16 @@
         
         
         <script type="text/javascript">
+        
+        //삭제된 게시글의 경우
+       	var content = '${board.content}';
+        if(content=="removed"){
+        	$(".board_title").text("삭제된 게시글");
+        	$(".board_content").html("<h3 style='color:red;'>관리자에 의해 삭제된 게시글 입니다.</h3>");
+        }
+        
+        
+        
         //답글버튼 클릭시
         var loginUser = '${loginUser}';	
         

@@ -94,7 +94,16 @@
 			                                </td>
 	                                	</c:otherwise>
 	                                </c:choose>
-	                                <td class="title" style="width:40%;"><span class="board_title" style="border:none;" onclick="$('#form_${board.bno}').submit();">${board.title}</span><span class="badge" title="댓글 수">5</span></td>
+	                                <td class="title" style="width:40%;">
+	                                	<c:if test="${board.title=='removed'}">
+		                                	<span class="board_title" style="border:none; color:silver;" onclick="$('#form_${board.bno}').submit();">삭제된 게시글 입니다.</span>
+		                                </c:if>
+		                                
+		                                <c:if test="${board.title!='removed'}">
+		                                	<span class="board_title" style="border:none;" onclick="$('#form_${board.bno}').submit();">${board.title}</span>
+		                                </c:if>
+		                                <span class="badge" title="댓글 수">5</span>
+	                                </td>
 	                                <td class="type text-center">${board.realType}</td>
 	                                <td class="readCnt text-center">${board.readCnt}</td>
 	                                <td class="regdate"><fmt:formatDate value="${board.regdate}" type="both" dateStyle="short" timeStyle="short"/></td>

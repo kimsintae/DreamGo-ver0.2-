@@ -17,4 +17,5 @@ public interface AdminDAO {
 	public void addBlackList(String email)throws Exception;
 	public int insertReport(ReportVO report)throws Exception;
 	public List<ReportVO> reportList()throws Exception;
+	public int CompleteReport(int no)throws Exception;
 }

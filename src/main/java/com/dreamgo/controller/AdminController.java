@@ -81,9 +81,15 @@ public class AdminController {
 	
 	//신고관리 페이지
 	@RequestMapping("/report/{thisPage}")
-	public String report(){
+	public String report(Model model){
 		logger.info("admin_report page called !!");
-		
+		try {
+		List<ReportVO> reportList =	adminService.reportList();
+		model.addAttribute("reportList", reportList);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "/admin/report";
 	}
 	
@@ -102,9 +108,6 @@ public class AdminController {
 		
 		return "/admin/blackList";
 	}
-	
-	
-	
 	
 	//게시글 삭제
 	@RequestMapping("/remove/{bno}")
@@ -242,6 +245,9 @@ public class AdminController {
 		logger.info("reportedTitle : "+report.getReportedTitle());
 		logger.info("reportedWriter : "+report.getReportedWriter());
 		
+		String realCause = report.getCause().replaceAll("\r\n", "<br/>");
+		report.setCause(realCause);
+		
 		try {
 			int result = adminService.insertReport(report);
 			logger.info("======================");
@@ -256,8 +262,23 @@ public class AdminController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 		return "redirect:"+referer;
 	}
+	
+	//신고 처리
+	@RequestMapping(value="/handlingReport",method = RequestMethod.POST,
+			produces = "application/text; charset=utf8")
+	public @ResponseBody String handlingReport(@RequestParam("no") int no){
+		
+		logger.info("no : "+no);
+		
+		try {
+			adminService.CompleteReport(no);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "처리되었습니다.";
+	}
+
 }

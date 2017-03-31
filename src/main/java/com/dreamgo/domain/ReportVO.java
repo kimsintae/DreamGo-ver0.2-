@@ -13,8 +13,7 @@ public class ReportVO {
 	private char state;
 	private Date regdate;
 	
-	
-	
+	private String realState;
 	public int getNo() {
 		return no;
 	}
@@ -63,6 +62,10 @@ public class ReportVO {
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
+	public String getRealState() {
+		return state=='U'?"미처리":"처리";
+	}
+	
 	
 	
 }
