@@ -8,6 +8,7 @@
                     <li><a href="${pageContext.request.contextPath}/admin/users/1">회원관리</a></li>
                     <li><a href="${pageContext.request.contextPath}/admin/report/1">신고관리</a></li>
                     <li><a href="${pageContext.request.contextPath}/admin/replies/1">댓글관리</a></li>
+                    <li><a href="${pageContext.request.contextPath}/admin/blackList/1">블랙리스트</a></li>
                 </ul>
                 <br>
                 <div class="input-group">

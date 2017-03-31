@@ -68,7 +68,6 @@
 					  
 					  <div style="margin-top:12px;">
 					  	<button type="button" class="btn btn-default" id="checkedRemove">선택삭제</button>
-					  	<button type="button" class="btn btn-default" id="checkedModify">선택수정</button>
 					  </div>
 				  </form><!-- //form -->
 				  
@@ -137,7 +136,7 @@
 		 			data:{'bno':bno,'type':boardType},
 		 			dataType:"text",
 		 			success:function(msg){
-		 				alert("수정되었습니다.");
+		 				alert(msg);
 		 			},
 		 			error:function(error,xhr){
 		 				alert("서버에 문제로 수정이 실패했습니다!");

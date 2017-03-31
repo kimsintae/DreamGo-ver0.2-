@@ -1,11 +1,10 @@
 package com.dreamgo.service;
 
-import java.util.HashMap;
 import java.util.List;
 
 import com.dreamgo.domain.BoardVO;
+import com.dreamgo.domain.ReportVO;
 import com.dreamgo.domain.UserVO;
-import com.dreamgo.util.PageMaker;
 
 public interface AdminService {
 	//글 삭제
@@ -22,4 +21,13 @@ public interface AdminService {
 	
 	//회원 권한 수정
 	public int modifyAuth(UserVO user)throws Exception;
+	
+	//회원 영구탈퇴
+	public void removeUser(int no,String email)throws Exception;
+	
+	//신고하기
+	public int insertReport(ReportVO report)throws Exception;
+	
+	//신고목록
+	public List<ReportVO> reportList()throws Exception;
 }

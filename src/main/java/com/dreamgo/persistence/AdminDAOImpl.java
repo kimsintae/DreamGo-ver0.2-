@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 	
 import com.dreamgo.domain.BoardVO;
+import com.dreamgo.domain.ReportVO;
 import com.dreamgo.domain.UserVO;
 
 @Repository
@@ -42,5 +43,25 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public int modifyAuth(UserVO user) throws Exception {
 		return sqlSession.update(namespace+".modifyAuth",user);
+	}
+	
+	@Override
+	public void removeUser(int no) throws Exception {
+		sqlSession.delete(namespace+".removeUser",no);
+	}
+	
+	@Override
+	public void addBlackList(String email) throws Exception {
+		sqlSession.insert(namespace+".addBlackList",email);
+	}
+	
+	@Override
+	public int insertReport(ReportVO report) throws Exception {
+		return sqlSession.insert(namespace+".insertReport",report);
+	}
+	
+	@Override
+	public List<ReportVO> reportList() throws Exception {
+		return sqlSession.selectList(namespace+".reportList");
 	}
 }

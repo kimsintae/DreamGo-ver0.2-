@@ -65,7 +65,7 @@
         	cursor: pointer;
         }
 
-        .subReply_writeForm{
+        .subReply_writeForm,.subReply_modifyForm{
 	    	display: none;
 	  	}
 	     

@@ -41,4 +41,30 @@
 		set auth = #{auth}
 		where no = #{no}
 	</update>
+	
+	<!-- 회원 영구탈퇴 -->
+	<delete id="removeUser" parameterType="int">
+		delete from user
+		where no=#{no}
+	</delete>
+	
+	<!-- 블랙리스트 추가 -->
+	<insert id="addBlackList" parameterType="String">
+		insert into blackList(email)
+		values(#{email})
+	</insert>
+	
+	
+	<!-- 신고하기 -->
+	<insert id="insertReport" parameterType="ReportVO">
+		insert into report(reporter,reportedBno,reportedWriter,reportedTitle,cause)
+		values(#{reporter},#{reportedBno},#{reportedWriter},#{reportedTitle},#{cause})
+	</insert>
+	
+	<!-- 신고목록 -->
+	<select id="reportList" resultType="ReportVO">
+		select *
+		from report
+		where no>0
+	</select>
   </mapper>

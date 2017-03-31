@@ -43,7 +43,7 @@
 				      <td class="text-center"><input type="checkbox" name="checkedBoard" style="width:20px; height:20px;"/></td>
 				      <td>${user.email}</td>
 				      <td>${user.nickname}</td>
-				      <td>${user.type}</td>
+				      <td>${user.realType}</td>
 				      <td>${user.dream}</td>
 				      <td class="selectTd">
 				      	<select class="form-control" id="select_${user.no}">
@@ -58,8 +58,16 @@
 				      	</script>	
 				      </td>
 				      <td class="text-center"><fmt:formatDate value="${user.regdate}" pattern="yyyy-MM-dd"/></td>
-				      <td class="text-center"><a class="btn btn-default removeBtn" title="게시글을 삭제 합니다.">탈퇴</a></td>
-				      <td class="text-center"><button type="button" class="btn btn-default modifyAuthBtn" id="modifyBtn_${user.no}" title="게시글을 성격에 맞게 이동시킵니다.">권한수정</button></td>
+				      <td class="text-center">
+					      <button type="button" class="btn btn-default removeUserBtn" id="removeBtn_${user.no}" title="게시글을 삭제 합니다.">
+							탈퇴
+					      </button>
+				      </td>
+				      <td class="text-center">
+					      <button type="button" class="btn btn-default modifyAuthBtn" id="modifyBtn_${user.no}" title="게시글을 성격에 맞게 이동시킵니다.">
+					      	권한수정
+					      </button>
+				      </td>
 				   </tr>
 				   </c:forEach>
 				  </table>
@@ -70,21 +78,17 @@
         </div>
     </div>
 	<script type="text/javascript">
+	
+		//회원 권한 수정
 		$(".modifyAuthBtn").on('click',function(){
 			var id = $(this).attr('id');
-			
 			//회원 번호
 			var no = id.substring(10,id.length);
 		
-			
+			var result = confirm("해당 회원의 권한을 변경 하시겠습니까?");
+		      if(!result){return false;}
 			//권한 값
-			var auth = $(this)
-							.parent()
-							.prev()
-							.prev()
-							.prev()
-							.children()
-							.val();
+			var auth = $(this).parent().parent().children("td:nth-child(6)").children().val();
 			
 			$.ajax({
 				type:"post",
@@ -99,7 +103,33 @@
 				}
 			});
 			
-		})
+		});
+		
+		//회원 영구 탈퇴
+		$(".removeUserBtn").on('click',function(){
+			
+			var result = confirm("해당 회원을 영구탈퇴 시키겠습니까?\n해당 회원이 작성한 모든 글과 댓글은 삭제됩니다.");
+		      if(!result){return false;}
+			var id = $(this).attr('id');
+			var email = $(this).parent().parent().children('td:nth-child(2)').text();
+			//회원 번호
+			var no = id.substring(10,id.length);
+			alert("no :"+no +" / email :"+email);
+			
+			$.ajax({
+				type:"post",
+				url:'${pageContext.request.contextPath}/admin/removeUser',
+				data:{'no':no,'email':email},
+				dataType:"text",
+				success:function(msg){
+					alert(msg)
+					window.location.reload(true);
+				},
+				error:function(error,xhr){
+					alert("죄송합니다. 서버에 문제가 발생했습니다.")
+				}
+			})
+		});
 		
 	</script>
 </body>

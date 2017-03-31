@@ -83,13 +83,24 @@
 							    </div>
 							    <div class="modal-body rep_b">
 							      
-									  <form action="/admin/report" id="report_from">
+									  <form action="${pageContext.request.contextPath}/admin/report" id="report_from">
 									    <label for="reporter" class="col-sm-12">신고자</label>
-									    <input type="text" id="reporter" name="reporter" value="${loginUser.nickname}" disabled="disabled">
-									
+									    <input type="text" id="reporter" name="reporter" value="${loginUser.nickname}" readonly="readonly">
+										<input type="hidden" name="reportedBno" value="${board.bno}"/>
+										<input type="hidden" name="reportedTitle" value="${board.title}"/>
+										<input type="hidden" name="reportedWriter" value="${board.writer}"/>
 									    <label for="cause" class="col-sm-12">신고사유</label>
-									    <textarea id="cause" name="cause" style="height:200px" placeholder="욕설/비방/광고성/음란물에 해당하는 게시글을 신고해주세요"></textarea>
-									    <button id="report_sub" type="submit">확인</button>
+									    <c:choose>
+									    	<c:when test="${loginUser!=null}">
+											    <textarea id="cause" name="cause" style="height:200px" placeholder="욕설/비방/광고성/음란물에 해당하는 게시글을 신고해주세요"></textarea>
+											    <button class="btn btn-default" id="reportSubmit" type="button">확인</button>
+									    	</c:when>
+									    	<c:otherwise>
+											    <textarea id="cause" name="cause" style="height:200px" placeholder="로그인 후에 이용해주세요." disabled="disabled"></textarea>									    
+									    	</c:otherwise>
+									    </c:choose>
+								
+									
 									  </form>
 									</div>
 							    
@@ -164,7 +175,7 @@
 					                    
 						            	<input type="hidden" name="rno" value="${reply.rno}"/>    
 						            	<input type="hidden" name="mainNo" value="${reply.rno}"/>    
-						            	<input type="hidden" name="sno" value="${replySub.sno}"/>    
+						            	<%-- <input type="hidden" name="sno" value="${replySub.sno}"/>   --%>  
 						            	<input type="hidden" name="userNo" value="${loginUser.no}"/>    
 						            	<input type="hidden" name="articleNo" value="${board.bno}"/>    
 					                </form>
@@ -172,7 +183,7 @@
 			       		 	
                      			 <c:forEach var="replySub" items="${replySubList}">
                      			 	<c:if test="${replySub.mainNo==reply.rno||loginUser.no==1}">
-		                     			 <!-- 답글 내용 -->
+		                     			<!-- 답글 내용 -->
 			                            <div class="col-sm-12 subRply_box">
 			                            	<div class="col-sm-2 text-right">
 			                            		<i class="material-icons" style="font-size:35px">subdirectory_arrow_right</i>
@@ -198,7 +209,6 @@
 				                            </div><!--//reply_content-->
 			                            </div><!-- //subRply_box -->
 		                            </c:if>
-		                  
 		                        </c:forEach>
 		              	 </div><!--//reply_box--> 
 						</c:forEach>
@@ -263,19 +273,14 @@
 	                       </c:if>
 	                 
                     </div><!--//reply_writeForm-->
-                    
-                    
-                    
                 </div><!--//row-->
                 </div><!--//board_detail-->
             </div>
             <!--//content-->
-            
-
-            
             <div class="col-sm-2 sidenav"></div>
         </div>
         <!--//content-->
+        
         <%@include file="../include/footer.jsp" %>
         
         
@@ -303,7 +308,7 @@
 			//수정버튼 클릭시
 			$(".reply_box").on('click','.modifyMainBtn',function(){
 				
-				$(".replyForm").attr("action",'${pageContext.request.contextPath}/reply/modifyMainReply');
+				$(".modifyForm").attr("action",'${pageContext.request.contextPath}/reply/modifyMainReply');
 				
 				var content = $(this).parent().prev().text();
 				
@@ -323,7 +328,7 @@
 			
 			//답글 수정 버튼 클릭시
 			$(".reply_box").on('click','.modifySubBtn',function(){
-				$(".replyForm").attr("action",'${pageContext.request.contextPath}/reply/modifySubReply');
+				/* $(".replyForm").attr("action",'${pageContext.request.contextPath}/reply/modifySubReply');
 				
 				var content = $(this).parent().prev().text();
 				
@@ -336,7 +341,7 @@
 								.parent(".reply_btns")
 								.next(".subReply_writeForm")
 								.children("#comment");
-				$subReply.toggle();
+				$subReply.toggle(); */
 			})
 			
 			// Get the modal
@@ -364,6 +369,19 @@
 			        modal.style.display = "none";
 			    }
 			}
+			
+			
+			//신고하기 버튼 클릭시
+			$("#reportSubmit").click(function(){
+				var result = confirm("해당 게시글을 신고 하시겠습니까?");
+			      if(!result){return false;}
+			      $("#report_from").submit();
+			})
+			
+			//신고성공시
+			if('${msg}'!=''){alert('${msg}');}
+			
+			
         </script>
 </body>
 

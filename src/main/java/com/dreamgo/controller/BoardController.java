@@ -67,8 +67,6 @@ public class BoardController {
 			
 			//답글 목록 가져오기
 			List<ReplySubVO> replySubList = replyService.listReplySub(bno);
-			logger.info("reply_main 수 : "+replyMainList.size());
-			logger.info("reply_sub 수 : "+replySubList.size());
 			
 //			for(ReplyMainVO rm : replyMainList){
 //				System.out.println("main : "+rm.getRno());
@@ -80,8 +78,6 @@ public class BoardController {
 //					}
 //				}
 //			}
-			
-			
 			
 			model.addAttribute("replyMainList", replyMainList);
 			model.addAttribute("replySubList", replySubList);

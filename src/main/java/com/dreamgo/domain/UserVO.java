@@ -16,6 +16,7 @@ public class UserVO {
 	private boolean emailAuth;
 	private Date regdate;
 	
+	private String realType;
 	
 	public int getNo() {
 		return no;
@@ -41,21 +42,8 @@ public class UserVO {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
-	public String getType() {
-		String realType=null;
-		switch (type) {
-		case 'E': realType= "초등학생";
-				  break;
-		case 'M': realType= "중학생";
-				  break;	
-		case 'H': realType= "고등학생";
-				  break;
-		case 'U': realType= "대학생";
-				  break;
-		case 'O': realType= "일반인";
-				  break;
-		}
-		return realType;
+	public char getType() {
+		return type;
 	}
 	public void setType(char type) {
 		this.type = type;
@@ -97,6 +85,23 @@ public class UserVO {
 	public void setEmailAuth(boolean emailAuth) {
 		this.emailAuth = emailAuth;
 	}
+	public String getRealType() {
+		switch (type) {
+		case 'E': realType= "초등학생";
+				  break;
+		case 'M': realType= "중학생";
+				  break;	
+		case 'H': realType= "고등학생";
+				  break;
+		case 'U': realType= "대학생";
+				  break;
+		case 'O': realType= "일반인";
+				  break;
+		}
+		
+		return realType;
+	}
+
 	
 	
 

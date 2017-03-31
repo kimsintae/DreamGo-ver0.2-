@@ -1,8 +1,6 @@
 package com.dreamgo.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -18,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dreamgo.domain.BoardVO;
+import com.dreamgo.domain.ReportVO;
 import com.dreamgo.domain.UserVO;
 import com.dreamgo.service.AdminService;
 import com.dreamgo.service.BoardService;
@@ -95,6 +95,14 @@ public class AdminController {
 		return "/admin/replies";
 	}
 	
+	//블랙리스트 페이지
+	@RequestMapping("/blackList/{thisPage}")
+	public String blackList(){
+		logger.info("admin_blackList page called !!");
+		
+		return "/admin/blackList";
+	}
+	
 	
 	
 	
@@ -119,7 +127,8 @@ public class AdminController {
 	
 	
 	//게시글 구분 수정
-	@RequestMapping("/modify")
+	@RequestMapping(value="/modify",
+			produces = "application/text; charset=utf8")
 	public @ResponseBody String modify(@RequestHeader("referer") String referer,
 			@RequestParam("bno") int bno,
 			@RequestParam("type") char type){
@@ -142,7 +151,7 @@ public class AdminController {
 		}
 		
 		
-		return "success";
+		return "수정되었습니다.";
 		
 	}
 	
@@ -179,7 +188,8 @@ public class AdminController {
 	}
 	
 	//회원 권한 수정
-	@RequestMapping(value="/modifyAuth",method = RequestMethod.POST)
+	@RequestMapping(value="/modifyAuth",method = RequestMethod.POST,
+					produces = "application/text; charset=utf8")
 	public @ResponseBody String modifyAuth(@RequestParam("no") int no,
 							@RequestParam("auth") String auth){
 		
@@ -199,7 +209,55 @@ public class AdminController {
 			e.printStackTrace();
 		}
 		
-		return "success";
+		return "수정되었습니다.";
 	}
 	
+	//회원 영구탈퇴
+	@RequestMapping(value="/removeUser",method = RequestMethod.POST,
+			produces = "application/text; charset=utf8")
+	public @ResponseBody String removeUser(@RequestParam("no") int no,
+			@RequestParam("email") String email){
+		
+		try {
+			//회원 영구탈퇴
+			adminService.removeUser(no,email);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		logger.info("no : "+no);
+		logger.info("email : "+email);
+		return "영구탈퇴 되었습니다.";
+	}
+	
+	//신고하기
+	@RequestMapping("/report")
+	public String doReport(@ModelAttribute ReportVO report,
+			RedirectAttributes rttr,
+			@RequestHeader("referer") String referer){
+		
+		logger.info("reporter : "+report.getReporter());
+		logger.info("cause : "+report.getCause());
+		logger.info("reportedBno : "+report.getReportedBno());
+		logger.info("reportedTitle : "+report.getReportedTitle());
+		logger.info("reportedWriter : "+report.getReportedWriter());
+		
+		try {
+			int result = adminService.insertReport(report);
+			logger.info("======================");
+			if(result==1){
+				logger.info("신고하기 성공!");
+				rttr.addFlashAttribute("msg", "신고처리 되었습니다.");
+			}else{
+				rttr.addFlashAttribute("msg", "서버에 심각한 오류로 인해 실패하였습니다.");
+			};
+			logger.info("======================");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return "redirect:"+referer;
+	}
 }
