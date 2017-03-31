@@ -69,7 +69,5 @@
 	<!-- 트랜잭션 관리를 위한 설정 -->
     <tx:annotation-driven/>
     	<!-- 업로드 파일 저장 경로 등록 -->
- 	<!-- <bean id="uploadPath" class="java.lang.String">
-		<constructor-arg value="C:\\dreamgo_imgs\\upload"></constructor-arg>
-	</bean> -->
+
 </beans>

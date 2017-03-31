@@ -59,7 +59,7 @@
                             <c:choose>
                             	<c:when test="${loginUser.no==board.userNo}">
                            	          <a href="${pageContext.request.contextPath}/board/modifyForm/${board.bno}" class="btn btn-success" title="수정"><i class="glyphicon glyphicon-erase"></i></a>
-                          			  <a href="${pageContext.request.contextPath}/reply/remove/${board.bno}" class="btn btn-warning" id="removeBtn" title="삭제"><i class="glyphicon glyphicon-trash"></i></a>
+                          			  <a href="${pageContext.request.contextPath}/board/remove/${board.bno}" class="btn btn-warning" id="removeBtn" title="삭제"><i class="glyphicon glyphicon-trash"></i></a>
                           			  <script type="text/javascript">
 		                          			//글삭제 클릭시
 		                          			$("#removeBtn").click(function(){

@@ -24,6 +24,7 @@
                     <li><a href="${pageContext.request.contextPath}/info/dep_info">학과정보</a></li>
                     <li><a href="${pageContext.request.contextPath}/aptitudeTest/apti_test">적성 심리 검사</a></li>
                     <li><a href="${pageContext.request.contextPath}/board/list/1">우리끼리</a></li>
+                    <li><a href="${pageContext.request.contextPath}/board/chattingPage">수다방</a></li>
                     <c:if test="${loginUser!=null}">
                     <li><a href="${pageContext.request.contextPath}/admin/modifyForm">회원 정보수정</a></li>
                     </c:if>

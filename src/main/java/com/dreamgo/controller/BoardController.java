@@ -206,5 +206,9 @@ public class BoardController {
 		return "redirect:/board/list/1";
 	}
 	
-	
+	@RequestMapping("/chattingPage")
+	public String chattingPage(){
+		logger.info("chattingPage called....!");
+		return "/board/chattingPage";
+	}
 }
