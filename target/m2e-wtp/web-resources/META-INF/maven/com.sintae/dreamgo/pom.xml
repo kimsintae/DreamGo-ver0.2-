@@ -97,6 +97,13 @@
 		    <version>6.0.0.Alpha1</version>
 		</dependency>
 		
+		<!-- spring-websocket -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-websocket</artifactId>
+		    <version>4.3.7.RELEASE</version>
+		</dependency>
+		
 		<!-- jsoup -->
 		<dependency>
 		    <groupId>org.jsoup</groupId>

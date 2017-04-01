@@ -54,6 +54,8 @@ public class ChattingHandler extends TextWebSocketHandler {
 		//접속해 있는 사람들한테 메시지 보내기
 		for(WebSocketSession connetUser : connectedUsers){
 			
+			logger.info("현재 접속자 수 : "+connectedUsers.size());
+			int totalUser = connectedUsers.size();
 			//메세지를 보낸 사용자는 자신의 메세지를 보지 못하도록 설정
 			if(!session.getId().equals(connetUser.getId())){
 				
@@ -63,10 +65,10 @@ public class ChattingHandler extends TextWebSocketHandler {
 					//회원과 비회원 구분하기
 					if(id.isEmpty()){
 						//비회원
-						sendText = "<span>"+connetUser.getId()+" : "+text+"</span>";
+						sendText = connetUser.getId()+" : "+text;
 					}else{
 						//회원
-						sendText = "<span>"+id+" 님의 말 : "+text+"</span>";
+						sendText = id+" : "+text;
 					}
 					
 				}else{
@@ -74,7 +76,9 @@ public class ChattingHandler extends TextWebSocketHandler {
 					//입장하거나 퇴장할때 메세지
 					sendText ="<span>"+connetUser.getId()+message.getPayload()+"</span>";
 				}
-				connetUser.sendMessage(new TextMessage(sendText));
+				//클라이언트로 데이터 보내기
+				connetUser.sendMessage(new TextMessage("{\"totalUser\":\""+totalUser+"\",\"message\":\""+sendText+"\"}"));
+				
 			}
 		}
 	}
