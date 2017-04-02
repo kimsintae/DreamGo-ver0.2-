@@ -31,4 +31,9 @@ public class UserDAOImpl implements UserDAO {
 		sqlSession.update(namespace+".modifyInfo",user);
 	}
 	
+	@Override
+	public UserVO checkDupEmail(String email) throws Exception {
+		return sqlSession.selectOne(namespace+".checkDupEmail",email);
+	}
+	
 }

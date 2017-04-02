@@ -100,7 +100,7 @@
 		                                </c:if>
 		                                
 		                                <c:if test="${board.title!='removed'}">
-		                                	<span class="board_title" style="border:none;" onclick="$('#form_${board.bno}').submit();">${board.title}</span>
+		                                	<span class="board_title" style="border:none;cursor:pointer;" onclick="$('#form_${board.bno}').submit();">${board.title}</span>
 		                                </c:if>
 		                                <span class="badge" title="댓글 수">5</span>
 	                                </td>

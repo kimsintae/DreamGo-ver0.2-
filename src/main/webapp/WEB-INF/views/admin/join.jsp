@@ -33,6 +33,20 @@
 	  	padding:10px;
 	  	color:white;
 	  }
+	  
+	  .loaderWrap{
+	  	width: 100%;
+	  	height: 100%;
+	  	position:absolute;
+	  	display:none;
+	  	background: rgba(255,255,255,0);
+	  	z-index: 2;
+	  }
+	  .loaderWrap img{
+	  	display: block;
+	  	margin-left: 50%;
+	  	margin-top: 25%;
+	  }
    </style>
 </head>
 <body>
@@ -41,6 +55,9 @@
   <div class="row content">
     <div class="col-sm-3 sidenav"></div>
     <div class="col-sm-6 text-left"> 
+    
+    	<!-- 로딩이미지 -->
+    	<div class="loaderWrap"><img src="${pageContext.request.contextPath}/resources/img/loader.gif" alt="loader"/></div>
      	<h2 class="col-sm-12 text-center join_title"></h2>
 	     <!-- join -->
 	           <form id="joinForm"  action="${pageContext.request.contextPath}/admin/do_join_modify" method="POST" enctype="multipart/form-data">
@@ -66,6 +83,7 @@
 	                       <button type="button" class="btn btn-default authCheckBtn">확인</button>
 	                      </div>
 	                       <span class="bg-success col-sm-12 text-center authOk" style="display:none;font-weight:bold;padding:10px;">인증되었습니다.</span>
+	                       <span class="bg-success col-sm-12 text-center checkDuplicatedEmail" style="display:none;font-weight:bold;padding:10px;">이미 가입된 이메일주소입니다.</span>
 	                       <span class="bg-danger col-sm-12 text-center	authFail" style="display:none;font-weight:bold;padding:10px;">인증 실패로 인증번호 재발송 합니다.</span>
 	                   </div>
 	                   <div class="col-sm-2">
@@ -254,9 +272,39 @@ $(".mailAuth").click(function(){
 		var preEmail = $("#preEmail").val();
 		var sufEmail = $("#sufEmail option:selected").text();
 		
+		//이메일
 		email = preEmail+"@"+sufEmail;
-		mailAuth(email,authCheckNumber);
+		
+		//이메일 중복 체크
+		checkDuplicatedEmail(email);
+
 });
+
+
+//이메일 중복 화인
+var hasEmail;
+function checkDuplicatedEmail() {
+	$(".checkDuplicatedEmail").hide();
+	
+	$.ajax({
+		url:"${pageContext.request.contextPath}/admin/checkDuplicatedEmail",
+		type:"get",
+		data:{"email":email},
+		dataType:"text",
+		success:function(hasEmail){
+			if(hasEmail=="true"){
+				$(".checkDuplicatedEmail").show();
+			}else{
+				//이미 가입된 메일이 아니면 인증번호 발송
+				mailAuth(email,authCheckNumber);
+			}
+		},
+		error:function(){
+			alert("실패");
+		}
+	});
+}
+
 
 //인증 확인번호 보내는 ajax
 $(".authCheckBtn").click(function(){
@@ -268,12 +316,17 @@ $(".authCheckBtn").click(function(){
 
 //회원가입, 수정일때 동적으로 메일메시지 보내기 위한 변수
 var isJoin = (user=='')?true:false;
-alert(isJoin);
+
+//로딩이미지
+var $loaderWrap = $(".loaderWrap");
+
+
 function mailAuth(email,authCheckNumber){
-	
+	$loaderWrap.show();
 	$.ajax({
 		data:{'email':email,'authCheckNumber':authCheckNumber,'isJoin':isJoin},
 		success:function(json){
+			$loaderWrap.hide();
 			switch(json.result){
 				case 'success' :alert("인증번호가 발송되었습니다.");
 								$(".authCheckBox").css("display","block");		

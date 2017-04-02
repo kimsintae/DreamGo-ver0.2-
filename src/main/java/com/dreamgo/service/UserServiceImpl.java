@@ -26,8 +26,15 @@ public class UserServiceImpl implements UserService {
 		return dao.login(user);
 	}
 	
+	//회원정보 수정
 	@Override
 	public void modifyInfo(UserVO user) throws Exception {
 		dao.modifyInfo(user);
+	}
+	
+	//이메일 중복체크
+	@Override
+	public UserVO checkDupEmail(String email) throws Exception {
+		return dao.checkDupEmail(email);
 	}
 }

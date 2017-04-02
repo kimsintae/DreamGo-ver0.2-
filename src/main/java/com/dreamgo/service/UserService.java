@@ -12,4 +12,7 @@ public interface UserService {
 	
 	//회원정보 수정
 	public void modifyInfo(UserVO user)throws Exception;
+	
+	//이메일 중복 체크
+	public UserVO checkDupEmail(String email)throws Exception;
 }

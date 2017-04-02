@@ -178,8 +178,6 @@
 			$("#messageBody").scrollTop(99999);
 		}
 		
-		
-		
 		})//ready
 		
 		
@@ -205,7 +203,7 @@
 				<div id="messageBody">
 				</div>
 				<div>
-					<input id="message" name="message" class="col-sm-9" type="text" style="height:40px;"/> 
+					<input type="text" id="message" class="col-sm-9" style="height:40px;"/> 
 					<button id="send" class="btn btn-info col-sm-3" type="button" style="height:40px;">전송</button>
 				</div>
                 <!-- 게시판 -->

@@ -172,6 +172,29 @@ public class UserController {
 			return "redirect:/intro";
 		}
 		
+		//이메일 중복 체크
+		@RequestMapping(value="/checkDuplicatedEmail")
+		public @ResponseBody boolean checkDuplicatedEmail(@RequestParam("email") String email){
+			logger.info("checkDuplicatedEmail called! ");
+			logger.info("email : "+ email);
+			boolean result = true;
+			try {
+				UserVO user =  service.checkDupEmail(email.trim());
+				if(user!=null){
+					//중복될 경우
+					result=true;
+				}else{
+					//중복되지 않을 경우
+					result=false;
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return result;
+		}
+		
 		//메일인증
 		@RequestMapping(value="/doMailAuth", method = RequestMethod.POST)
 		public @ResponseBody Map<String, String> sending(@RequestParam("email") String email,
@@ -225,10 +248,8 @@ public class UserController {
 					mailSender.sendMail(email,isJoin);
 					return resultMap;
 			}
-						
 			
-			
-		}
+		}//sending
 	
 	
 }

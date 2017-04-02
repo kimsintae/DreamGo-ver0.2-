@@ -26,7 +26,7 @@ import com.dreamgo.service.BoardService;
 import com.dreamgo.util.PageMaker;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/*")
 public class AdminController {
 
 	@Inject
