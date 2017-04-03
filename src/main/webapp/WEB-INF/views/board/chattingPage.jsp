@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     
     <!-- 웹폰트 -->
-    <link rel="stylesheet" href="http://fonts.googleapis.com/earlyaccess/nanumpenscript.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/earlyaccess/jejuhallasan.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/list.css?v=1" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
@@ -26,7 +26,7 @@
 			overflow:auto; 
 			border:1px solid #424242; 
 			margin-bottom:10px;
-			font-family: 'Nanum Pen Script', serif;
+			font-family: ‘Jeju Hallasan’;
 			padding: 10px;
 		}
 		

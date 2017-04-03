@@ -13,12 +13,115 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/tabs.js?v=1"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sch_info.js?v=1"></script>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sch_info.css?v=1" />
 
-
-<style type="text/css">
-.sch_pager span:hover{cursor: pointer;}
-</style>	
+	<style type="text/css">
+	
+		.active{background:rgba(252,231,0,.3);};
+		.sch_pager span:hover{cursor: pointer;}
+       
+        .sch_cat a{
+            font-size: 25px;
+            
+        }
+        
+        .sch_result{
+            margin-top: 30px;
+        }
+        
+        .sch_info{
+            margin-top: 10px;
+            font-size: 15px;
+        }
+        .sch_info span,.sch_name{
+            font-weight: bold;
+        }
+        .sch_name{
+            font-size: 20px;
+        }
+		/* �꺆 �뒪���씪 */
+		
+		div.tab {
+		    overflow: hidden;
+		    height: 80px;
+		    margin: auto;
+		}
+		
+		
+		/* 硫붿씤 �꺆 */
+		
+		div.tab .tab-menu {
+		    float: left;
+		    display: block;
+		    color: black;
+		    text-align: center;
+		    padding: 14px 16px;
+		    text-decoration: none;
+		    font-size: 20px;
+		    font-weight: bold;
+		    line-height: 50px;
+		}
+		
+		
+		/* Style the tab content */
+		
+		.tabcontent {
+		    display: none;
+		    padding: 6px 12px;
+		    /*    border: 1px solid #ccc;*/
+		    border-top: none;
+		    margin-top: 30px;
+		}
+		
+		.category{
+		    border: 1px solid #424242;
+		}
+		
+		
+		.category_list{
+		    margin-left: 50px;
+		}
+		.category_list li{
+		        float: left;
+		        list-style: none;
+		        margin:10px;
+		        font-size: 15px;
+		}
+		.btn-box{
+		    margin: 20px 0;
+		}
+		
+		/* // �꺆 �뒪���씪 */
+		
+		/* 寃곌낵 �꺆 �뒪���씪 */
+		.result-tab-wrap{
+		    margin: 30px 0;
+		}
+		
+		.tab-menus{
+		    margin: auto;
+		}
+		.result-tab-wrap .tab-menus a{
+		    font-size: 20px;
+		    color: black;
+		    text-align: center;
+		    margin-left: 75px;
+		}
+		
+		
+		/* // 寃곌낵 �꺆 �뒪���씪*/
+		
+		/* pagination*/
+		
+		.sch_pager{
+			font-size:15px;
+			
+		}
+		
+		.campus{
+			color:#b7d7e8;
+			
+		}
+	</style>	
 </head>
 
 <body>
@@ -40,18 +143,37 @@
                 
                 <!-- 탭 -->
                 <div class="row">
+               	   <div class="col-sm-5">
+               	   <form id="searchForm">
+					    <select name="gubun" class="form-control">
+					    	<option value="elem_list">초등학교</option>
+					    	<option value="midd_list">중학교</option>
+					    	<option value="high_list">고등학교</option>
+					    	<option value="univ_list">대학교</option>
+					    </select>
+		                <div class="input-group">
+						    <input type="text" id="keyword" name="keyword" class="form-control" placeholder="Search">
+						    <div class="input-group-btn">
+						      <button class="btn btn-default" id="searchBtn" type="button">
+						        <i class="glyphicon glyphicon-search"></i>
+						      </button>
+						    </div>
+						</div>
+					</form>	
+	                </div>
+                
                     <div class="tab">
                         <div class="col-sm-3">
-                            <a href="javascript:void(0)" id="ele" class="tablinks tab-menu" onclick="openCity(event, 'ele_sh')">초등학교</a>
+                            <a href="javascript:void(0)" id="ele" class="tablinks tab-menu col-sm-12" style="background:#96ceb4;" onclick="openCity(event, 'ele_sh')">초등학교</a>
                         </div>
                         <div class="col-sm-3">
-                            <a href="javascript:void(0)" id="mid" class="tablinks tab-menu" onclick="openCity(event, 'mid_sh')">중학교</a>
+                            <a href="javascript:void(0)" id="mid" class="tablinks tab-menu col-sm-12" style="background:#ffeead;" onclick="openCity(event, 'mid_sh')">중학교</a>
                         </div>
                         <div class="col-sm-3">
-                             <a href="javascript:void(0)" id="high" class="tablinks tab-menu" onclick="openCity(event, 'high_sh')">고등학교</a>
+                             <a href="javascript:void(0)" id="high" class="tablinks tab-menu col-sm-12" style="background:#ffcc5c;" onclick="openCity(event, 'high_sh')">고등학교</a>
                         </div>
                         <div class="col-sm-3">
-                             <a href="javascript:void(0)" id="uni" class="tablinks tab-menu" onclick="openCity(event, 'uni_sh')">대학교</a>
+                             <a href="javascript:void(0)" id="uni" class="tablinks tab-menu col-sm-12" style="background:#ff6f69;" onclick="openCity(event, 'uni_sh')">대학교</a>
                         </div>         
                     </div><!--//tab-->
                 </div>               
@@ -222,10 +344,7 @@
 		
 		//ajax 호출
 		sch_ajax(formData);
-	
-		
-		//스크롤이동
-		fnMove("sch_result");
+
 	})//button
 	
 
@@ -255,7 +374,7 @@
 		}
 	});
 
-	//ajax
+	//학교 리스트
 	function sch_ajax(formData){
 
 		$.ajax({
@@ -264,8 +383,6 @@
 			data:formData,//전송할 파라미터
 		 	dataType:"json",
 			success:function(json){
-				
-				
 				//성공시
 				//alert(json.pagination);
 				
@@ -282,60 +399,114 @@
 
 				//학교 종류 선택시 사라졌던 태그들 초기화
 				$(".esttype,.schooltype,.schoolgubun").show();
-				
-				//총 결과수
-				$(".totalCnt").text(json.data[0].totalcount);
-				
-				
-				
-				var esttype = json.data[0].esttype;
-				var schooltype = json.data[0].schooltype;
-
-				for(var i = 0 ; i < json.data.length ; i++){
-					
-					
-	 				//결과
-					$list_body
-					.append($("<a href='"+json.data[i].link+"' target='_blank' class='list-group-item sch_content' title='클릭하시면 홈페이지가 열립니다.'>\
-							<span class='sch_name'>"+json.data[i].schoolname+"</span> <span class='campus'>- [ "+json.data[i].campusname+"]</span>\
-							<div class='row  sch_info'>\
-								<div class='col-sm-5 adres'>\
-								주소 : <span>"+json.data[i].adres+"</span>\
-								</div>\
-								<div class='col-sm-3 schoolgubun'>\
-								학교종류 : <span>"+json.data[i].schoolgubun+"</span>\
-								</div>\
-								<div class='col-sm-2 esttype'>\
-								설립유형 : <span>"+json.data[i].esttype+"</span>\
-								</div>\
-								<div class='col-sm-2 schooltype'>\
-								학교유형 : <span>"+json.data[i].schooltype+"</span>\
-								</div>\
-							</div>\
-							</a>"));
-					}//for
-	
-					
-				//학교종류별 보여지는 결과옵션
-				if(esttype==''){
-					//초,중학교
-					$(".esttype,.schooltype,.schoolgubun,.campus").hide();
-					
-					//고등학교
-					if(schooltype!=undefined){$(".schooltype").show();}
-				}
-				
-				
+				//목록 뿌리기
+				result(json);
 				//paginate 불러오기
 				$sch_pager.append(json.pagination);
-			
 				$(".sch_result").show();	
+				
+				
+				 //스크롤이동
+				fnMove("sch_result");
+			
 			},
+
 			
 			error:function(xhr,error){
 				alert("검색 결과가 없습니다.");
 			}
 		});//ajax
+	}
+	
+	
+	
+
+	//검색버튼 클릭시 검색
+	$("#searchBtn").click(function(){
+		//formdata
+		formdata = $("#searchForm").serialize();
+		
+		doGetSearchData(formdata);
+		$(".list_body").empty();
+		
+		
+	});//keyword 검색
+	
+	
+	//엔터키 쳤을때 검색
+	$('#keyword').on('keydown', function(evt){
+		formdata = $("#searchForm").serialize();
+        if(evt.keyCode==13){
+           	evt.preventDefault();
+           	doGetSearchData(formdata);
+           	
+        }
+    });
+	
+	//키워드 검색 데이터 받아오기
+	function doGetSearchData(formdata){
+		$(".list_body").empty();
+		$.ajax({
+			url:"${pageContext.request.contextPath}/keyword/sch",
+			type:"get",
+			data:formdata,
+			dataType:"json",
+			success:function(json){
+				$(".sch_result").show();
+				//목록뿌리기
+				result(json);
+				
+				 //스크롤이동
+				fnMove("sch_result");
+			
+			},
+			error:function(xhr,error){
+				alert("실패");
+			}
+			
+		})
+	}
+	
+	
+	//결과 데이터 붙이기
+	function result(json){
+		for(var i = 0 ; i < json.data.length ; i++){
+			//총 결과수
+			$(".totalCnt").text(json.data[0].totalcount);
+			var esttype = json.data[0].esttype;
+			var schooltype = json.data[0].schooltype;
+			
+			//결과
+			$list_body
+			.append($("<a href='"+json.data[i].link+"' target='_blank' class='list-group-item sch_content' title='클릭하시면 홈페이지가 열립니다.'>\
+					<span class='sch_name'>"+json.data[i].schoolname+"</span> <span class='campus'>- [ "+json.data[i].campusname+"]</span>\
+					<div class='row  sch_info'>\
+						<div class='col-sm-4 adres'>\
+						주소 : <span>"+json.data[i].adres+"</span>\
+						</div>\
+						<div class='col-sm-3 schoolgubun'>\
+						학교종류 : <span>"+json.data[i].schoolgubun+"</span>\
+						</div>\
+						<div class='col-sm-2 esttype'>\
+						설립유형 : <span>"+json.data[i].esttype+"</span>\
+						</div>\
+						<div class='col-sm-3 schooltype'>\
+						학교유형 : <span>"+json.data[i].schooltype+"</span>\
+						</div>\
+					</div>\
+					</a>"));
+			}//for
+				
+			//학교종류별 보여지는 결과옵션
+			if(esttype==''){
+				//초,중학교
+				$(".esttype,.schooltype,.schoolgubun,.campus").hide();
+				
+				//고등학교
+				if(schooltype!=undefined){$(".schooltype").show();}
+			}
+			
+		
 	}
 
 	//검색후 검색결과로 스크롤이동
@@ -343,6 +514,10 @@
        var offset = $("."+ele).offset();
        $('html, body').animate({scrollTop : offset.top}, 400);
 	}
+	
+	$(".tab-menu").click(function(){
+		$(this).addClass("active");
+	});
 </script>
 </body>
 

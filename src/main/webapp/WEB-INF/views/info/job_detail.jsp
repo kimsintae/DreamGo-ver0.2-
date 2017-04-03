@@ -53,7 +53,7 @@
                 <!--상세 결과 탭 -->
                 <div class="container result-tab-wrap col-sm-12">
                 <div class="col-sm-12 col-container">
-                <h1 class="col col-sm-6">${data[0].job}</h1>
+                <h1 class="col col-sm-10">${data[0].job}</h1>
                 <div class="col">연봉 : <span class="salary">${salary}</span></div>
                 <div class="col">분야 : <span class="profession">${profession}</span></div>
                 </div>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +37,39 @@ public class AdminController {
 	private AdminService adminService;
 
 	private static final Logger logger = LoggerFactory.getLogger(InfoController.class);
+	
+	//관리자페이지
+	@RequestMapping("/index")
+	public String index(){
+		return "/admin/index";
+	}
+	
+	//관리자 로그인
+	@RequestMapping(value="/adLogin",method = RequestMethod.POST)
+	public String adLogin(@ModelAttribute UserVO user,
+						Model model,
+						HttpSession session){
+		
+		logger.info("adLogin page called ");
+		logger.info("email : "+user.getEmail());
+		logger.info("password : "+user.getPassword());
+		
+		try {
+			UserVO loginAdmin = adminService.adminLogin(user);
+			
+			if(loginAdmin.getNo()==1){
+				//no가 1이면 관리자
+				session.setAttribute("loginAdmin", loginAdmin);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return "redirect:/admin/users/1";
+	}
+	
 	
 	
 	//게시판관리 페이지

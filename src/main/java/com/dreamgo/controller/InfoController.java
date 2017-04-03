@@ -1,5 +1,8 @@
 package com.dreamgo.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -137,7 +140,34 @@ public class InfoController {
 		return map;
 	}//sch_search
 	
-	
+	//학교검색
+	@RequestMapping("/keyword/sch")
+	public @ResponseBody Map<String, Object> search_sch(@RequestParam("keyword") String searchSchulNm,
+														@RequestParam("gubun") String gubun,
+														Model model){
+		
+		
+		
+		logger.info("keyword : "+searchSchulNm);
+		Map<String, Object> map = new HashMap<String, Object>();
+		String url =null;
+		String encodedkeyword = null;
+		try {
+			
+			//한글이 포함된 URL을 보낼때는 한글을 인코딩후에 보내야한다.
+			encodedkeyword = URLEncoder.encode(searchSchulNm, "UTF-8");
+			
+			//검색 할 url 주소
+				url	 = globalURL+""
+					+ "svcCode=SCHOOL&"
+					+"gubun="+gubun+"&"
+					+ "searchSchulNm="+encodedkeyword;
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		map.put("data", CreateData.createDATA(url,""));
+		return map;
+	}
 	
 	//perform logic for department information
 	@RequestMapping(value="/dep_search", method= RequestMethod.POST)
@@ -183,6 +213,34 @@ public class InfoController {
 			return map;
 	}
 	
+	//학과 검색
+	@RequestMapping("/keyword/dep")
+	public @ResponseBody Map<String, Object> searchDep(@RequestParam("gubun") String gubun,
+			@RequestParam("keyword") String searchTitle){
+		
+		logger.info("데이터 : "+gubun);
+		logger.info("데이터 : "+searchTitle);
+		Map<String, Object> map = new HashMap<String, Object>();
+		String url =null;
+		String encodedkeyword = null;
+		try {
+			
+			//한글이 포함된 URL을 보낼때는 한글을 인코딩후에 보내야한다.
+			encodedkeyword = URLEncoder.encode(searchTitle, "UTF-8");
+			
+				url	 = globalURL+""
+					+ "svcCode=MAJOR&"
+				    +"gubun="+gubun+"&"
+					+ "searchTitle="+encodedkeyword;
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		map.put("data", CreateData.createDATA(url,""));
+		return map;
+		
+	}
+	
 	
 	//perform logic for department_detail
 	@RequestMapping(value="/detail/{gubun}/{majorSeq}")
@@ -226,7 +284,6 @@ public class InfoController {
 		
 		logger.info(url);
 		logger.info("job_search page called !");
-		
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -276,4 +333,30 @@ public class InfoController {
 		model.addAttribute("data",CreateData.createDATA(url, "J"));
 		return "/info/job_detail";
 	}
+	
+	//직업검색
+	@RequestMapping("/keyword/job")
+	public @ResponseBody Map<String, Object> search_job(@RequestParam("keyword") String searchJobNm,
+			Model model){
+		logger.info("keyword : "+searchJobNm);
+		Map<String, Object> map = new HashMap<String, Object>();
+		String url =null;
+		String encodedkeyword = null;
+		try {
+			
+			//한글이 포함된 URL을 보낼때는 한글을 인코딩후에 보내야한다.
+			encodedkeyword = URLEncoder.encode(searchJobNm, "UTF-8");
+			
+				url	 = globalURL+""
+					+ "svcCode=JOB&"+
+					"searchJobNm="+encodedkeyword;
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		map.put("data", CreateData.createDATA(url,""));
+		return map;
+	}
+	
+	
 }

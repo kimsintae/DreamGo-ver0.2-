@@ -19,8 +19,8 @@
 		                <span>${data[1].major}</span>
 		                
 		                </div>
-	                	<div class="col-sm-3 salary">평균임금  ${data[1].salary}</div>     
-	                	<div class="col-sm-3 emp">취업률  ${data[1].employment}</div>	
+	                	<div class="col-sm-4 salary">평균임금  ${data[1].salary}</div>     
+	                	<div class="col-sm-4 emp">취업률  ${data[1].employment}</div>	
 	                </div>
 	                <div class="col-sm-4"></div>
               	</div>  

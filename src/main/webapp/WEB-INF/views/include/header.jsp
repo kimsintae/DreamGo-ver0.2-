@@ -3,7 +3,72 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>        
 <html>
 <head>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css"/>
+<style type="text/css">
+	      /* header css*/
+        /* Remove the navbar's default margin-bottom and rounded borders */
+        
+        .navbar {
+            margin-bottom: 0;
+			border:none;
+            background:#588c7e;
+            font-size: 20px;
+        }
+        
+       .navbar-inverse .navbar-nav>li>a{
+        	  color: black;
+        }
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+        
+        .row.content {
+            height: 450px
+        }
+        
+        .logout{
+        	background: white;
+        	background-color: transparent;
+        	border: none;
+        	font-size:20px;
+        }
+        /* Set gray background color and 100% height */
+        
+        .sidenav {
+            padding-top: 20px;
+            background-color: white;
+            height: 100%;
+        }
+
+	   /* Set black background color, white text and some padding */
+        
+        .footer {
+			color: black;
+            padding: 15px;
+
+        }
+        /* On small screens, set height to 'auto' for sidenav and grid */
+        
+        @media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+                padding: 15px;
+            }
+            .row.content {
+                height: auto;
+            }
+            
+        }
+	
+	
+		/* 폰트 적용 */
+		@FONT-FACE {
+			font-family: 'BMJUA';
+			src: url("${pageContext.request.contextPath}/resources/font/BMJUA.ttf") format('truetype');
+		}
+		
+		body{
+			font-family: BMJUA;
+		}
+</style>
+
 </head>
 <body>
  <nav class="navbar navbar-inverse">
@@ -77,7 +142,7 @@
 	                	 <li><a href="#" data-toggle="modal" data-target="#loginModal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 	                 </c:when>
 	                 <c:otherwise>
-	                 	<li><a class="btn btn-default" href="${pageContext.request.contextPath}/admin/logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+	                 	<li><a class="btn btn-default logout" href="${pageContext.request.contextPath}/admin/logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
 	                 </c:otherwise>
                  </c:choose>	
                 </ul>

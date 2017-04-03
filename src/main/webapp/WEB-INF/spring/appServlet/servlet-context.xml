@@ -33,7 +33,7 @@
 	
 	
 	<!-- 인터셉터 설정 -->
-	<beans:bean id="loginInterceptor" class="com.dreamgo.interceptor.LoginInterceptor"></beans:bean>
+	<beans:bean id="AdminInterceptor" class="com.dreamgo.interceptor.AdminInterceptor"></beans:bean>
 	<beans:bean id="boardInterceptor" class="com.dreamgo.interceptor.BoardInterceptor"></beans:bean>
 	<interceptors>
 		<interceptor>
@@ -41,6 +41,13 @@
 			<!-- 글쓰기폼에 들어가서 시간이지나서 로그인객체 세션이 끊겼을 경우에도 글쓰기폼을 빠져나오게끔 -->
 			<mapping path="/board/write"/>
 			<beans:ref bean="boardInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/admin/board/**"/>
+			<mapping path="/admin/report/**"/>
+			<mapping path="/admin/users/**"/>
+			<mapping path="/admin/blackList/**"/>
+			<beans:ref bean="AdminInterceptor"/>
 		</interceptor>
 	</interceptors>
 

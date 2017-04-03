@@ -17,6 +17,11 @@ public class AdminServiceImpl implements AdminService {
 
 	@Inject
 	private AdminDAO dao;
+
+	@Override
+	public UserVO adminLogin(UserVO user) throws Exception {
+		return dao.adminLogin(user);
+	}
 	
 	@Override
 	public int admin_removeArticle(int bno) throws Exception {

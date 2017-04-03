@@ -4,9 +4,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-    <link rel="stylesheet" href="${ctx}/resources/css/main.css"/>
-</head>
 <body>
         <footer class="container-fluid col-sm-12 text-right footer">
             <p>madeBy_ Kim.sintae</p>

@@ -7,6 +7,10 @@ import com.dreamgo.domain.ReportVO;
 import com.dreamgo.domain.UserVO;
 
 public interface AdminService {
+	
+	//관리자로그인
+	public UserVO adminLogin(UserVO user)throws Exception;
+	
 	//글 삭제
 	public int admin_removeArticle(int bno)throws Exception;
 	

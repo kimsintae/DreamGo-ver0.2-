@@ -1,6 +1,7 @@
 package com.dreamgo.util;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -11,17 +12,18 @@ import java.util.Map;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.nodes.Node;
+
 import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
-import org.omg.CORBA.OBJECT_NOT_EXIST;
 
 public class CreateData {
 
 	public static Document doc;
 	public static List<Map<String, Object>> createDATA(String url,String type){
 		//type = true : detail, false : list
-		
+
+
+		System.out.println("넘어온 url :"+ url);
 		
 		//map을 담을 list 선언
 		//여기서 객체생성하면
@@ -35,6 +37,7 @@ public class CreateData {
 					"UTF-8",
 					"",
 					Parser.xmlParser());
+			System.out.println("doc: "+doc);
 			//상세정보 데이터 일 경우
 			if(type.equalsIgnoreCase("D")){			
 				//학과 상세정보
@@ -49,9 +52,10 @@ public class CreateData {
 						
 				list = new ArrayList<Map<String,Object>>(); 
 				
-					//content 뽑아오기
+				//content 뽑아오기
 				Elements eles = doc.select("content");
 
+				System.out.println(eles);
 				for(Element ele : eles){
 					
 					//자식 노드들의 수

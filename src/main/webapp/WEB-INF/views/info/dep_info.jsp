@@ -28,10 +28,28 @@
                     <p>학과 정보을 통해 배우고픈 전공 분야와 비전을 수립해보세요!</p>
                 </div>
 
-
-                <div class="col-sm-6 sch_opt" id="high_sh_opt">고등학교</div>
-                <div class="col-sm-6 sch_opt" id="univ_sh_opt">대학교</div>
-
+				<div class="row">
+					<form id="searchForm">
+						<div class="col-sm-5">
+							<select id="sch_select" name="gubun" class="form-control">
+						    	<option value="high_list">고등학교</option>
+						    	<option value="univ_list">대학교</option>
+						    </select>
+			                <div class="input-group">
+							    <input type="text" id="keyword" name="keyword" class="form-control" placeholder="Search">
+							    <div class="input-group-btn">
+							      <button class="btn btn-default" id="searchBtn" type="button">
+							        <i class="glyphicon glyphicon-search"></i>
+							      </button>
+							    </div>
+							</div>
+		                </div>
+	                </form>
+					<div class="col-sm-7">
+		                <div class="col-sm-6 sch_opt" id="high_sh_opt">고등학교</div>
+		                <div class="col-sm-6 sch_opt" id="univ_sh_opt">대학교</div>
+	                </div>
+				</div>
                 <div class="container search_opt_box col-sm-12">
                     <form id="depar_Form">
                     	<%@include file="../include/dep_opt.jsp" %>
@@ -104,9 +122,6 @@ function getFormData(){
 
 //ajax
 function dep_ajax(){
-	
-	//스크롤이동
-	fnMove("result_area");
 	$.ajax({
 		type:"POST",
 		url:'${pageContext.request.contextPath}/dep_search?thisPage='+thisPage,
@@ -128,8 +143,49 @@ function dep_ajax(){
 			//총 검색수
 			$(".totalCnt").text(json.data[0].totalcount);
 			result(json);
+			//스크롤이동
+			fnMove("result_area");
 		}
 	})//ajax
+}
+
+
+//버튼클릭으로 키워드검색
+$("#searchBtn").click(function(){
+	getSearchData();
+});//keyword 검색
+
+//엔터키로 키워드 검색
+$('#keyword').on('keydown', function(evt){
+	formdata = $("#searchForm").serialize();
+    if(evt.keyCode==13){
+       	evt.preventDefault();
+       	getSearchData();
+    }
+});
+
+//키워드 검색 ajax
+function getSearchData() {
+	formData = $("#searchForm").serialize();
+	gubun=$("#sch_select").val();
+	$(".dep_body").empty();
+	$.ajax({
+		url:"${pageContext.request.contextPath}/keyword/dep",
+		type:"get",
+		data:formData,
+		dataType:"json",
+		success:function(json){
+			$(".result_area").show();
+			$(".totalCnt").text(json.data.length);//총검색수
+			result(json);
+			//스크롤이동
+			//fnMove("result_area");
+		},
+		error:function(xhr,error){
+			alert("실패");
+		}
+		
+	})
 }
 
 
@@ -139,7 +195,7 @@ function result(json){
 	for(var i = 0 ; i<json.data.length;i++){
 		var html = "<a href='${pageContext.request.contextPath}/detail/"+gubun+"/"+json.data[i].majorseq+"\' class='list-group-item'>\
 				    <div class='row'>\
-				        <div class='col-sm-6 title text-left'>학과명 : <span>"+json.data[i].mclass+"</span></div>\
+				        <div class='col-sm-6 title text-left'>학과명 : <span style='color:blue;font-weight:bold;'>"+json.data[i].mclass+"</span></div>\
 				        <div class='col-sm-6 text-left'>계열 : <span>"+json.data[i].lclass+"</span></div>\
 				    </div>\
 				    <br/>\

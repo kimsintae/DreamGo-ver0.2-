@@ -21,6 +21,11 @@ public class AdminDAOImpl implements AdminDAO {
 			"com.dreamgo.mapper.AdminMapper";
 	
 	@Override
+	public UserVO adminLogin(UserVO user) throws Exception {
+		return sqlSession.selectOne(namespace+".adminLogin",user);
+	}
+	
+	@Override
 	public int admin_removeArticle(int bno) throws Exception {
 		return sqlSession.delete(namespace+".admin_removeArticle",bno);
 	}

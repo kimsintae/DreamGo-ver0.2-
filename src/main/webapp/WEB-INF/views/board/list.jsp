@@ -106,7 +106,7 @@
 	                                </td>
 	                                <td class="type text-center">${board.realType}</td>
 	                                <td class="readCnt text-center">${board.readCnt}</td>
-	                                <td class="regdate"><fmt:formatDate value="${board.regdate}" type="both" dateStyle="short" timeStyle="short"/></td>
+	                                <td class="regdate"><fmt:formatDate value="${board.regdate}" type="both" pattern="yyyy-MM-dd"/></td>
 	                            </tr>
 	                                <input type="hidden" name="thisPage" value="${pageMaker.thisPage}"/>
 	                            </form>
