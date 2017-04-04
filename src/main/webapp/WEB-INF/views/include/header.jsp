@@ -142,7 +142,7 @@
 	                	 <li><a href="#" data-toggle="modal" data-target="#loginModal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 	                 </c:when>
 	                 <c:otherwise>
-	                 	<li><a class="btn btn-default logout" href="${pageContext.request.contextPath}/admin/logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+	                 	<li><a class="btn btn-default logout" href="${pageContext.request.contextPath}/logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
 	                 </c:otherwise>
                  </c:choose>	
                 </ul>

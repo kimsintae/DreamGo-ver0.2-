@@ -2,6 +2,7 @@ package com.dreamgo.handler;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -15,6 +16,7 @@ public class MessageVO{
 		
 		Map<String, String> map =new HashMap<String, String>();
 		ObjectMapper om = new ObjectMapper();
+		
 		
 		try {
 			map = om.readValue(json, new TypeReference<Map<String, String>>(){});

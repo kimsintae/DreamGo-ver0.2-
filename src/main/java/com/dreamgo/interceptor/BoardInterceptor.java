@@ -24,6 +24,7 @@ public class BoardInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		UserVO user = (UserVO)session.getAttribute("loginUser");
 		String referer = request.getHeader("referer");
+		
 		if(user==null){
 			//로그인 안되있을 경우
 			response.sendRedirect(referer+"?auth=unlogin");
