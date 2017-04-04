@@ -150,9 +150,10 @@
                             </div><!--//reply_content-->
                             
 		                    <!-- 답글 작성폼 -->    
+		                    <!-- 댓글 수정폼 -->
 							<div class="col-sm-12 subReply_writeForm">
 						        	<hr/>
-						            <form action="" method="post" class='replyForm'>
+						            <form action="" method="post" class='subReplyForm'>
 						            
 						               <!--답글 작성자 프로필 -->
 						                <div class='col-sm-2 text-center reply_profile'>
@@ -165,7 +166,7 @@
 						                
 						                <!--답글 작성 박스 -->
 						                <div class='col-sm-9 form-group'>
-						                      <textarea class='form-control' name="content" rows='5' id='comment'></textarea>
+						                      <textarea class='form-control' name="content" rows='5' class='comment'></textarea>
 						                </div>
 						                
 						                <!--답글 작성 버튼 박스 -->
@@ -209,6 +210,36 @@
 				                                </c:if>
 				                            </div><!--//reply_content-->
 			                            </div><!-- //subRply_box -->
+			                            
+			                            
+			                            <!-- 답글 수정폼 -->    
+										<div class="col-sm-12 subReply_modifyForm">
+									        	<hr/>
+									            <form action="" method="post" class='subReplyModifyForm'>
+									            
+									               <!--답글 작성자 프로필 -->
+									                <div class='col-sm-2 text-center reply_profile'>
+									                    <img src='${pageContext.request.contextPath}/resources/upload/${loginUser.profile}' class='../img-thumbnail' alt='Cinque Terre' width='100' height='100'>
+									                    <br/>
+									                    <div class='reply_writer'>
+									                        <span>${loginUser.nickname}</span>
+									                    </div>
+									                </div>
+									                
+									                <!--답글 수정 내용 박스 -->
+									                <div class='col-sm-9 form-group'>
+									                      <textarea class='form-control comment'  id='subReplyContent' name="content" rows='5'></textarea>
+									                </div>
+									                
+									                <!--답글 수정 버튼 박스 -->
+								                    <div class='col-sm-1 reply_btns'>
+								                        <button type="submit"class='btn btn-default'>확인</button>
+								                        <button type='reset' class='btn btn-default subReply_cancle'>취소</button>
+								                    </div>
+								                    
+									            	<input type="hidden" name="sno" value="${replySub.sno}"/> 
+								                </form>
+						       		 	</div><!--//subReply_modifyForm-->
 		                            </c:if>
 		                        </c:forEach>
 		              	 </div><!--//reply_box--> 
@@ -232,7 +263,7 @@
 	
 	                            <!--댓글 작성 박스 -->
 	                            <div class="col-sm-9 form-group">
-	                                  <textarea class="form-control" rows="5" name="content" id="comment"></textarea>
+	                                  <textarea class="form-control" rows="5" name="content" class="comment"></textarea>
 	                            </div>
 	                            <input type="hidden" name="userNo" value="${loginUser.no}"/>
 	                            <input type="hidden" name="articleNo" value="${board.bno}"/>
@@ -255,7 +286,7 @@
 	
 	                            <!--댓글 작성 박스 -->
 	                            <div class="col-sm-9 form-group">
-	                                  <textarea class="form-control" rows="5" id="comment" disabled="disabled">댓글 작성이 제한되있습니다.</textarea>
+	                                  <textarea class="form-control" rows="5" class="comment" disabled="disabled">댓글 작성이 제한되있습니다.</textarea>
 	                            </div>
 	                       </c:if>
 	                       
@@ -269,7 +300,7 @@
 	
 	                            <!--댓글 작성 박스 -->
 	                            <div class="col-sm-9 form-group">
-	                                  <textarea class="form-control" rows="5" id="comment" disabled="disabled">로그인을 하셔야 작성 가능합니다.</textarea>
+	                                  <textarea class="form-control" rows="5" class="comment" disabled="disabled">로그인을 하셔야 작성 가능합니다.</textarea>
 	                            </div>
 	                       </c:if>
 	                 
@@ -306,7 +337,7 @@
         			var $subReply = $(this).parent(".reply_btns").next(".subReply_writeForm");
     				$subReply.toggle();
     				
-    				$(".replyForm").attr("action",'${pageContext.request.contextPath}/reply/writeSubReply');
+    				$(".subReplyForm").attr("action",'${pageContext.request.contextPath}/reply/writeSubReply');
     				
         		}else{
         			//로그아웃 상태일 경우
@@ -318,8 +349,7 @@
 			
 			//수정버튼 클릭시
 			$(".reply_box").on('click','.modifyMainBtn',function(){
-				
-				$(".modifyForm").attr("action",'${pageContext.request.contextPath}/reply/modifyMainReply');
+				$(".subReplyForm").attr("action",'${pageContext.request.contextPath}/reply/modifyMainReply');
 				
 				var content = $(this).parent().prev().text();
 				
@@ -327,33 +357,30 @@
 								.parent(".reply_btns")
 								.next(".subReply_writeForm");
 				
-				var $textarea = $(this)
+		/* 		var $textarea = $(this)
 								.parent(".reply_btns")
 								.next(".subReply_writeForm")
-								.children("#comment");
+								.children("#comment"); */
 				//alert(content);
-				$textarea.text(content);
+				//$textarea.text(content);
 				$subReply.toggle();
 			})
 			
 			
 			//답글 수정 버튼 클릭시
 			$(".reply_box").on('click','.modifySubBtn',function(){
-				/* $(".replyForm").attr("action",'${pageContext.request.contextPath}/reply/modifySubReply');
+				$(".subReplyModifyForm").attr("action",'${pageContext.request.contextPath}/reply/modifySubReply');
+				
+				var $subReply_modifyForm = $(this)
+											.parent()
+											.parent()
+											.next();
 				
 				var content = $(this).parent().prev().text();
+				$subReply_modifyForm.find("#subReplyContent").text(content.trim());
 				
-				var $subReply = $(this)
-								.parent()
-								.parent()
-								.prev(".subReply_writeForm");
-				
-				var $textarea = $(this)
-								.parent(".reply_btns")
-								.next(".subReply_writeForm")
-								.children("#comment");
-				$subReply.toggle(); */
-			})
+				$subReply_modifyForm.toggle();
+			});
 			
 			// Get the modal
 			var modal = document.getElementById('report_modal');

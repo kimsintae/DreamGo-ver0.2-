@@ -138,6 +138,9 @@ public class ReplyController {
 			
 			logger.info("content : "+rs.getContent());
 			logger.info("sno : "+rs.getSno());
+			//textarea 개행문자 치환
+			String realContent = rs.getContent().replaceAll("\r\n", "<br/>");
+			rs.setContent(realContent);
 			int result = service.modifySubReply(rs);
 			logger.info("=================");
 			if(result==1)logger.info("****답글 수정 성공*****!");

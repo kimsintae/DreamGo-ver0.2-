@@ -171,7 +171,7 @@
 		// **************** 입장 / 퇴장  관련 *****************//
 		
 		//입장했을때
-		cws.onopen = function(e) {
+		cws.onopen = function() {
 			msg['type']="enter";
 			msg['text']="<span style='color:blue;font-weight:bold;'>"+nickname+" 님이 입장했습니다.</span>";
 			msg['id']='${loginUser.nickname}';
@@ -181,13 +181,14 @@
 		}
 		
 		//퇴장했을때
-		cws.onclose = function(e){
+	 	cws.onclose = function() {
+			alert("접속종료");
 			msg['type']="exit";
 			msg['text']="<span style='color:blue;font-weight:bold;'>"+nickname+" 님이 퇴장하셨습니다.</span>";
 			
 			//json을 문자열로 변환해서 보냄
 			sendMessage(message,msg);
-		}
+		} 
 		
 		
 		// **************** 메세지 전송 관련 *****************//
@@ -257,9 +258,9 @@
             </div>
             <div class="col-sm-6 text-left">
             	<div class="row">
-					<h1 class="col">수다방</h1>
+					<h1 class="col">채팅방</h1>
 					<diV class="col" id="totalUNT">
-						현재 접속자 수 : <span class="cnt" style="color:blue;font-weight:bold;"></span>
+						현재 접속자 수 : <span class="cnt" style="color:blue;font-weight:bold;"></span> 명
 					</div>
 				</div>
 				<div id="messageBody">

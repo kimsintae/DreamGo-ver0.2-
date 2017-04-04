@@ -3,10 +3,10 @@ package com.dreamgo.handler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
+import javax.websocket.server.ServerEndpoint;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +16,6 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 
 public class ChattingHandler extends TextWebSocketHandler {
 
@@ -45,8 +44,7 @@ public class ChattingHandler extends TextWebSocketHandler {
 		connectedUsers.add(session);
 		
 	}
-	
-	
+
 	//1. Send : 클라이언트가 서버로 메세지를 보냄
 	//2. Emit : 서버에 연결되어 있는 클라이언트들에게 메세지를 보냄
 	
@@ -85,6 +83,7 @@ public class ChattingHandler extends TextWebSocketHandler {
 				String sendText = null;
 		
 				if(type.equals("enter")||type.equals("exit")){
+					logger.info("입장 or 퇴장");
 					//입장하거나 퇴장할때 메세지
 					sendText = text;
 				}else{
@@ -114,6 +113,7 @@ public class ChattingHandler extends TextWebSocketHandler {
 			}else{
 				System.out.println("접속 유저에서 제거 안됨");
 			};
+			
 			
 	}
 	
