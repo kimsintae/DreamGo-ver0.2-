@@ -33,7 +33,6 @@ import com.dreamgo.util.UploadUtil;
 import com.dreamgo.util.ValidatorUtil;
 
 @Controller
-@RequestMapping("/admin/*")
 public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(InfoController.class);
 	

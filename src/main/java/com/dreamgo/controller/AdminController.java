@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.dreamgo.domain.BlackListVO;
 import com.dreamgo.domain.BoardVO;
 import com.dreamgo.domain.ReportVO;
 import com.dreamgo.domain.UserVO;
@@ -56,17 +57,13 @@ public class AdminController {
 		
 		try {
 			UserVO loginAdmin = adminService.adminLogin(user);
-			
 			if(loginAdmin.getNo()==1){
 				//no가 1이면 관리자
 				session.setAttribute("loginAdmin", loginAdmin);
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 		return "redirect:/admin/users/1";
 	}
 	
@@ -137,8 +134,16 @@ public class AdminController {
 	
 	//블랙리스트 페이지
 	@RequestMapping("/blackList/{thisPage}")
-	public String blackList(){
+	public String blackList(Model model){
 		logger.info("admin_blackList page called !!");
+		
+		try {
+			List<BlackListVO> blackList = adminService.blackList();
+			model.addAttribute("blackList",blackList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		
 		return "/admin/blackList";
 	}

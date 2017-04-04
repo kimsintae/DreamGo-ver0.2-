@@ -15,21 +15,23 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 public class ChattingHandler extends TextWebSocketHandler {
 
-	private List<WebSocketSession> connectedUsers;
+	private List<WebSocketSession> connectedUsers;//접속한 유저들 목록
+	private List<String> connectedUserList;//보여질 유저들 목록
 	private static final Logger logger = LoggerFactory.getLogger(ChattingHandler.class);
 	public ChattingHandler() {
 		connectedUsers = new ArrayList<WebSocketSession>();
+		connectedUserList = new ArrayList<String>();
 	}
 	
 	//접속 관련 메서드
 	//@param WebSocketSession 접속한 사용자
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		
 		logger.info(session.getId()+" 님이 참여 하셨습니다.");
 		logger.info("연결된 ip : "+session.getRemoteAddress().getHostName());
 		//유저가 접속했을때 유저정보를 담을 connectedUsers에 추가
 		connectedUsers.add(session);
+		
 	}
 	
 	
@@ -56,28 +58,24 @@ public class ChattingHandler extends TextWebSocketHandler {
 			
 			logger.info("현재 접속자 수 : "+connectedUsers.size());
 			int totalUser = connectedUsers.size();
+			
+			logger.info(connectedUsers.toString());
+			
+			/* 접속할 때마다 모든 사람들에게 현재접속자수와 접속자 아이디를 보냄 */
+			connetUser.sendMessage(new TextMessage("{\"totalUser\":\""+totalUser+"\",\"userlist\":\""+totalUser+"\"}"));
+			
 			//메세지를 보낸 사용자는 자신의 메세지를 보지 못하도록 설정
 			if(!session.getId().equals(connetUser.getId())){
-				
 				String sendText = null;
 				if(msgObj!=null){
 					//메세지 보낼때(json)
-					//회원과 비회원 구분하기
-					if(id.isEmpty()){
-						//비회원
-						sendText = connetUser.getId()+" : "+text;
-					}else{
-						//회원
 						sendText = id+" : "+text;
-					}
-					
 				}else{
-					
 					//입장하거나 퇴장할때 메세지
-					sendText ="<span>"+connetUser.getId()+message.getPayload()+"</span>";
+					sendText ="<span>"+id+message.getPayload()+"</span>";
 				}
 				//클라이언트로 데이터 보내기
-				connetUser.sendMessage(new TextMessage("{\"totalUser\":\""+totalUser+"\",\"message\":\""+sendText+"\"}"));
+				connetUser.sendMessage(new TextMessage("{\"message\":\""+sendText+"\"}"));
 				
 			}
 		}

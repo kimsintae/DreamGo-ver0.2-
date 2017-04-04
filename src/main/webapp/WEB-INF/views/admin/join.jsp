@@ -60,7 +60,7 @@
     	<div class="loaderWrap"><img src="${pageContext.request.contextPath}/resources/img/loader.gif" alt="loader"/></div>
      	<h2 class="col-sm-12 text-center join_title"></h2>
 	     <!-- join -->
-	           <form id="joinForm"  action="${pageContext.request.contextPath}/admin/do_join_modify" method="POST" enctype="multipart/form-data">
+	           <form id="joinForm"  action="${pageContext.request.contextPath}/do_join_modify" method="POST" enctype="multipart/form-data">
 	               <div class="row email_row form-group">
 	                   <label class="col-sm-4" for="preEmail">이메일</label>
 	                   <div class="col-sm-6">
@@ -206,7 +206,7 @@ var userEmail='${loginUser.email}';
 
 
 $.ajaxSetup({
-	  url: "${pageContext.request.contextPath}/admin/doMailAuth",
+	  url: "${pageContext.request.contextPath}/doMailAuth",
 	  type: "POST",
 	  dataType:"json"
 	});
@@ -287,7 +287,7 @@ function checkDuplicatedEmail() {
 	$(".checkDuplicatedEmail").hide();
 	
 	$.ajax({
-		url:"${pageContext.request.contextPath}/admin/checkDuplicatedEmail",
+		url:"${pageContext.request.contextPath}/checkDuplicatedEmail",
 		type:"get",
 		data:{"email":email},
 		dataType:"text",

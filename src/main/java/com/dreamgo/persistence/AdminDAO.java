@@ -2,6 +2,7 @@ package com.dreamgo.persistence;
 
 import java.util.List;
 
+import com.dreamgo.domain.BlackListVO;
 import com.dreamgo.domain.BoardVO;
 import com.dreamgo.domain.ReportVO;
 import com.dreamgo.domain.UserVO;
@@ -19,4 +20,5 @@ public interface AdminDAO {
 	public int insertReport(ReportVO report)throws Exception;
 	public List<ReportVO> reportList()throws Exception;
 	public int CompleteReport(int no)throws Exception;
+	public List<BlackListVO> blackList()throws Exception;
 }

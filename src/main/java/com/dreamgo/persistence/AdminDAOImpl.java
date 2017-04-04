@@ -6,7 +6,8 @@ import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
-	
+
+import com.dreamgo.domain.BlackListVO;
 import com.dreamgo.domain.BoardVO;
 import com.dreamgo.domain.ReportVO;
 import com.dreamgo.domain.UserVO;
@@ -73,5 +74,10 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public int CompleteReport(int no) throws Exception {
 		return sqlSession.update(namespace+".CompleteReport",no);
+	}
+	
+	@Override
+	public List<BlackListVO> blackList() throws Exception {
+		return sqlSession.selectList(namespace+".blackList");
 	}
 }

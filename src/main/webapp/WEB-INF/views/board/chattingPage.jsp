@@ -92,27 +92,24 @@
 			var currentUserCnt = data.totalUser;
 			var message = data.message;
 			
-			
+			//서버로부터 넘어온 데이터 뿌리기
 			$(".cnt").text(currentUserCnt);
-			$("#messageBody").append("<div class='col-sm-12 msgBox'>\
-									<div class='msg'>\
-									"+message+"\
-									</div>\
-									</div>");
 			
+			if(data.message!=null){
+				$("#messageBody").append("<div class='col-sm-12 msgBox'>\
+										<div class='msg'>\
+										"+message+"\
+										</div>\
+										</div>");
+				
+			}
 			//스크롤생기면 하단으로
 			$("#messageBody").scrollTop(99999);
 		}
 		
 		//입장했을때
 		cws.onopen = function() {
-			
-			//비회원 일경우
-			if(nickname==''){
-				cws.send("님이 입장했습니다.");
-			}else{
 				cws.send(nickname+" 님이 입장했습니다.");
-			}
 			
 		}
 		
@@ -120,6 +117,9 @@
 		cws.onclose = function(){
 			cws.send("유저가 퇴장하셨습니다.");
 		}
+		
+		
+		// **************** 메세지 관련 *****************//
 		
 		//json 객체 생성
 		var msg ={
@@ -165,6 +165,8 @@
 			
 			//json을 String 문자열로 서버로 보냄
 			cws.send(JSON.stringify(msg));
+			
+			
 			//내가보낸 메세지
 			$("#messageBody").append("\
 					<div class='col-sm-12 msgBox meBox row' style='text-align: right;'>\
@@ -172,6 +174,8 @@
 						"+message+"\
 						</span>\
 					</div>");
+			
+			
 			//내용창 초기화
 			$("#message").val("");
 			$("#message").focus();

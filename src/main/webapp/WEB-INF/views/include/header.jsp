@@ -91,7 +91,7 @@
                     <li><a href="${pageContext.request.contextPath}/board/list/1">우리끼리</a></li>
                     <li><a href="${pageContext.request.contextPath}/board/chattingPage">수다방</a></li>
                     <c:if test="${loginUser!=null}">
-                    <li><a href="${pageContext.request.contextPath}/admin/modifyForm">회원 정보수정</a></li>
+                    <li><a href="${pageContext.request.contextPath}/modifyForm">회원 정보수정</a></li>
                     </c:if>
                 </ul>
 
@@ -106,7 +106,7 @@
 		
 		                            <div class="modal-body">
 		
-		                                <form action="${pageContext.request.contextPath}/admin/login" method="post" id="loginForm">
+		                                <form action="${pageContext.request.contextPath}/login" method="post" id="loginForm">
 		                                    <div class="form-group">
 		                                        <label for="email">Email:</label>
 		                                        <input type="email" class="form-control" name="email" id="email" placeholder="Enter email">
@@ -126,7 +126,7 @@
 		                                    <button type="submit" form="loginForm" class="btn btn-default">확인</button>
 		                                </div>
 		                                <div class="col-sm-6 text-center">
-		                                    <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/join">회원가입</a>
+		                                    <a class="btn btn-default" href="${pageContext.request.contextPath}/join">회원가입</a>
 		                                </div>
 		                            </div>
 		                        </div>
@@ -153,6 +153,10 @@
     	var msg = '${msg}';
     	if(msg=='failed'){alert('아이디 혹은 비밀번호가 틀렸습니다.');}
     
+    	//제한에 걸릴경우 발생하는 메세지
+    	var auth = '${param.auth}';
+    	if(auth=='denied'){alert("글쓰기가 제한 되어있습니다.")};
+    	if(auth=='unlogin'){alert("로그인 후에 이용해주세요.")};
     </script>
 </body>
 </html>

@@ -11,32 +11,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class MessageVO{
 
-/*	
-	private String type;
-	private String message;
-	private String id;
-	
-	
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
-	public String getMessage() {
-		return message;
-	}
-	public void setMessage(String message) {
-		this.message = message;
-	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	*/
-	
 	public static Map<String, String> convertObj(String json){
 		
 		Map<String, String> map =new HashMap<String, String>();

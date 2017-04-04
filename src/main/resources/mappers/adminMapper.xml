@@ -43,7 +43,7 @@
 		select *
 		from user
 		where no>0
-		order by regdate desc
+		order by no desc
 	</select>
 	
 	<!-- 회원 권한 수정 -->
@@ -65,6 +65,13 @@
 		values(#{email})
 	</insert>
 	
+	<!-- 블랙리스트 목록 -->
+	<select id="blackList" resultType="BlackListVO">
+		select *
+		from blacklist
+		where no>0
+		order by no desc
+	</select>
 	
 	<!-- 신고하기 -->
 	<insert id="insertReport" parameterType="ReportVO">
@@ -77,6 +84,7 @@
 		select *
 		from report
 		where no>0
+		order by no desc
 	</select>
 	
 	<!-- 신고처리하기 -->

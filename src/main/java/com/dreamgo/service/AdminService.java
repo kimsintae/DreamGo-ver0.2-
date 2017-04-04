@@ -2,6 +2,7 @@ package com.dreamgo.service;
 
 import java.util.List;
 
+import com.dreamgo.domain.BlackListVO;
 import com.dreamgo.domain.BoardVO;
 import com.dreamgo.domain.ReportVO;
 import com.dreamgo.domain.UserVO;
@@ -38,5 +39,6 @@ public interface AdminService {
 	//신고처리
 	public int CompleteReport(int no)throws Exception;
 	
-	
+	//블랙리스트 목록
+	public List<BlackListVO> blackList()throws Exception;
 }

@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.dreamgo.domain.BlackListVO;
 import com.dreamgo.domain.BoardVO;
 import com.dreamgo.domain.ReportVO;
 import com.dreamgo.domain.UserVO;
@@ -71,6 +72,11 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public int CompleteReport(int no) throws Exception {
 		return dao.CompleteReport(no);
+	}
+	
+	@Override
+	public List<BlackListVO> blackList() throws Exception {
+		return dao.blackList();
 	}
 
 }

@@ -40,13 +40,14 @@
 			<mapping path="/board/writeForm"/>
 			<!-- 글쓰기폼에 들어가서 시간이지나서 로그인객체 세션이 끊겼을 경우에도 글쓰기폼을 빠져나오게끔 -->
 			<mapping path="/board/write"/>
+			<!-- 채팅방 회원만 입장가능 -->
+			<mapping path="/board/chattingPage"/>
 			<beans:ref bean="boardInterceptor"/>
 		</interceptor>
 		<interceptor>
-			<mapping path="/admin/board/**"/>
-			<mapping path="/admin/report/**"/>
-			<mapping path="/admin/users/**"/>
-			<mapping path="/admin/blackList/**"/>
+			<mapping path="/admin/**/**"/>
+			<exclude-mapping path="/admin/adLogin"/>
+			<exclude-mapping path="/admin/index"/>
 			<beans:ref bean="AdminInterceptor"/>
 		</interceptor>
 	</interceptors>

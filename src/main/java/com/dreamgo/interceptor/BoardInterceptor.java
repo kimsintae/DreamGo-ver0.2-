@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.dreamgo.controller.InfoController;
@@ -18,20 +19,28 @@ public class BoardInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		
+		logger.info("board 인터셉터 preHandle 동작");
 		HttpSession session = request.getSession();
-		logger.info("글쓰기 폼으로 가기전에 인터셉터 호출");
 		UserVO user = (UserVO)session.getAttribute("loginUser");
+		String referer = request.getHeader("referer");
 		if(user==null){
 			//로그인 안되있을 경우
-			response.sendRedirect(request.getContextPath()+"/board/list/1?auth=unlogin");
+			response.sendRedirect(referer+"?auth=unlogin");
 			return false;
 		}
 		if(user.getAuth().trim().equals("AR")||user.getAuth().trim().equals("UA")){
 			//글쓰기 권한이 제한 되있을 경우
-			response.sendRedirect(request.getContextPath()+"/board/list/1?auth=denied");
+			response.sendRedirect(referer+"?auth=denied");
 			return false;
 		}
 		
 		return true;
+	}
+	
+	@Override
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws Exception {
+		logger.info("postHandle 동작");
 	}
 }
