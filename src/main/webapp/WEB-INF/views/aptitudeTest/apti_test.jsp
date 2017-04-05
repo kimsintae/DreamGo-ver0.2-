@@ -14,6 +14,10 @@
     <style type="text/css">
     	.test_cat{
     		padding: 20px;
+    	
+    	}
+    	.test_cat button{
+    		font-size:14px;
     	}
     </style>
     
@@ -40,12 +44,12 @@
             <div class="col-sm-1 sidenav">
             </div>
             <div class="col-sm-10 text-left">
-				<div class="col-sm-4">
+				<div class="col-sm-12">
                     <h1>적성 검사</h1>
                     <p>적성 검사를 통해 비전을 수립해 보세요!</p>
 				</div>
 				
-				<div class="col-sm-8 test_cat">
+				<div class="col-sm-11 test_cat">
                     <button type="button" class="btn btn-default" name="1">직업적성검사</button>
                     <button type="button" class="btn btn-default" name="4">직업흥미검사(K)</button>
                     <button type="button" class="btn btn-default" name="6">직업가치관검사</button>
@@ -59,8 +63,6 @@
                
                 <iframe class="test_iframe"  src="" width="100%" height="800" frameborder="0" scrolling="no"></iframe>
 
-            </div>
-            <div class="col-sm-1 sidenav">
             </div>
         </div>
     </div>

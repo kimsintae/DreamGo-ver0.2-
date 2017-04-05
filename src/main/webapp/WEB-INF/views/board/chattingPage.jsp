@@ -69,7 +69,8 @@
 		
 		.currentUserList{
 			list-style: none;
-			text-align: left;
+			text-align: center;
+			
 			
 		}
 		.currentUserList li{
@@ -271,8 +272,8 @@
 				</div>
                 <!-- 게시판 -->
             </div>
-            <div class="col-sm-2 sidenav">
-            <h3 class="col-sm-12">접속한 유저 목록</h3>
+            <div class="col-sm-3 sidenav">
+            <h3 class="col-sm-12">대화 하고 계신 분들</h3>
             	<ul class="currentUserList">
             	</ul>
             </div>

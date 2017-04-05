@@ -10,7 +10,7 @@
         .navbar {
             margin-bottom: 0;
 			border:none;
-            background:#588c7e;
+            background:#f0f0f0;
             font-size: 20px;
         }
         
@@ -55,6 +55,14 @@
                 height: auto;
             }
             
+        }
+        
+        
+        
+        .jumbotron{
+        	background: white;
+        	border:1px solid #424242;
+        	border-top: none;
         }
 	
 	
